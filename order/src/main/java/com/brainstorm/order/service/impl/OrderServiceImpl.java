@@ -20,7 +20,7 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public void createOrder(OrderDTO orderDTO) {
         EcomOrder order =  OrderMapper.mapToOrder(orderDTO,new EcomOrder());
-//        orderEntriesRepository.saveAll(order.getOrderEntryList());
+        orderEntriesRepository.saveAll(order.getOrderEntryList());
         orderRepository.save(order);
     }
 }

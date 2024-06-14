@@ -1,16 +1,18 @@
 package com.brainstorm.order.dto;
 
-import com.brainstorm.order.entity.OrderEntry;
+//import com.brainstorm.order.entity.OrderEntry;
 
 import java.util.Date;
 import java.util.List;
+
+import com.brainstorm.order.entity.OrderEntry;
 
 public class OrderDTO {
     private Long orderId;
     private Double totalPrice;
     private Date orderDate;
     private String placedBy;
-    private Enum orderstatus;
+    private String orderstatus;
     private List<OrderEntry> orderEntries;
 
     public Long getOrderId() {
@@ -45,11 +47,11 @@ public class OrderDTO {
         this.placedBy = placedBy;
     }
 
-    public Enum getOrderstatus() {
+    public String getOrderstatus() {
         return orderstatus;
     }
 
-    public void setOrderstatus(Enum orderstatus) {
+    public void setOrderstatus(String orderstatus) {
         this.orderstatus = orderstatus;
     }
 

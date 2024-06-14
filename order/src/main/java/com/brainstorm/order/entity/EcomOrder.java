@@ -5,21 +5,28 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
+@Table(name = "ECOM_ORDER")
 public class EcomOrder extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Long orderId;
+    
     @Column(name = "total_price")
     private Double totalPrice;
+    
     @Column(name = "order_date")
     private Date orderDate;
+    
     @Column(name = "placed_by")
     private String placedBy;
+    
     @Column(name = "order_status")
-    private Enum orderstatus;
-    @OneToMany(mappedBy = "ecomOrder")
+    private String orderstatus;
+    
+    @OneToMany(mappedBy = "ecomOrder", fetch = FetchType.EAGER)
     private List<OrderEntry> OrderEntryList;
 
     public Long getOrderId() {
@@ -54,11 +61,11 @@ public class EcomOrder extends BaseEntity{
         this.placedBy = placedBy;
     }
 
-    public Enum getOrderstatus() {
+    public String getOrderstatus() {
         return orderstatus;
     }
 
-    public void setOrderstatus(Enum orderstatus) {
+    public void setOrderstatus(String orderstatus) {
         this.orderstatus = orderstatus;
     }
 
