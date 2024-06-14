@@ -24,5 +24,13 @@ public class OrderController {
         return  ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("201", "Order has been created successfully"));
     }
 
+    @PostMapping
+    @RequestMapping(value = "/fetchOrder")
+    public ResponseEntity<OrderDTO> fetchOrder(@RequestBody Long orderId){
+        OrderDTO orderDTO = orderService.fetchOrder(orderId);
+
+        return  ResponseEntity.status(HttpStatus.CREATED).body(orderDTO);
+    }
+
 
 }
