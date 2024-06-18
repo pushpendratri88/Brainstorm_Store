@@ -3,54 +3,53 @@ package com.brainstorm.order.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table (name="ECOM_ORDER_ENTRY")
+@Table (name="ORDER_ENTRY")
 public class OrderEntry extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "entry_id")
-    private Long orderEntryId;
+    private Long Id;
     
     @Column(name = "entry_price")
-    private Double orderEntryPrice;
+    private Double Price;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_code")
-    private EcomProduct ecomProduct;
+    @JoinColumn(name = "product_code", referencedColumnName = "product_code")
+    private Product product;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private EcomOrder ecomOrder;
+    @JoinColumn(name = "order", referencedColumnName = "order_id")
+    private Order order;
 
-
-    public Long getOrderEntryId() {
-        return orderEntryId;
+    public Long getId() {
+        return Id;
     }
 
-    public void setOrderEntryId(Long orderEntryId) {
-        this.orderEntryId = orderEntryId;
+    public void setId(Long id) {
+        Id = id;
     }
 
-    public Double getOrderEntryPrice() {
-        return orderEntryPrice;
+    public Double getPrice() {
+        return Price;
     }
 
-    public void setOrderEntryPrice(Double orderEntryPrice) {
-        this.orderEntryPrice = orderEntryPrice;
+    public void setPrice(Double price) {
+        Price = price;
     }
 
-    public EcomProduct getEcomProduct() {
-        return ecomProduct;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setEcomProduct(EcomProduct ecomProduct) {
-        this.ecomProduct = ecomProduct;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public EcomOrder getEcomOrder() {
-        return ecomOrder;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setEcomOrder(EcomOrder ecomOrder) {
-        this.ecomOrder = ecomOrder;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

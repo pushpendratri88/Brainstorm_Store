@@ -2,16 +2,21 @@ package com.brainstorm.order.service.impl;
 
 import com.brainstorm.order.dto.OrderDTO;
 
-import com.brainstorm.order.entity.EcomOrder;
-import com.brainstorm.order.entity.EcomProduct;
+import com.brainstorm.order.entity.Order;
+import com.brainstorm.order.entity.OrderEntry;
+import com.brainstorm.order.entity.Product;
 import com.brainstorm.order.exception.ResourceNotFoundException;
+import com.brainstorm.order.mapper.OrderEntryMapper;
 import com.brainstorm.order.mapper.OrderMapper;
-import com.brainstorm.order.repository.OrderEntriesRepository;
+import com.brainstorm.order.mapper.ProductMapper;
+import com.brainstorm.order.repository.OrderEntryRepository;
 import com.brainstorm.order.repository.OrderRepository;
 import com.brainstorm.order.repository.ProductRepository;
 import com.brainstorm.order.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
@@ -19,26 +24,28 @@ public class OrderServiceImpl implements IOrderService {
     OrderRepository orderRepository;
 
     @Autowired
-    OrderEntriesRepository orderEntriesRepository;
+    OrderEntryRepository orderEntryRepository;
 
     @Autowired
     ProductRepository productRepository;
 
     @Override
     public void createOrder(OrderDTO orderDTO) {
-        EcomOrder order =  OrderMapper.mapToOrder(orderDTO,new EcomOrder());
-        if(order != null && !order.getOrderEntryList().isEmpty()){
-            order.getOrderEntryList().forEach(orderEntry -> productRepository.save(orderEntry.getEcomProduct())
-              );
-        }
-        orderEntriesRepository.saveAll(order.getOrderEntryList());
+        Order order =  OrderMapper.mapToOrder(orderDTO,new Order());
+        List<OrderEntry> orderEntryList = OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO());
         orderRepository.save(order);
+        orderEntryRepository.saveAll(orderEntryList);
+        orderDTO.getOrderEntriesDTO().forEach(orderEntryDTO -> {
+            Product product = ProductMapper.mapToProduct(orderEntryDTO.getProductDTO());
+            productRepository.save(product);
+        });
+
 
     }
 
     @Override
     public OrderDTO fetchOrder(Long orderId) {
-        EcomOrder order =  orderRepository.findByOrderId(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
+        Order order =  orderRepository.findByOrderId(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
         OrderDTO orderDTO = OrderMapper.mapToOrderDTO(order,new OrderDTO());
         return orderDTO;
     }

@@ -1,5 +1,6 @@
 package com.brainstorm.order.entity;
 
+import com.brainstorm.order.dto.OrderStatus;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -7,8 +8,8 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "ECOM_ORDER")
-public class EcomOrder extends BaseEntity{
+@Table(name = "ORDER")
+public class Order extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
@@ -22,11 +23,12 @@ public class EcomOrder extends BaseEntity{
     
     @Column(name = "placed_by")
     private String placedBy;
-    
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
-    private String orderstatus;
-    
-    @OneToMany(mappedBy = "ecomOrder", fetch = FetchType.EAGER)
+    private OrderStatus orderStatus;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderEntry> OrderEntryList;
 
     public Long getOrderId() {
@@ -61,12 +63,12 @@ public class EcomOrder extends BaseEntity{
         this.placedBy = placedBy;
     }
 
-    public String getOrderstatus() {
-        return orderstatus;
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrderstatus(String orderstatus) {
-        this.orderstatus = orderstatus;
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public List<OrderEntry> getOrderEntryList() {

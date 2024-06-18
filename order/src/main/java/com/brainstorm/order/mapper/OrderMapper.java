@@ -1,26 +1,25 @@
 package com.brainstorm.order.mapper;
 
 import com.brainstorm.order.dto.OrderDTO;
-import com.brainstorm.order.entity.EcomOrder;
+import com.brainstorm.order.entity.Order;
 
 
 public class OrderMapper {
-    public static EcomOrder mapToOrder(OrderDTO orderDTO, EcomOrder order){
-        order.setOrderId(orderDTO.getOrderId());
+    public static Order mapToOrder(OrderDTO orderDTO, Order order){
         order.setOrderDate(orderDTO.getOrderDate());
-        order.setOrderstatus(orderDTO.getOrderStatus());
+        order.setOrderStatus(orderDTO.getOrderStatus());
         order.setTotalPrice(orderDTO.getTotalPrice());
         order.setPlacedBy(orderDTO.getPlacedBy());
-        order.setOrderEntryList(orderDTO.getOrderEntries());
         return order;
     }
-    public static OrderDTO mapToOrderDTO(EcomOrder order, OrderDTO orderDTO ){
+
+
+    public static OrderDTO mapToOrderDTO(Order order, OrderDTO orderDTO ){
         orderDTO.setOrderId(order.getOrderId());
         orderDTO.setOrderDate(order.getOrderDate());
-        orderDTO.setOrderStatus(order.getOrderstatus());
+        orderDTO.setOrderStatus(order.getOrderStatus());
         orderDTO.setTotalPrice(order.getTotalPrice());
         orderDTO.setPlacedBy(order.getPlacedBy());
-        orderDTO.setOrderEntries(order.getOrderEntryList());
         return orderDTO;
     }
 }
