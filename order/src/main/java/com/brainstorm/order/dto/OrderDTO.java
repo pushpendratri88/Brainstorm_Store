@@ -1,10 +1,7 @@
 package com.brainstorm.order.dto;
 
-//import com.brainstorm.order.entity.OrderEntry;
-
 import java.util.Date;
 import java.util.List;
-
 import com.brainstorm.order.entity.OrderEntry;
 
 public class OrderDTO {
@@ -12,7 +9,7 @@ public class OrderDTO {
     private Double totalPrice;
     private Date orderDate;
     private String placedBy;
-    private String orderstatus;
+    private String orderStatus;
     private List<OrderEntry> orderEntries;
 
     public Long getOrderId() {
@@ -47,19 +44,19 @@ public class OrderDTO {
         this.placedBy = placedBy;
     }
 
-    public String getOrderstatus() {
-        return orderstatus;
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrderstatus(String orderstatus) {
-        this.orderstatus = orderstatus;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public List<OrderEntry> getOrderEntries() {
         return orderEntries;
     }
 
-    public void setOrderEntries(List<OrderEntry> OrderEntries) {
-        OrderEntries = OrderEntries;
+    public void setOrderEntries(List<OrderEntry> orderEntries) {
+        this.orderEntries = orderEntries;
     }
 }
