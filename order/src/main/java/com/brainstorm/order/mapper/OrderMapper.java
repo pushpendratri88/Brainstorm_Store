@@ -11,7 +11,7 @@ public class OrderMapper {
         order.setOrderstatus(orderDTO.getOrderstatus());
         order.setTotalPrice(orderDTO.getTotalPrice());
         order.setPlacedBy(orderDTO.getPlacedBy());
-//        order.setOrderEntryList(orderDTO.getOrderEntries());
+        order.setOrderEntryList(orderDTO.getOrderEntries());
         return order;
     }
     public static OrderDTO mapToOrderDTO(EcomOrder order, OrderDTO orderDTO ){
@@ -20,7 +20,7 @@ public class OrderMapper {
         orderDTO.setOrderstatus(order.getOrderstatus());
         orderDTO.setTotalPrice(order.getTotalPrice());
         orderDTO.setPlacedBy(order.getPlacedBy());
-//        orderDTO.setOrderEntries(order.getOrderEntryList());
+        orderDTO.setOrderEntries(order.getOrderEntryList());
         return orderDTO;
     }
 }
