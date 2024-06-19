@@ -5,7 +5,7 @@ import java.util.List;
 
 public class OrderDTO {
     private Long orderId;
-    private Double totalPrice;
+    private int totalPrice;
     private Date orderDate;
     private String placedBy;
     private OrderStatus orderStatus;
@@ -19,11 +19,11 @@ public class OrderDTO {
         this.orderId = orderId;
     }
 
-    public Double getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
 

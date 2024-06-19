@@ -2,7 +2,7 @@ package com.brainstorm.order.service.impl;
 
 import com.brainstorm.order.dto.OrderDTO;
 
-import com.brainstorm.order.entity.Order;
+import com.brainstorm.order.entity.EcomOrder;
 import com.brainstorm.order.entity.OrderEntry;
 import com.brainstorm.order.entity.Product;
 import com.brainstorm.order.exception.ResourceNotFoundException;
@@ -31,9 +31,9 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void createOrder(OrderDTO orderDTO) {
-        Order order =  OrderMapper.mapToOrder(orderDTO,new Order());
+        EcomOrder ecomOrder =  OrderMapper.mapToOrder(orderDTO,new EcomOrder());
         List<OrderEntry> orderEntryList = OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO());
-        orderRepository.save(order);
+        orderRepository.save(ecomOrder);
         orderEntryRepository.saveAll(orderEntryList);
         orderDTO.getOrderEntriesDTO().forEach(orderEntryDTO -> {
             Product product = ProductMapper.mapToProduct(orderEntryDTO.getProductDTO());
@@ -45,8 +45,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public OrderDTO fetchOrder(Long orderId) {
-        Order order =  orderRepository.findByOrderId(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
-        OrderDTO orderDTO = OrderMapper.mapToOrderDTO(order,new OrderDTO());
-        return orderDTO;
+        EcomOrder ecomOrder =  orderRepository.findByOrderId(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
+        return OrderMapper.mapToOrderDTO(ecomOrder,new OrderDTO());
     }
 }

@@ -7,21 +7,21 @@ import jakarta.persistence.*;
 public class Product extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_code")
-    private Long productCode;
+    private Long id;
 
     @Column(name = "product_name")
     private String productName;
 
     @OneToOne(mappedBy = "product")
+    @JoinColumn(name = "fk_entry_id")
     private OrderEntry orderEntry;
 
-    public Long getProductCode() {
-        return productCode;
+    public Long getId() {
+        return id;
     }
 
-    public void setProductCode(Long productCode) {
-        this.productCode = productCode;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public OrderEntry getOrderEntry() {
