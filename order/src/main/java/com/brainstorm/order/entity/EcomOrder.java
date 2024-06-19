@@ -35,4 +35,12 @@ public class EcomOrder extends BaseEntity{
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
+
+    public List<OrderEntry> getOrderEntryList() {
+        return OrderEntryList;
+    }
+
+    public void setOrderEntryList(List<OrderEntry> orderEntryList) {
+        OrderEntryList = orderEntryList;
+    }
 }

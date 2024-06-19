@@ -43,4 +43,12 @@ public class OrderEntry extends BaseEntity{
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    public EcomOrder getOrder() {
+        return order;
+    }
+
+    public void setOrder(EcomOrder order) {
+        this.order = order;
+    }
 }
