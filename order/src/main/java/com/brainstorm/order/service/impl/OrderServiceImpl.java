@@ -31,14 +31,22 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void createOrder(OrderDTO orderDTO) {
+//        EcomOrder ecomOrder =  OrderMapper.mapToOrder(orderDTO,new EcomOrder());
+//        List<OrderEntry> orderEntryList = OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO());
+//        orderRepository.save(ecomOrder);
+//        orderEntryRepository.saveAll(orderEntryList);
+//        orderDTO.getOrderEntriesDTO().forEach(orderEntryDTO -> {
+//            Product product = ProductMapper.mapToProduct(orderEntryDTO.getProductDTO());
+//            productRepository.save(product);
+//        });
         EcomOrder ecomOrder =  OrderMapper.mapToOrder(orderDTO,new EcomOrder());
-        List<OrderEntry> orderEntryList = OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO());
         orderRepository.save(ecomOrder);
-        orderEntryRepository.saveAll(orderEntryList);
-        orderDTO.getOrderEntriesDTO().forEach(orderEntryDTO -> {
-            Product product = ProductMapper.mapToProduct(orderEntryDTO.getProductDTO());
-            productRepository.save(product);
+        orderEntryRepository.saveAll(ecomOrder.getOrderEntryList());
+        ecomOrder.getOrderEntryList().forEach(orderEntry -> {
+            productRepository.save(orderEntry.getProduct());
         });
+
+
 
 
     }
