@@ -7,5 +7,7 @@ public interface IOrderService {
 
     public OrderDTO fetchOrder(Long orderId);
 
+    public void deleteOrder(Long orderId);
+
 }
 

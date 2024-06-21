@@ -32,9 +32,5 @@ public class OrderEntryDTO {
     public ProductDTO getEcomProductDTO() {
         return productDTO;
     }
-
-    public void setEcomProductDTO(ProductDTO productDTO) {
-        this.productDTO = productDTO;
-    }
 }
 

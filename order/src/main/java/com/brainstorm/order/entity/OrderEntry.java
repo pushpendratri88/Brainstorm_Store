@@ -17,7 +17,7 @@ public class OrderEntry extends BaseEntity{
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_order_id")
+    @JoinColumn(name = "order_fk")
     private EcomOrder order;
 
     public Long getId() {

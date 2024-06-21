@@ -24,10 +24,18 @@ public class OrderController {
 
     @GetMapping
     @RequestMapping(value = "/fetchOrder")
-    public ResponseEntity<OrderDTO> fetchOrder(@RequestBody Long orderId){
-        OrderDTO orderDTO = orderService.fetchOrder(orderId);
+    public ResponseEntity<OrderDTO> fetchOrder(@RequestParam String orderId){
+        OrderDTO orderDTO = orderService.fetchOrder(Long.parseLong(orderId));
 
-        return  ResponseEntity.status(HttpStatus.CREATED).body(orderDTO);
+        return  ResponseEntity.status(HttpStatus.OK).body(orderDTO);
+    }
+
+    @PostMapping
+    @RequestMapping(value = "/deleteOrder")
+    public ResponseEntity<ResponseDTO> deleteOrder(@RequestParam String orderId){
+        orderService.deleteOrder(Long.parseLong(orderId));
+        return  ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("201", "Order has been created successfully"));
+
     }
 
 

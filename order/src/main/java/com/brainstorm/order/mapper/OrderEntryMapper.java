@@ -23,6 +23,7 @@ public class OrderEntryMapper {
 
 
     public static OrderEntryDTO mapToOrderEntryDTO(OrderEntry orderEntry, OrderEntryDTO orderEntryDTO ){
+        orderEntryDTO.setProductDTO(ProductMapper.mapToProductDTO(orderEntry.getProduct(), orderEntryDTO.getProductDTO()));
         orderEntryDTO.setPrice(orderEntry.getPrice());
         return orderEntryDTO;
     }

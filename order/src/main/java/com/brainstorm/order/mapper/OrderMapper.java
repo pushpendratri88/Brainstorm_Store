@@ -6,6 +6,7 @@ import com.brainstorm.order.entity.EcomOrder;
 import com.brainstorm.order.entity.OrderEntry;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderMapper {
@@ -20,7 +21,13 @@ public class OrderMapper {
 
 
     public static OrderDTO mapToOrderDTO(EcomOrder ecomOrder, OrderDTO orderDTO ){
+        ArrayList<OrderEntryDTO>  OrderEntryDTOList = new ArrayList<>();
+        orderDTO.setOrderId(ecomOrder.getOrderId());
         orderDTO.setOrderStatus(ecomOrder.getOrderStatus());
+        ecomOrder.getOrderEntryList().forEach(orderEntry -> {
+            OrderEntryDTO orderEntryDTO =  OrderEntryMapper.mapToOrderEntryDTO(orderEntry,new OrderEntryDTO() );
+            OrderEntryDTOList.add(orderEntryDTO);
+        });
         return orderDTO;
     }
 }
