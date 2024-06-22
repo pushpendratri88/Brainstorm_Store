@@ -13,12 +13,12 @@ public class OrderEntry extends BaseEntity{
     @Column(name = "entry_price")
     private Double Price;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Product product;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_fk")
     private EcomOrder order;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Product product;
 
     public Long getId() {
         return Id;

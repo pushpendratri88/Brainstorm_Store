@@ -7,7 +7,6 @@ import com.brainstorm.order.entity.OrderEntry;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderMapper {
     public static EcomOrder mapToOrder(OrderDTO orderDTO, EcomOrder ecomOrder){
@@ -15,9 +14,25 @@ public class OrderMapper {
         ecomOrder.setCreatedAt(LocalDateTime.now());
         ecomOrder.setCreatedBy("Pushpendra");
         // for order Entry
-        ecomOrder.setOrderEntryList(OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
+        ecomOrder.setOrderEntryList(new ArrayList<OrderEntry>());
         return ecomOrder;
     }
+
+//    public static EcomOrder mapToOrderEntry(EcomOrder ecomOrderTr, OrderDTO orderDTO){
+//        List<OrderEntry> entry = new ArrayList<>();
+//        orderDTO.getOrderEntriesDTO().forEach(ent -> {
+//            OrderEntry enry = new OrderEntry();
+//            enry.setPrice(ent.getPrice());
+//            entry.add(enry);
+//        });
+////        ecomOrderTr.getOrderEntryList().forEach(ent -> {
+////
+////        });
+//        ecomOrderTr.setOrderEntryList(entry);
+//        // for order Entry
+////        ecomOrderTr.setOrderEntryList(OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO(), ecomOrderTr.getOrderEntryList()));
+//        return ecomOrderTr;
+//    }
 
 
     public static OrderDTO mapToOrderDTO(EcomOrder ecomOrder, OrderDTO orderDTO ){

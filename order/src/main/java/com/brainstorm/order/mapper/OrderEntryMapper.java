@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderEntryMapper {
-    public static List<OrderEntry> mapToOrderEntry(List<OrderEntryDTO> orderEntryListDTO){
-        List<OrderEntry> orderEntryList = new ArrayList<>();
+    public static List<OrderEntry> mapToOrderEntry(List<OrderEntryDTO> orderEntryListDTO,  List<OrderEntry> orderEntryList ){
+//        List<OrderEntry> orderEntryList = new ArrayList<>();
         orderEntryListDTO.forEach(orderEntryDTO -> {
             OrderEntry orderEntry = new OrderEntry();
             orderEntry.setPrice(orderEntryDTO.getPrice());
             orderEntry.setCreatedAt(LocalDateTime.now());
             orderEntry.setCreatedBy("Pushpendra");
-            orderEntry.setProduct(ProductMapper.mapToProduct(orderEntryDTO.getProductDTO()));
+//            orderEntry.setProduct(ProductMapper.mapToProduct(orderEntryDTO.getProductDTO()));
             orderEntryList.add(orderEntry);
         });
         return orderEntryList;
