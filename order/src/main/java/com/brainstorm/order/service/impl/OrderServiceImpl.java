@@ -16,6 +16,7 @@ import com.brainstorm.order.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,18 +33,24 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public void createOrder(OrderDTO orderDTO) {
         EcomOrder ecomOrder =  OrderMapper.mapToOrder(orderDTO,new EcomOrder());
-        EcomOrder ecomOrderTr = orderRepository.saveAndFlush(ecomOrder);
-        List<OrderEntry> orderEntryList = OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO(), ecomOrderTr.getOrderEntryList() );
-        List<OrderEntry> orderEntryListTr = orderEntryRepository.saveAllAndFlush(orderEntryList);
-        ecomOrderTr.setOrderEntryList(orderEntryListTr);
-        orderEntryListTr.forEach(orderEntryTr -> {
+        List<OrderEntry> orderEntryList = OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO(), ecomOrder.getOrderEntryList() );
+        List<OrderEntry> orderEntryListWithProductData = new ArrayList<>();
+        orderEntryList.forEach(orderEntry -> {
             orderDTO.getOrderEntriesDTO().forEach(orderEntryDTO -> {
+                if(orderEntry.getPrice().equals(orderEntryDTO.getPrice())){
                 Product product =  ProductMapper.mapToProduct(orderEntryDTO.getProductDTO());
                 Product productTr = productRepository.saveAndFlush(product);
-                if(orderEntryTr.getPrice().equals(orderEntryDTO.getPrice())){
-                    orderEntryTr.setProduct(productTr);
+                    orderEntry.setProduct(productTr);
+                    orderEntryRepository.saveAndFlush(orderEntry);
+                    orderEntryListWithProductData.add(orderEntry);
                 }
             });
+        });
+        ecomOrder.setOrderEntryList(orderEntryListWithProductData);
+        orderRepository.saveAndFlush(ecomOrder);
+        ecomOrder.getOrderEntryList().forEach(orderEntryTr -> {
+            orderEntryTr.setOrder(ecomOrder);
+            orderEntryRepository.saveAndFlush(orderEntryTr);
         });
     }
 

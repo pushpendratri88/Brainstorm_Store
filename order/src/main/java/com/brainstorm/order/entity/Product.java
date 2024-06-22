@@ -13,9 +13,9 @@ public class Product extends BaseEntity{
     @Column(name = "product_name")
     private String productName;
 
-    @OneToOne(mappedBy = "product")
-    @JoinColumn(name = "entry_fk")
-    private OrderEntry orderEntry;
+//    @OneToOne(mappedBy = "product")
+//    @JoinColumn(name = "entry_fk")
+//    private OrderEntry orderEntry;
 
     public Long getId() {
         return id;
@@ -25,13 +25,13 @@ public class Product extends BaseEntity{
         this.id = id;
     }
 
-    public OrderEntry getOrderEntry() {
-        return orderEntry;
-    }
-
-    public void setOrderEntry(OrderEntry orderEntry) {
-        this.orderEntry = orderEntry;
-    }
+//    public OrderEntry getOrderEntry() {
+//        return orderEntry;
+//    }
+//
+//    public void setOrderEntry(OrderEntry orderEntry) {
+//        this.orderEntry = orderEntry;
+//    }
 
     public String getProductName() {
         return productName;

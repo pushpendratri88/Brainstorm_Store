@@ -18,6 +18,7 @@ public class OrderEntry extends BaseEntity{
     private EcomOrder order;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_fk", referencedColumnName = "product_id")
     private Product product;
 
     public Long getId() {

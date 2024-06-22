@@ -18,23 +18,6 @@ public class OrderMapper {
         return ecomOrder;
     }
 
-//    public static EcomOrder mapToOrderEntry(EcomOrder ecomOrderTr, OrderDTO orderDTO){
-//        List<OrderEntry> entry = new ArrayList<>();
-//        orderDTO.getOrderEntriesDTO().forEach(ent -> {
-//            OrderEntry enry = new OrderEntry();
-//            enry.setPrice(ent.getPrice());
-//            entry.add(enry);
-//        });
-////        ecomOrderTr.getOrderEntryList().forEach(ent -> {
-////
-////        });
-//        ecomOrderTr.setOrderEntryList(entry);
-//        // for order Entry
-////        ecomOrderTr.setOrderEntryList(OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO(), ecomOrderTr.getOrderEntryList()));
-//        return ecomOrderTr;
-//    }
-
-
     public static OrderDTO mapToOrderDTO(EcomOrder ecomOrder, OrderDTO orderDTO ){
         ArrayList<OrderEntryDTO>  OrderEntryDTOList = new ArrayList<>();
         orderDTO.setOrderId(ecomOrder.getOrderId());
