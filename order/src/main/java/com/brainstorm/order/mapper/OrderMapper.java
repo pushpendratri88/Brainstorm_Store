@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class OrderMapper {
-    public static EcomOrder mapToOrder(OrderDTO orderDTO, EcomOrder ecomOrder){
+    public static EcomOrder mapToOrder(OrderDTO orderDTO){
+        EcomOrder ecomOrder = new EcomOrder();
         ecomOrder.setOrderStatus(orderDTO.getOrderStatus());
         ecomOrder.setCreatedAt(LocalDateTime.now());
         ecomOrder.setCreatedBy("Pushpendra");
-        // for order Entry
-        ecomOrder.setOrderEntryList(new ArrayList<OrderEntry>());
+        ecomOrder.setOrderEntryList(OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
         return ecomOrder;
     }
 

@@ -32,8 +32,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void createOrder(OrderDTO orderDTO) {
-        EcomOrder ecomOrder =  OrderMapper.mapToOrder(orderDTO,new EcomOrder());
-        List<OrderEntry> orderEntryList = OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO(), ecomOrder.getOrderEntryList() );
+        List<OrderEntry> orderEntryList = OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO());
         List<OrderEntry> orderEntryListWithProductData = new ArrayList<>();
         orderEntryList.forEach(orderEntry -> {
             orderDTO.getOrderEntriesDTO().forEach(orderEntryDTO -> {
@@ -46,6 +45,7 @@ public class OrderServiceImpl implements IOrderService {
                 }
             });
         });
+        EcomOrder ecomOrder =  OrderMapper.mapToOrder(orderDTO);
         ecomOrder.setOrderEntryList(orderEntryListWithProductData);
         orderRepository.saveAndFlush(ecomOrder);
         ecomOrder.getOrderEntryList().forEach(orderEntryTr -> {
