@@ -27,13 +27,13 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/fetchCustomerDetails")
-    public ResponseEntity<CustomerDTO> fetchCustomerDetails(@RequestParam String mobileNumber){
-        CustomerDTO customerDTO = customerService.fetchCustomerDetails(mobileNumber);
+    public ResponseEntity<CustomerDTO> fetchCustomerDetails(@RequestParam String input){
+        CustomerDTO customerDTO = customerService.fetchCustomerDetails(input);
         return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
     }
 
     @GetMapping(value = "/fetchCustomerDetailsWithEmail")
-    public ResponseEntity<CustomerDTO> fetchCustomerDetailsWithMobileAndEmail(@PathVariable String mobileNumber, String email){
+    public ResponseEntity<CustomerDTO> fetchCustomerDetailsWithMobileAndEmail(@RequestParam String mobileNumber, String email){
         CustomerDTO customerDTO = customerService.fetchCustomerDetailsWithEmail(mobileNumber,email);
         return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
     }

@@ -5,6 +5,7 @@ import java.util.List;
 public class OrderDTO {
     private Long orderId;
     private OrderStatus orderStatus;
+    private Long customerId;
     private List<OrderEntryDTO> orderEntriesDTO;
 
     public Long getOrderId() {
@@ -30,5 +31,13 @@ public class OrderDTO {
 
     public void setOrderEntriesDTO(List<OrderEntryDTO> orderEntriesDTO) {
         this.orderEntriesDTO = orderEntriesDTO;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 }

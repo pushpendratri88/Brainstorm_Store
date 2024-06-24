@@ -1,4 +1,4 @@
-package com.brainstorm.customer.dto;
+package com.brainstorm.order.dto;
 
 public class CustomerDTO {
     private Long id;

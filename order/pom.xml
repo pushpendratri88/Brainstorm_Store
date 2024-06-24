@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.brainstorm</groupId>
-	<artifactId>ecomOrder</artifactId>
+	<artifactId>Order</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ecomOrder</name>
 	<description>Microservice for Order</description>
@@ -50,7 +50,13 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.brainstorm</groupId>
+            <artifactId>customer</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

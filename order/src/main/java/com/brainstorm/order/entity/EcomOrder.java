@@ -2,7 +2,6 @@ package com.brainstorm.order.entity;
 
 import com.brainstorm.order.dto.OrderStatus;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +16,9 @@ public class EcomOrder extends BaseEntity{
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
     private OrderStatus orderStatus;
+
+    @Column(name = "customer_id")
+    private Long customerId;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderEntry> orderEntryList = new ArrayList<>();
@@ -56,5 +58,13 @@ public class EcomOrder extends BaseEntity{
     public void removeOrderEntry(OrderEntry orderEntry) {
         orderEntryList.remove(orderEntry);
         orderEntry.setOrder(null);
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 }

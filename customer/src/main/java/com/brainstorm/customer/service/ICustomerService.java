@@ -3,7 +3,7 @@ package com.brainstorm.customer.service;
 import com.brainstorm.customer.dto.CustomerDTO;
 
 public interface ICustomerService {
-    public CustomerDTO fetchCustomerDetails (String mobileNumber);
+    public CustomerDTO fetchCustomerDetails (String input);
 
     public CustomerDTO fetchCustomerDetailsWithEmail(String mobileNumber, String email);
 

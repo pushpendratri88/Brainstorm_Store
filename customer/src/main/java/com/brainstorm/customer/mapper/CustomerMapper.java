@@ -5,6 +5,7 @@ import com.brainstorm.customer.entity.Customer;
 
 public class CustomerMapper {
     public static CustomerDTO mapToCustomerDTO(Customer customer ,CustomerDTO customerDTO){
+        customerDTO.setId(customer.getCustomerId());
         customerDTO.setName(customer.getName());
         customerDTO.setEmail(customer.getEmail());
         customerDTO.setMobileNumber(customer.getMobileNumber());

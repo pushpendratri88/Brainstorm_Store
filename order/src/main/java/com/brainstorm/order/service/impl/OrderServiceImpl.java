@@ -12,6 +12,7 @@ import com.brainstorm.order.mapper.ProductMapper;
 import com.brainstorm.order.repository.OrderEntryRepository;
 import com.brainstorm.order.repository.OrderRepository;
 import com.brainstorm.order.repository.ProductRepository;
+import com.brainstorm.order.service.CustomerService;
 import com.brainstorm.order.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    CustomerService customerService;
+
     @Override
     public void createOrder(OrderDTO orderDTO) {
         List<OrderEntry> orderEntryList = OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO());
@@ -47,6 +51,11 @@ public class OrderServiceImpl implements IOrderService {
         });
         EcomOrder ecomOrder =  OrderMapper.mapToOrder(orderDTO);
         ecomOrder.setOrderEntryList(orderEntryListWithProductData);
+        if(orderDTO != null && orderDTO.getCustomerId() != null
+        && customerService != null){
+            Long customerId = customerService.getCustomer(orderDTO.getCustomerId()).getId();
+            ecomOrder.setCustomerId(customerId);
+        }
         orderRepository.saveAndFlush(ecomOrder);
         ecomOrder.getOrderEntryList().forEach(orderEntryTr -> {
             orderEntryTr.setOrder(ecomOrder);

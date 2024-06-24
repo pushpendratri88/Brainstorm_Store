@@ -15,11 +15,21 @@ import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
+    final int MOBILE_NO = 10;
     @Autowired
     CustomerRepository customerRepository;
     @Override
-    public CustomerDTO fetchCustomerDetails(String mobileNumber) {
-        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber", mobileNumber));
+    public CustomerDTO fetchCustomerDetails(String input) {
+        Customer customer = null;
+        if(input.length() == MOBILE_NO){
+            String mobileNumber = input;
+             customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber", input));
+        }
+        else{
+            Long  customerId = Long.parseLong(input);
+             customer = customerRepository.findByCustomerId(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer", "customer_id", input));
+
+        }
         return CustomerMapper.mapToCustomerDTO(customer,new CustomerDTO());
     }
 
