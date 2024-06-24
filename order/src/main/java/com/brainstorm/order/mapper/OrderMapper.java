@@ -19,13 +19,15 @@ public class OrderMapper {
     }
 
     public static OrderDTO mapToOrderDTO(EcomOrder ecomOrder, OrderDTO orderDTO ){
-        ArrayList<OrderEntryDTO>  OrderEntryDTOList = new ArrayList<>();
+        ArrayList<OrderEntryDTO>  orderEntryDTOList = new ArrayList<>();
         orderDTO.setOrderId(ecomOrder.getOrderId());
         orderDTO.setOrderStatus(ecomOrder.getOrderStatus());
+        orderDTO.setCustomerId(ecomOrder.getCustomerId());
         ecomOrder.getOrderEntryList().forEach(orderEntry -> {
-            OrderEntryDTO orderEntryDTO =  OrderEntryMapper.mapToOrderEntryDTO(orderEntry,new OrderEntryDTO() );
-            OrderEntryDTOList.add(orderEntryDTO);
+            OrderEntryDTO orderEntryDTO =  OrderEntryMapper.mapToOrderEntryDTO(orderEntry);
+            orderEntryDTOList.add(orderEntryDTO);
         });
+        orderDTO.setOrderEntriesDTO(orderEntryDTOList);
         return orderDTO;
     }
 }

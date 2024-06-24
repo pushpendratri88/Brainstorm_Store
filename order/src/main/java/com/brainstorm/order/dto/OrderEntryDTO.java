@@ -29,8 +29,5 @@ public class OrderEntryDTO {
         this.productDTO = productDTO;
     }
 
-    public ProductDTO getEcomProductDTO() {
-        return productDTO;
-    }
 }
 
