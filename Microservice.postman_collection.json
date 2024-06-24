@@ -7,6 +7,164 @@
 	},
 	"item": [
 		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Order_Create_Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderStatus\":\"PENDING\",\r\n    \"customerId\":1,\r\n    \"orderEntriesDTO\":\r\n    [\r\n        {\r\n            \"price\":\"200.00\",\r\n            \"productDTO\": \r\n            {\r\n                \"productName\":\"mobile Phone\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8090/api/createOrder"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Customer_Create_Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pushpendra Tripathi \",\r\n    \"email\":\"pushpendra@gmail.com\",\r\n    \"mobileNumber\":\"8050170116\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/create"
+					},
+					"response": []
+				},
+				{
+					"name": "Customer_Fetch_Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/fetchCustomerDetails?input=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fetchCustomerDetails"
+							],
+							"query": [
+								{
+									"key": "input",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer_Fetch_With_Email_Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/fetchCustomerDetailsWithEmail?mobileNumber=8050170116&email=pushpendra@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"fetchCustomerDetailsWithEmail"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "8050170116"
+								},
+								{
+									"key": "email",
+									"value": "pushpendra@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer_Update_Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ABC Tripathi \",\r\n    \"email\": \"pushpendra@gmail.com\",\r\n    \"mobileNumber\": \"8050170116\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/update"
+					},
+					"response": []
+				},
+				{
+					"name": "Customer_Remove_Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/remove?mobileNumber=8050170116",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"remove"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "8050170116"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Get Account Details",
 			"request": {
 				"method": "GET",
@@ -30,124 +188,6 @@
 					}
 				},
 				"url": "http://localhost:8080/api/createAccount"
-			},
-			"response": []
-		},
-		{
-			"name": "Customer_Create_Request",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Pushpendra Tripathi \",\r\n    \"email\":\"pushpendra@gmail.com\",\r\n    \"mobileNumber\":\"8050170116\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "http://localhost:8080/api/create"
-			},
-			"response": []
-		},
-		{
-			"name": "Customer_Fetch_Request",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/fetchCustomerDetails?mobileNumber=8050170116",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"fetchCustomerDetails"
-					],
-					"query": [
-						{
-							"key": "mobileNumber",
-							"value": "8050170116"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Customer_Update_Request",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"ABC Tripathi \",\r\n    \"email\": \"pushpendra@gmail.com\",\r\n    \"mobileNumber\": \"8050170116\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "http://localhost:8080/api/update"
-			},
-			"response": []
-		},
-		{
-			"name": "Customer_Remove_Request",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/remove?mobileNumber=8050170116",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"remove"
-					],
-					"query": [
-						{
-							"key": "mobileNumber",
-							"value": "8050170116"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Order_Create_Request",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"orderStatus\":\"PENDING\",\r\n    \"orderEntriesDTO\":\r\n    [\r\n        {\r\n            \"price\":\"200.00\",\r\n            \"productDTO\": \r\n            {\r\n                \"productName\":\"mobile Phone\"\r\n            }\r\n        }\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "http://localhost:8090/api/createOrder"
 			},
 			"response": []
 		}
