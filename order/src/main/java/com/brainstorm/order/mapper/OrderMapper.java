@@ -13,7 +13,6 @@ public class OrderMapper {
         EcomOrder ecomOrder = new EcomOrder();
         ecomOrder.setOrderStatus(orderDTO.getOrderStatus());
         ecomOrder.setCreatedAt(LocalDateTime.now());
-        ecomOrder.setCreatedBy("Pushpendra");
         ecomOrder.setOrderEntryList(OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
         return ecomOrder;
     }

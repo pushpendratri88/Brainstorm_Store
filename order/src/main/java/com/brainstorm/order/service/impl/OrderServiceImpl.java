@@ -53,7 +53,7 @@ public class OrderServiceImpl implements IOrderService {
         ecomOrder.setOrderEntryList(orderEntryListWithProductData);
         if(orderDTO != null && orderDTO.getCustomerId() != null
         && customerService != null){
-            Long customerId = customerService.getCustomer(orderDTO.getCustomerId()).getId();
+            String customerId = customerService.getCustomer(orderDTO.getCustomerId()).getId();
             ecomOrder.setCustomerId(customerId);
         }
         orderRepository.saveAndFlush(ecomOrder);
@@ -65,13 +65,13 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public OrderDTO fetchOrder(Long orderId) {
-        EcomOrder ecomOrder =  orderRepository.findByOrderId(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
+        EcomOrder ecomOrder =  orderRepository.findByOrderId(String.valueOf(orderId)).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
         return OrderMapper.mapToOrderDTO(ecomOrder,new OrderDTO());
     }
 
     @Override
     public void deleteOrder(Long orderId) {
-        EcomOrder ecomOrder =  orderRepository.findByOrderId(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
+        EcomOrder ecomOrder =  orderRepository.findByOrderId(String.valueOf(orderId)).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
         orderRepository.delete(ecomOrder);
     }
 }

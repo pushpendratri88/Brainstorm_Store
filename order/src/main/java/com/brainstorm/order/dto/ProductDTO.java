@@ -1,14 +1,14 @@
 package com.brainstorm.order.dto;
 
 public class ProductDTO {
-    private Long productCode;
+    private String productCode;
     private String productName;
 
-    public Long getProductCode() {
+    public String getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(Long productCode) {
+    public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
 

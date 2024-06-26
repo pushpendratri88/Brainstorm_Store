@@ -1,23 +1,26 @@
 package com.brainstorm.customer.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Table(name = "CUSTOMER")
 public class Customer extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "customer_id", strategy = "com.brainstorm.customer.generator.CustomerIdGenerator")
+    @GeneratedValue(generator = "customer_id")
     @Column(name = "customer_id")
-    private Long customerId;
+    private String customerId;
     private String name;
     private String email;
     @Column(name = "mobile_number")
     private String mobileNumber;
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 

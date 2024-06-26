@@ -2,6 +2,8 @@ package com.brainstorm.order.entity;
 
 import com.brainstorm.order.dto.OrderStatus;
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,25 +11,27 @@ import java.util.List;
 @Table(name = "ECOM_ORDER")
 public class EcomOrder extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "order_id", strategy = "com.brainstorm.order.generator.OrderIdGenerator")
+    @GeneratedValue(generator = "order_id")
     @Column(name = "order_id")
-    private Long orderId;
+    private String orderId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
     private OrderStatus orderStatus;
 
     @Column(name = "customer_id")
-    private Long customerId;
+    private String customerId;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderEntry> orderEntryList = new ArrayList<>();
 
-    public Long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -60,11 +64,11 @@ public class EcomOrder extends BaseEntity{
         orderEntry.setOrder(null);
     }
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 }

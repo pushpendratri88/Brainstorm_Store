@@ -1,15 +1,15 @@
 package com.brainstorm.order.dto;
 
 public class OrderEntryDTO {
-    private Long id;
+    private String id;
     private Double price;
     private ProductDTO productDTO;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

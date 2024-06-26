@@ -15,7 +15,7 @@ public class CustomerServiceImpl implements CustomerService {
         this.restTemplate = restTemplate;
     }
 
-    public CustomerDTO getCustomer(Long customerId) {
+    public CustomerDTO getCustomer(String customerId) {
         String url = "http://localhost:8080/api/fetchCustomerDetails?input=" + customerId;
         return restTemplate.getForObject(url, CustomerDTO.class);
     }

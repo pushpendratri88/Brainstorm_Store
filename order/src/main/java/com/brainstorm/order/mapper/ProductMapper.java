@@ -10,7 +10,6 @@ public class ProductMapper {
         Product product = new Product();
         product.setProductName(productDTO.getProductName());
         product.setCreatedAt(LocalDateTime.now());
-        product.setCreatedBy("Pushpendra");
         return product;
     }
 

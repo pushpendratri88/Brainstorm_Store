@@ -1,14 +1,16 @@
 package com.brainstorm.order.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table (name="PRODUCT")
 public class Product extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "product_id", strategy = "com.brainstorm.order.generator.ProductIdGenerator")
+    @GeneratedValue(generator = "product_id")
     @Column(name = "product_id")
-    private Long id;
+    private String id;
 
     @Column(name = "product_name")
     private String productName;
@@ -17,11 +19,11 @@ public class Product extends BaseEntity{
 //    @JoinColumn(name = "entry_fk")
 //    private OrderEntry orderEntry;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

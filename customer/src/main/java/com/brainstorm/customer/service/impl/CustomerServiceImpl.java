@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements ICustomerService {
              customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber", input));
         }
         else{
-            Long  customerId = Long.parseLong(input);
+            String  customerId = input;
              customer = customerRepository.findByCustomerId(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer", "customer_id", input));
 
         }

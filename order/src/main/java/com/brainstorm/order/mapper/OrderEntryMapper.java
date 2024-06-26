@@ -14,7 +14,6 @@ public class OrderEntryMapper {
             OrderEntry orderEntry = new OrderEntry();
             orderEntry.setPrice(orderEntryDTO.getPrice());
             orderEntry.setCreatedAt(LocalDateTime.now());
-            orderEntry.setCreatedBy("Pushpendra");
             orderEntry.setProduct(ProductMapper.mapToProduct(orderEntryDTO.getProductDTO()));
             orderEntryList.add(orderEntry);
         });

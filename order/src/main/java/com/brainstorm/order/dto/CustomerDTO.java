@@ -1,7 +1,7 @@
 package com.brainstorm.order.dto;
 
 public class CustomerDTO {
-    private Long id;
+    private String id;
     private String name;
     private String email;
     private String mobileNumber;
@@ -30,11 +30,11 @@ public class CustomerDTO {
         this.mobileNumber = mobileNumber;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

@@ -1,10 +1,14 @@
 package com.brainstorm.customer.dto;
 
+import java.time.LocalDateTime;
+
 public class CustomerDTO {
-    private Long id;
+    private String id;
     private String name;
     private String email;
     private String mobileNumber;
+    private LocalDateTime createdAt;
+    private String createdBy;
 
     public String getName() {
         return name;
@@ -30,11 +34,27 @@ public class CustomerDTO {
         this.mobileNumber = mobileNumber;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 }
