@@ -6,6 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="EurekaServer" />
+        <module name="EurekaClient" />
         <module name="accounts" />
         <module name="customer" />
         <module name="order" />
@@ -14,6 +16,8 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="EurekaClient" options="-parameters" />
+      <module name="EurekaServer" options="-parameters" />
       <module name="accounts" options="-parameters" />
       <module name="customer" options="-parameters" />
       <module name="order" options="-parameters" />
