@@ -19,7 +19,7 @@ public class OrderIdGenerator implements IdentifierGenerator {
             JdbcConnectionAccess jdbcConnectionAccess = session.getJdbcConnectionAccess();
             Connection connection = jdbcConnectionAccess.obtainConnection();
             Statement statement = connection.createStatement();
-            String query = "select count(order_id) as Id from ECOM_ORDER";
+            String query = "select count(order_id) as Id from ecom_order";
 
             ResultSet resultSet = statement.executeQuery(query);
 

@@ -19,7 +19,7 @@ public class ProductIdGenerator implements IdentifierGenerator {
             JdbcConnectionAccess jdbcConnectionAccess = session.getJdbcConnectionAccess();
             Connection connection = jdbcConnectionAccess.obtainConnection();
             Statement statement = connection.createStatement();
-            String query = "select count(product_id) as Id from PRODUCT";
+            String query = "select count(product_id) as Id from product";
 
             ResultSet resultSet = statement.executeQuery(query);
 

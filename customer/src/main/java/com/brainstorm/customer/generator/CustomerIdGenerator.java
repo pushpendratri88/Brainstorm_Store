@@ -19,7 +19,7 @@ public class CustomerIdGenerator implements IdentifierGenerator {
             JdbcConnectionAccess jdbcConnectionAccess = session.getJdbcConnectionAccess();
             Connection connection = jdbcConnectionAccess.obtainConnection();
             Statement statement = connection.createStatement();
-            String query = "select count(customer_id) as Id from CUSTOMER";
+            String query = "select count(customer_id) as Id from customer";
 
             ResultSet resultSet = statement.executeQuery(query);
 
