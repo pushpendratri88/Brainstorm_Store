@@ -3,6 +3,8 @@ package com.brainstorm.customer.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "CUSTOMER")
 public class Customer extends BaseEntity{
@@ -15,6 +17,12 @@ public class Customer extends BaseEntity{
     private String email;
     @Column(name = "mobile_number")
     private String mobileNumber;
+
+    @ManyToMany
+    @JoinTable(name="customer_address", joinColumns = @JoinColumn(name="customer_id"),
+    inverseJoinColumns = @JoinColumn(name = "address_id")
+    )
+    private Set<Address> addresses;
 
     public String getCustomerId() {
         return customerId;
@@ -46,5 +54,14 @@ public class Customer extends BaseEntity{
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
+    }
+
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 }

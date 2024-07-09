@@ -1,35 +1,53 @@
 package com.brainstorm.customer.service.impl;
 
+import com.brainstorm.customer.dto.AddressDTO;
 import com.brainstorm.customer.dto.CustomerDTO;
+import com.brainstorm.customer.entity.Address;
 import com.brainstorm.customer.entity.Customer;
 import com.brainstorm.customer.exception.CustomerAlreadyExistsException;
 import com.brainstorm.customer.exception.ResourceNotFoundException;
+import com.brainstorm.customer.mapper.AddressMapper;
 import com.brainstorm.customer.mapper.CustomerMapper;
+import com.brainstorm.customer.repository.AddressRepository;
 import com.brainstorm.customer.repository.CustomerRepository;
+import com.brainstorm.customer.service.IAddressService;
 import com.brainstorm.customer.service.ICustomerService;
+import org.hibernate.sql.ast.tree.expression.Collation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
     final int MOBILE_NO = 10;
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
+
+    @Autowired
+    IAddressService addressService;
+
+
     @Override
     public CustomerDTO fetchCustomerDetails(String input) {
         Customer customer = null;
         if(input.length() == MOBILE_NO){
             String mobileNumber = input;
              customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber", input));
+//            addressRepository.findByAddressId()
         }
         else{
             String  customerId = input;
              customer = customerRepository.findByCustomerId(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer", "customer_id", input));
 
         }
+
         return CustomerMapper.mapToCustomerDTO(customer,new CustomerDTO());
     }
 
@@ -42,11 +60,27 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public void createNewCustomer(CustomerDTO customerDTO) {
         Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customerDTO.getMobileNumber());
+        Set<Address> customerAddress = new HashSet<>();
         if(optionalCustomer.isPresent()){
             throw new CustomerAlreadyExistsException("Customer already registered with given mobileNumber "
                     +customerDTO.getMobileNumber());
         }else {
             Customer customerEntity = CustomerMapper.mapToCustomer(customerDTO, new Customer());
+            customerEntity.setAddresses(getAddressForCustomer(customerDTO.getCustomerAddress()));
+
+            if(!customerEntity.getAddresses().isEmpty()){
+                customerEntity.getAddresses().forEach(address -> {
+                   Optional<Address> optionalAddress = addressRepository.findByAddressId(address.getAddressId());
+                    if(optionalAddress.isPresent()){
+                        customerAddress.add(address);
+                    }
+                    else {
+                        addressRepository.save(address);
+                        customerAddress.add(address);
+                    }
+                });
+                customerEntity.setAddresses(customerAddress);
+            }
             customerRepository.save(customerEntity);
         }
     }
@@ -65,5 +99,21 @@ public class CustomerServiceImpl implements ICustomerService {
     public void removeCustomer(String mobileNumber) {
         Optional<Customer> optionalCustomer =  customerRepository.findByMobileNumber(mobileNumber);
         optionalCustomer.ifPresent(customer -> customerRepository.delete(customer));
+    }
+
+    private  Set<Address> getAddressForCustomer(Set<AddressDTO> customerAddress) {
+        Set<Address> addressList = new HashSet<>();
+        customerAddress.forEach(addressDTO -> {
+            //check if address exist
+            Optional<Address> optionalAddress = addressRepository.findByAddressId(addressDTO.getAddressId());
+            if(optionalAddress.isPresent()){
+                addressList.add(optionalAddress.get());
+            }
+            else{
+                Address address = AddressMapper.mapToAddress(addressDTO);
+                addressList.add(address);
+            }
+        });
+        return addressList;
     }
 }
