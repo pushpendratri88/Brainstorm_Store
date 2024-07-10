@@ -66,21 +66,24 @@ public class CustomerServiceImpl implements ICustomerService {
                     +customerDTO.getMobileNumber());
         }else {
             Customer customerEntity = CustomerMapper.mapToCustomer(customerDTO, new Customer());
-            customerEntity.setAddresses(getAddressForCustomer(customerDTO.getCustomerAddress()));
+            if(customerDTO.getCustomerAddress() != null){
+                customerEntity.setAddresses(getAddressForCustomer(customerDTO.getCustomerAddress()));
 
-            if(!customerEntity.getAddresses().isEmpty()){
-                customerEntity.getAddresses().forEach(address -> {
-                   Optional<Address> optionalAddress = addressRepository.findByAddressId(address.getAddressId());
-                    if(optionalAddress.isPresent()){
-                        customerAddress.add(address);
-                    }
-                    else {
-                        addressRepository.save(address);
-                        customerAddress.add(address);
-                    }
-                });
-                customerEntity.setAddresses(customerAddress);
+                if(!customerEntity.getAddresses().isEmpty()){
+                    customerEntity.getAddresses().forEach(address -> {
+                        Optional<Address> optionalAddress = addressRepository.findByAddressId(address.getAddressId());
+                        if(optionalAddress.isPresent()){
+                            customerAddress.add(address);
+                        }
+                        else {
+                            addressRepository.save(address);
+                            customerAddress.add(address);
+                        }
+                    });
+                    customerEntity.setAddresses(customerAddress);
+                }
             }
+
             customerRepository.save(customerEntity);
         }
     }

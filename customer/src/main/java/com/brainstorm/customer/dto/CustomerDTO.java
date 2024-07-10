@@ -1,7 +1,6 @@
 package com.brainstorm.customer.dto;
 
-import com.brainstorm.customer.entity.Address;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -13,6 +12,8 @@ public class CustomerDTO {
     private LocalDateTime createdAt;
     private String createdBy;
     private Set<AddressDTO> customerAddress;
+
+    private MultipartFile file;
 
     public String getName() {
         return name;
@@ -68,5 +69,13 @@ public class CustomerDTO {
 
     public void setCustomerAddress(Set<AddressDTO> customerAddress) {
         this.customerAddress = customerAddress;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 }
