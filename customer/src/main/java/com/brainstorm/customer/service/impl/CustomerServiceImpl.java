@@ -10,16 +10,15 @@ import com.brainstorm.customer.mapper.AddressMapper;
 import com.brainstorm.customer.mapper.CustomerMapper;
 import com.brainstorm.customer.repository.AddressRepository;
 import com.brainstorm.customer.repository.CustomerRepository;
-import com.brainstorm.customer.service.IAddressService;
 import com.brainstorm.customer.service.ICustomerService;
-import org.hibernate.sql.ast.tree.expression.Collation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import com.brainstorm.customer.config.S3Config;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
@@ -31,7 +30,7 @@ public class CustomerServiceImpl implements ICustomerService {
     AddressRepository addressRepository;
 
     @Autowired
-    IAddressService addressService;
+    private S3Service s3Service;
 
 
     @Override
@@ -40,14 +39,11 @@ public class CustomerServiceImpl implements ICustomerService {
         if(input.length() == MOBILE_NO){
             String mobileNumber = input;
              customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber", input));
-//            addressRepository.findByAddressId()
         }
         else{
             String  customerId = input;
              customer = customerRepository.findByCustomerId(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer", "customer_id", input));
-
         }
-
         return CustomerMapper.mapToCustomerDTO(customer,new CustomerDTO());
     }
 
@@ -83,7 +79,17 @@ public class CustomerServiceImpl implements ICustomerService {
                     customerEntity.setAddresses(customerAddress);
                 }
             }
-
+            String fileUrl = "";
+            if(customerDTO.getFile() != null){
+                MultipartFile file = customerDTO.getFile();
+                String key = file.getOriginalFilename();
+                try {
+                    fileUrl =  s3Service.uploadFile(key, file.getBytes());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            customerEntity.setPhoto(fileUrl);
             customerRepository.save(customerEntity);
         }
     }
