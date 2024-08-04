@@ -18,6 +18,9 @@ public class Customer extends BaseEntity{
     @Column(name = "mobile_number")
     private String mobileNumber;
 
+    @Column(name = "photo")
+    private String photo;
+
     @ManyToMany
     @JoinTable(name="customer_address", joinColumns = @JoinColumn(name="customer_id"),
     inverseJoinColumns = @JoinColumn(name = "address_id")
@@ -63,5 +66,13 @@ public class Customer extends BaseEntity{
 
     public void setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

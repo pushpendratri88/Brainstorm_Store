@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Customer Form</title>
+</head>
+<body>
+<form action="/api/newCustomer" method="post" enctype="multipart/form-data" th:object="${customerForm}">
+    <div>
+        <h1><label>New Customer Form</label></h1> <br>
+    </div>
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" th:field="*{email}" required>
+    </div>
+    <div>
+        <label for="mobileNumber">Mobile Number:</label>
+        <input type="text" id="mobileNumber" th:field="*{mobileNumber}" required>
+    </div>
+    <div>
+        <label for="file">Upload File:</label>
+        <input type="file" id="file" th:field="*{file}" required>
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+</body>
+</html>

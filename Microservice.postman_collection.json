@@ -28,7 +28,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"orderStatus\":\"PENDING\",\r\n    \"customerId\":1,\r\n    \"orderEntriesDTO\":\r\n    [\r\n        {\r\n            \"price\":\"200.00\",\r\n            \"productDTO\": \r\n            {\r\n                \"productName\":\"mobile Phone\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"orderStatus\":\"PENDING\",\r\n    \"customerId\":\"Cust2\",\r\n    \"orderEntriesDTO\":\r\n    [\r\n        {\r\n            \"price\":\"2000.00\",\r\n            \"productDTO\": \r\n            {\r\n                \"productName\":\"Laptop\"\r\n            }\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -36,6 +36,58 @@
 							}
 						},
 						"url": "http://localhost:8090/api/createOrder"
+					},
+					"response": []
+				},
+				{
+					"name": "Order_Fetch_Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/fetchOrder?orderId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"fetchOrder"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order_Delete_Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/deleteOrder?orderId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"deleteOrder"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "2"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -51,7 +103,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Pushpendra Tripathi \",\r\n    \"email\":\"pushpendra@gmail.com\",\r\n    \"mobileNumber\":\"8050170116\"\r\n}",
+							"raw": "{\r\n  \"id\": \"123\",\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"mobileNumber\": \"1234567890\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"customerAddress\": [\r\n    {\r\n      \"addressId\": 1,\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    },\r\n    {\r\n      \"addressId\": 2,\r\n      \"street\": \"456 Elm St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    }\r\n  ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -68,7 +120,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/fetchCustomerDetails?input=1",
+							"raw": "http://localhost:8080/api/fetchCustomerDetails?input=Cust2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -81,7 +133,7 @@
 							"query": [
 								{
 									"key": "input",
-									"value": "1"
+									"value": "Cust2"
 								}
 							]
 						}
@@ -159,6 +211,105 @@
 								}
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Address_Create_Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"street\": \"123 Main St\",\r\n  \"city\": \"Springfield\",\r\n  \"state\": \"IL\",\r\n  \"country\": \"USA\",\r\n  \"zipCode\": \"62701\",\r\n  \"customers\": [\r\n    {\r\n      \"id\": \"Cust1\",\r\n      \"name\": \"John Doe\",\r\n      \"email\": \"john.doe@example.com\",\r\n      \"mobileNumber\": \"1234567890\",\r\n      \"createdAt\": \"2023-06-27T12:00:00\",\r\n      \"createdBy\": \"system\",\r\n      \"customerAddress\": []\r\n    },\r\n    {\r\n      \"id\": \"Cust2\",\r\n      \"name\": \"Jane Smith\",\r\n      \"email\": \"jane.smith@example.com\",\r\n      \"mobileNumber\": \"0987654321\",\r\n      \"createdAt\": \"2023-06-27T12:00:00\",\r\n      \"createdBy\": \"system\",\r\n      \"customerAddress\": []\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/createAddress"
+					},
+					"response": []
+				},
+				{
+					"name": "Customer_Create_Form_Get_Request",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Pushpendra Tripathi",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "pushpendra.tri88@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "mobileNumber",
+									"value": "1234567896",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1ef3ea72-5d71-4d50-9d2d-e6389094c928"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:8080/api/newCustomer"
+					},
+					"response": []
+				},
+				{
+					"name": "Customer_Create_Form_Post_Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Pushpendra Tripathi",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "pushpendra.tri88@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "mobileNumber",
+									"value": "1234567897",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1ef3ea72-5d71-4d50-9d2d-e6389094c928"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:8080/api/newCustomer"
 					},
 					"response": []
 				}

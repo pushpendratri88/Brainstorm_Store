@@ -4,6 +4,7 @@ import com.brainstorm.customer.dto.AddressDTO;
 import com.brainstorm.customer.dto.CustomerDTO;
 import com.brainstorm.customer.entity.Address;
 import com.brainstorm.customer.entity.Customer;
+import com.brainstorm.customer.model.CustomerForm;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -26,18 +27,8 @@ public class CustomerMapper {
         customer.setName(customerDTO.getName());
         customer.setCreatedAt(LocalDateTime.now());
         customer.setMobileNumber(customerDTO.getMobileNumber());
-//        customer.setAddresses(getAddressForCustomer(customerDTO.getCustomerAddress()));
         return customer;
     }
-
-//    private static Set<Address> getAddressForCustomer(Set<AddressDTO> customerAddress) {
-//        Set<Address> addressList = new HashSet<>();
-//        customerAddress.forEach(addressDTO -> {
-//            Address address = AddressMapper.mapToAddress(addressDTO);
-//            addressList.add(address);
-//        });
-//        return addressList;
-//    }
 
     private static Set<AddressDTO> getAddressDTOForCustomer(Set<Address> addresses) {
         Set<AddressDTO> addressDTOList = new HashSet<>();
@@ -46,5 +37,15 @@ public class CustomerMapper {
             addressDTOList.add(addressDTO);
         });
         return addressDTOList;
+    }
+
+    public static CustomerDTO customerFormToCustomerDTO(CustomerForm customerForm ){
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setName(customerForm.getName());
+        customerDTO.setEmail(customerForm.getEmail());
+        customerDTO.setCreatedAt(LocalDateTime.now());
+        customerDTO.setMobileNumber(customerForm.getMobileNumber());
+        customerDTO.setFile(customerForm.getFile());
+        return customerDTO;
     }
 }
