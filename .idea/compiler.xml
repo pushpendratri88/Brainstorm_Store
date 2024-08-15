@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="EurekaServer" />
         <module name="EurekaClient" />
-        <module name="accounts" />
         <module name="customer" />
         <module name="order" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="accounts" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

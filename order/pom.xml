@@ -11,7 +11,7 @@
 	<groupId>com.brainstorm</groupId>
 	<artifactId>Order</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ecomOrder</name>
+	<name>order</name>
 	<description>Microservice for Order</description>
 	<properties>
 		<java.version>17</java.version>

@@ -9,15 +9,16 @@ public class Product extends BaseEntity{
     @Id
     @GenericGenerator(name = "product_id", strategy = "com.brainstorm.order.generator.ProductIdGenerator")
     @GeneratedValue(generator = "product_id")
-    @Column(name = "product_id")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "product_name")
-    private String productName;
+    @Column(name = "name")
+    private String name;
 
-//    @OneToOne(mappedBy = "product")
-//    @JoinColumn(name = "entry_fk")
-//    private OrderEntry orderEntry;
+    @Column(name = "category")
+    private String category;
+    @Column(name = "price")
+    private Double price;
 
     public String getId() {
         return id;
@@ -27,19 +28,27 @@ public class Product extends BaseEntity{
         this.id = id;
     }
 
-//    public OrderEntry getOrderEntry() {
-//        return orderEntry;
-//    }
-//
-//    public void setOrderEntry(OrderEntry orderEntry) {
-//        this.orderEntry = orderEntry;
-//    }
-
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

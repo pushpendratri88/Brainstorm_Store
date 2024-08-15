@@ -14,12 +14,12 @@ public class EcomOrder extends BaseEntity{
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "order_id", strategy = "com.brainstorm.order.generator.OrderIdGenerator")
     @GeneratedValue(generator = "order_id")
-    @Column(name = "order_id")
-    private String orderId;
+    @Column(name = "id")
+    private String id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status")
-    private OrderStatus orderStatus;
+    @Column(name = "status")
+    private OrderStatus status;
 
     @Column(name = "customer_id")
     private String customerId;
@@ -27,20 +27,20 @@ public class EcomOrder extends BaseEntity{
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderEntry> orderEntryList = new ArrayList<>();
 
-    public String getOrderId() {
-        return orderId;
+    public String getId() {
+        return id;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public List<OrderEntry> getOrderEntryList() {

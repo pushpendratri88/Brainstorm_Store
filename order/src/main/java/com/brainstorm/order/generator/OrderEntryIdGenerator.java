@@ -14,12 +14,12 @@ public class OrderEntryIdGenerator implements IdentifierGenerator {
     @Override
     public Object generate(SharedSessionContractImplementor session, Object object){
 
-        String prefix = "Ent";
+        String prefix = "E";
         try {
             JdbcConnectionAccess jdbcConnectionAccess = session.getJdbcConnectionAccess();
             Connection connection = jdbcConnectionAccess.obtainConnection();
             Statement statement = connection.createStatement();
-            String query = "select count(entry_id) as Id from order_entry";
+            String query = "select count(id) as Id from order_entry";
 
             ResultSet resultSet = statement.executeQuery(query);
 

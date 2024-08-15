@@ -9,34 +9,29 @@ public class OrderEntry extends BaseEntity{
     @Id
     @GenericGenerator(name = "entry_id", strategy = "com.brainstorm.order.generator.OrderEntryIdGenerator")
     @GeneratedValue(generator = "entry_id")
-    @Column(name = "entry_id")
-    private String Id;
+    @Column(name = "id")
+    private String id;
 
-    @Column(name = "entry_price")
-    private Double Price;
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    @Column(name = "price")
+    private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_fk")
     private EcomOrder order;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_fk", referencedColumnName = "product_id")
+    @JoinColumn(name = "product_fk", referencedColumnName = "id")
     private Product product;
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
-    }
-
-    public Double getPrice() {
-        return Price;
-    }
-
-    public void setPrice(Double price) {
-        Price = price;
+        this.id = id;
     }
 
     public Product getProduct() {
@@ -53,5 +48,21 @@ public class OrderEntry extends BaseEntity{
 
     public void setOrder(EcomOrder order) {
         this.order = order;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

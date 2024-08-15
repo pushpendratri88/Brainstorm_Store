@@ -14,12 +14,12 @@ public class ProductIdGenerator implements IdentifierGenerator {
     @Override
     public Object generate(SharedSessionContractImplementor session, Object object){
 
-        String prefix = "Pro";
+        String prefix = "P";
         try {
             JdbcConnectionAccess jdbcConnectionAccess = session.getJdbcConnectionAccess();
             Connection connection = jdbcConnectionAccess.obtainConnection();
             Statement statement = connection.createStatement();
-            String query = "select count(product_id) as Id from product";
+            String query = "select count(id) as Id from product";
 
             ResultSet resultSet = statement.executeQuery(query);
 

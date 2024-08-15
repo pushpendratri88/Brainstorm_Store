@@ -36,21 +36,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void createOrder(OrderDTO orderDTO) {
-        List<OrderEntry> orderEntryList = OrderEntryMapper.mapToOrderEntry(orderDTO.getOrderEntriesDTO());
-        List<OrderEntry> orderEntryListWithProductData = new ArrayList<>();
-        orderEntryList.forEach(orderEntry -> {
-            orderDTO.getOrderEntriesDTO().forEach(orderEntryDTO -> {
-                if(orderEntry.getPrice().equals(orderEntryDTO.getPrice())){
-                Product product =  ProductMapper.mapToProduct(orderEntryDTO.getProductDTO());
-                Product productTr = productRepository.saveAndFlush(product);
-                    orderEntry.setProduct(productTr);
-                    orderEntryRepository.saveAndFlush(orderEntry);
-                    orderEntryListWithProductData.add(orderEntry);
-                }
-            });
-        });
-        EcomOrder ecomOrder =  OrderMapper.mapToOrder(orderDTO);
-        ecomOrder.setOrderEntryList(orderEntryListWithProductData);
+        EcomOrder ecomOrder =  OrderMapper.mapToOrder(orderDTO,productRepository, orderEntryRepository);
         if(orderDTO != null && orderDTO.getCustomerId() != null
         && customerService != null){
             String customerId = customerService.getCustomer(orderDTO.getCustomerId()).getId();
@@ -65,13 +51,13 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public OrderDTO fetchOrder(Long orderId) {
-        EcomOrder ecomOrder =  orderRepository.findByOrderId(String.valueOf(orderId)).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
+        EcomOrder ecomOrder =  orderRepository.findById(String.valueOf(orderId)).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
         return OrderMapper.mapToOrderDTO(ecomOrder,new OrderDTO());
     }
 
     @Override
     public void deleteOrder(Long orderId) {
-        EcomOrder ecomOrder =  orderRepository.findByOrderId(String.valueOf(orderId)).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
+        EcomOrder ecomOrder =  orderRepository.findById(String.valueOf(orderId)).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
         orderRepository.delete(ecomOrder);
     }
 }

@@ -1,22 +1,40 @@
 package com.brainstorm.order.dto;
 
 public class ProductDTO {
-    private String productCode;
-    private String productName;
+    private String code;
+    private String name;
+    private String category;
+    private Double price;
 
-    public String getProductCode() {
-        return productCode;
+    public String getName() {
+        return name;
     }
 
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getCategory() {
+        return category;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
