@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "4cc46d7a-c8a3-4faa-b9c9-a868f3972ed3",
 		"name": "Microservice",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1100077"
 	},
 	"item": [
@@ -10,7 +10,7 @@
 			"name": "Order",
 			"item": [
 				{
-					"name": "Order_Create_Request",
+					"name": "Create_Order",
 					"event": [
 						{
 							"listen": "test",
@@ -28,14 +28,25 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"orderStatus\":\"PENDING\",\r\n    \"customerId\":\"Cust2\",\r\n    \"orderEntriesDTO\":\r\n    [\r\n        {\r\n            \"price\":\"2000.00\",\r\n            \"productDTO\": \r\n            {\r\n                \"productName\":\"Laptop\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n  \"orderStatus\": \"CONFIRMED\",\r\n  \"customerId\": \"Cust1\",\r\n  \"orderEntriesDTO\": [\r\n    {\r\n      \"quantity\": 2,\r\n      \"price\": 150.00,\r\n      \"productId\":\"P3\",\r\n      \"productDTO\": {\r\n        \"name\": \"Laptop\",\r\n        \"category\": \"Electronics\",\r\n        \"price\": 150.00\r\n      }\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 50.00,\r\n      \"productId\":\"P4\",\r\n      \"productDTO\": {\r\n        \"name\": \"Wireless Mouse\",\r\n        \"category\": \"Electronics\",\r\n        \"price\": 50.00\r\n      }\r\n    },\r\n    {\r\n      \"quantity\": 3,\r\n      \"price\": 30.00,\r\n      \"productId\":\"P5\",\r\n      \"productDTO\": {\r\n        \"name\": \"Keyboard\",\r\n        \"category\": \"Electronics\",\r\n        \"price\": 30.00\r\n      }\r\n    },\r\n    {\r\n      \"quantity\": 5,\r\n      \"price\": 20.00,\r\n      \"productId\":\"P6\",\r\n      \"productDTO\": {\r\n        \"name\": \"USB Cable\",\r\n        \"category\": \"Accessories\",\r\n        \"price\": 20.00\r\n      }\r\n    },\r\n    {\r\n      \"quantity\": 4,\r\n      \"price\": 25.00,\r\n      \"productId\":\"P7\",\r\n      \"productDTO\": {\r\n        \"name\": \"Phone Charger\",\r\n        \"category\": \"Accessories\",\r\n        \"price\": 25.00\r\n      }\r\n    }\r\n  ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8090/api/createOrder"
+						"url": {
+							"raw": "http://localhost:8090/api/createOrder",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"createOrder"
+							]
+						}
 					},
 					"response": []
 				},
@@ -103,14 +114,25 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id\": \"123\",\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"mobileNumber\": \"1234567890\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"customerAddress\": [\r\n    {\r\n      \"addressId\": 1,\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    },\r\n    {\r\n      \"addressId\": 2,\r\n      \"street\": \"456 Elm St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    }\r\n  ]\r\n}\r\n",
+							"raw": "{\r\n  \"id\": \"123\",\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"mobileNumber\": \"1234562222\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"customerAddress\": [\r\n    {\r\n      \"addressId\": 1,\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    },\r\n    {\r\n      \"addressId\": 2,\r\n      \"street\": \"456 Elm St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    }\r\n  ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/create"
+						"url": {
+							"raw": "http://localhost:8080/api/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"create"
+							]
+						}
 					},
 					"response": []
 				},
@@ -120,7 +142,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/fetchCustomerDetails?input=Cust2",
+							"raw": "http://localhost:8080/api/fetchCustomerDetails?input=Cust1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -133,7 +155,7 @@
 							"query": [
 								{
 									"key": "input",
-									"value": "Cust2"
+									"value": "Cust1"
 								}
 							]
 						}
@@ -184,7 +206,18 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/update"
+						"url": {
+							"raw": "http://localhost:8080/api/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"update"
+							]
+						}
 					},
 					"response": []
 				},
@@ -228,17 +261,25 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/createAddress"
+						"url": {
+							"raw": "http://localhost:8080/api/createAddress",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"createAddress"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Customer_Create_Form_Get_Request",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "formdata",
@@ -255,7 +296,7 @@
 								},
 								{
 									"key": "mobileNumber",
-									"value": "1234567896",
+									"value": "1234565555",
 									"type": "text"
 								},
 								{
@@ -270,7 +311,18 @@
 								}
 							]
 						},
-						"url": "http://localhost:8080/api/newCustomer"
+						"url": {
+							"raw": "http://localhost:8080/api/newCustomer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"newCustomer"
+							]
+						}
 					},
 					"response": []
 				},
@@ -309,38 +361,181 @@
 								}
 							]
 						},
-						"url": "http://localhost:8080/api/newCustomer"
+						"url": {
+							"raw": "http://localhost:8080/api/newCustomer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"newCustomer"
+							]
+						}
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "Get Account Details",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "http://localhost:8080/api/getAccountDetails"
-			},
-			"response": []
-		},
-		{
-			"name": "Create Account",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Nandita Tripathi \",\r\n    \"email\":\"Nandita@gmail.com\",\r\n    \"mobileNumber\":\"7999894960\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create_Single_Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n      \"code\": \"P123\",\r\n      \"name\": \"Product 1\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/addProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"addProduct"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": "http://localhost:8080/api/createAccount"
-			},
-			"response": []
+				{
+					"name": "Create_Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n\r\n      \"name\": \"Product 3\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    },\r\n    {\r\n\r\n      \"name\": \"Product 4\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 100.00\r\n    },\r\n        {\r\n\r\n      \"name\": \"Product 5\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    },\r\n    {\r\n\r\n      \"name\": \"Product 6\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 100.00\r\n    },\r\n            {\r\n\r\n      \"name\": \"Product 7\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    },\r\n    {\r\n\r\n      \"name\": \"Product 8\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 100.00\r\n    },\r\n            {\r\n\r\n      \"name\": \"Product 9\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    },\r\n    {\r\n\r\n      \"name\": \"Product 10\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 100.00\r\n    }\r\n]\r\n \r\n    \r\n   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/addProducts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"addProducts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product_Fetch_Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/fetchProduct?productId=P6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"fetchProduct"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "P6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch_AllProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/fetchAllProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"fetchAllProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/deleteProduct?productId=P10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"deleteProduct"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "P10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

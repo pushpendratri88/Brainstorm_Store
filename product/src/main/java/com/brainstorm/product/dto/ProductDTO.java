@@ -1,4 +1,4 @@
-package com.brainstorm.order.dto;
+package com.brainstorm.product.dto;
 
 import java.time.LocalDateTime;
 
