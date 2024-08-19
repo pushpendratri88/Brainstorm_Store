@@ -20,6 +20,11 @@ public class Product extends BaseEntity{
     @Column(name = "price")
     private Double price;
 
+// uncomment if want to enable BiDirectional
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    private OrderEntry orderEntry;
+
+
     public String getId() {
         return id;
     }

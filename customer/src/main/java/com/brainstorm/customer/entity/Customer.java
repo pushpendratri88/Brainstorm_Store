@@ -22,8 +22,8 @@ public class Customer extends BaseEntity{
     private String photo;
 
     @ManyToMany
-    @JoinTable(name="customer_address", joinColumns = @JoinColumn(name="customer_id"),
-    inverseJoinColumns = @JoinColumn(name = "address_id")
+    @JoinTable(name="customer_address", joinColumns = @JoinColumn(name="customer_id", referencedColumnName = "customer_id"),
+    inverseJoinColumns = @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     )
     private Set<Address> addresses;
 
