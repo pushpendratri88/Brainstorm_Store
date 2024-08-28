@@ -51,6 +51,14 @@ public class CustomerServiceImpl implements CustomerService {
         });
     }
 
+//    @CircuitBreaker(name = "customerService", fallbackMethod = "fallbackGetCustomer")
+//    @Override
+//    public CustomerDTO getCustomer(String customerId) {
+//        String url = customerServiceUrl + "/fetchCustomerDetails?input=" + customerId;
+//        logger.info("Requesting customer details from URL: " + url);
+//        return restTemplate.getForObject(url, CustomerDTO.class);
+//    }
+
     private CustomerDTO getDefaultCustomer() {
         CustomerDTO fallbackCustomer = new CustomerDTO();
         fallbackCustomer.setId("Cust_Default");
