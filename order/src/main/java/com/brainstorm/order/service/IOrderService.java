@@ -5,9 +5,9 @@ import com.brainstorm.order.dto.OrderDTO;
 public interface IOrderService {
     public void createOrder(OrderDTO orderDTO);
 
-    public OrderDTO fetchOrder(Long orderId);
+    public OrderDTO fetchOrder(String orderId);
 
-    public void deleteOrder(Long orderId);
+    public void deleteOrder(String orderId);
 
 }
 

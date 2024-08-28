@@ -3,25 +3,25 @@ package com.brainstorm.order.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
-@Entity
-@Table (name="PRODUCT")
+//@Entity
+//@Table (name="PRODUCT")
 public class Product extends BaseEntity{
-    @Id
-    @GenericGenerator(name = "product_id", strategy = "com.brainstorm.order.generator.ProductIdGenerator")
-    @GeneratedValue(generator = "product_id")
-    @Column(name = "id")
+//    @Id
+//    @GenericGenerator(name = "product_id", strategy = "com.brainstorm.order.generator.ProductIdGenerator")
+//    @GeneratedValue(generator = "product_id")
+//    @Column(name = "id")
     private String id;
 
-    @Column(name = "name")
+//    @Column(name = "name")
     private String name;
 
-    @Column(name = "category")
+//    @Column(name = "category")
     private String category;
-    @Column(name = "price")
+//    @Column(name = "price")
     private Double price;
 
 // uncomment if want to enable BiDirectional
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+//    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private OrderEntry orderEntry;
 
 

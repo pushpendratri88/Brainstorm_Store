@@ -18,13 +18,16 @@ public class OrderEntry extends BaseEntity{
     @Column(name = "price")
     private Double price;
 
+    @Column(name = "productId")
+    private String productId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_fk")
     private EcomOrder order;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_fk", referencedColumnName = "id")
-    private Product product;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "product_fk", referencedColumnName = "id")
+//    private Product product;
 
     public String getId() {
         return id;
@@ -34,13 +37,13 @@ public class OrderEntry extends BaseEntity{
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
 
     public EcomOrder getOrder() {
         return order;
@@ -64,5 +67,13 @@ public class OrderEntry extends BaseEntity{
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }

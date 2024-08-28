@@ -6,6 +6,8 @@ public class OrderEntryDTO {
     private Double price;
     private ProductDTO productDTO;
 
+    private String productId;
+
     public String getId() {
         return id;
     }
@@ -35,6 +37,14 @@ public class OrderEntryDTO {
     }
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }
 
