@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "4cc46d7a-c8a3-4faa-b9c9-a868f3972ed3",
+		"_postman_id": "38d30cfc-4639-479a-a68d-d6df17fc694c",
 		"name": "Microservice",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "1100077"
 	},
 	"item": [
@@ -28,25 +28,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"orderStatus\": \"CONFIRMED\",\r\n  \"customerId\": \"Cust1\",\r\n  \"orderEntriesDTO\": [\r\n    {\r\n      \"quantity\": 2,\r\n      \"price\": 150.00,\r\n      \"productId\":\"P3\",\r\n      \"productDTO\": {\r\n        \"name\": \"Laptop\",\r\n        \"category\": \"Electronics\",\r\n        \"price\": 150.00\r\n      }\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 50.00,\r\n      \"productId\":\"P4\",\r\n      \"productDTO\": {\r\n        \"name\": \"Wireless Mouse\",\r\n        \"category\": \"Electronics\",\r\n        \"price\": 50.00\r\n      }\r\n    },\r\n    {\r\n      \"quantity\": 3,\r\n      \"price\": 30.00,\r\n      \"productId\":\"P5\",\r\n      \"productDTO\": {\r\n        \"name\": \"Keyboard\",\r\n        \"category\": \"Electronics\",\r\n        \"price\": 30.00\r\n      }\r\n    },\r\n    {\r\n      \"quantity\": 5,\r\n      \"price\": 20.00,\r\n      \"productId\":\"P6\",\r\n      \"productDTO\": {\r\n        \"name\": \"USB Cable\",\r\n        \"category\": \"Accessories\",\r\n        \"price\": 20.00\r\n      }\r\n    },\r\n    {\r\n      \"quantity\": 4,\r\n      \"price\": 25.00,\r\n      \"productId\":\"P7\",\r\n      \"productDTO\": {\r\n        \"name\": \"Phone Charger\",\r\n        \"category\": \"Accessories\",\r\n        \"price\": 25.00\r\n      }\r\n    }\r\n  ]\r\n}\r\n",
+							"raw": "{\r\n  \"orderStatus\": \"CONFIRMED\",\r\n  \"customerId\": \"Cust1\",\r\n  \"orderEntriesDTO\": [\r\n    {\r\n      \"quantity\": 2,\r\n      \"price\": 150.00,\r\n      \"productId\":\"P3\"\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 50.00,\r\n      \"productId\":\"P4\"\r\n    },\r\n    {\r\n      \"quantity\": 3,\r\n      \"price\": 30.00,\r\n      \"productId\":\"P5\"\r\n    },\r\n    {\r\n      \"quantity\": 5,\r\n      \"price\": 20.00,\r\n      \"productId\":\"P6\"\r\n    },\r\n    {\r\n      \"quantity\": 4,\r\n      \"price\": 25.00,\r\n      \"productId\":\"P7\"\r\n    }\r\n  ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8090/api/createOrder",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8090",
-							"path": [
-								"api",
-								"createOrder"
-							]
-						}
+						"url": "http://localhost:8090/api/createOrder"
 					},
 					"response": []
 				},
@@ -56,7 +45,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/api/fetchOrder?orderId=2",
+							"raw": "http://localhost:8090/api/fetchOrder?orderId=O2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -69,7 +58,7 @@
 							"query": [
 								{
 									"key": "orderId",
-									"value": "2"
+									"value": "O2"
 								}
 							]
 						}
@@ -82,7 +71,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/api/deleteOrder?orderId=2",
+							"raw": "http://localhost:8090/api/deleteOrder?orderId=O2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -95,7 +84,7 @@
 							"query": [
 								{
 									"key": "orderId",
-									"value": "2"
+									"value": "O2"
 								}
 							]
 						}
@@ -121,18 +110,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"create"
-							]
-						}
+						"url": "http://localhost:8080/api/create"
 					},
 					"response": []
 				},
@@ -206,18 +184,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/update",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"update"
-							]
-						}
+						"url": "http://localhost:8080/api/update"
 					},
 					"response": []
 				},
@@ -261,18 +228,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/createAddress",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"createAddress"
-							]
-						}
+						"url": "http://localhost:8080/api/createAddress"
 					},
 					"response": []
 				},
@@ -311,18 +267,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/newCustomer",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"newCustomer"
-							]
-						}
+						"url": "http://localhost:8080/api/newCustomer"
 					},
 					"response": []
 				},
@@ -361,18 +306,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/newCustomer",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"newCustomer"
-							]
-						}
+						"url": "http://localhost:8080/api/newCustomer"
 					},
 					"response": []
 				}
@@ -407,18 +341,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8090/api/addProduct",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8090",
-							"path": [
-								"api",
-								"addProduct"
-							]
-						}
+						"url": "http://localhost:8090/api/addProduct"
 					},
 					"response": []
 				},
@@ -448,18 +371,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8090/api/addProducts",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8090",
-							"path": [
-								"api",
-								"addProducts"
-							]
-						}
+						"url": "http://localhost:8090/api/addProducts"
 					},
 					"response": []
 				},
@@ -469,12 +381,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/api/fetchProduct?productId=P6",
+							"raw": "http://localhost:8070/api/fetchProduct?productId=P7",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8090",
+							"port": "8070",
 							"path": [
 								"api",
 								"fetchProduct"
@@ -482,7 +394,7 @@
 							"query": [
 								{
 									"key": "productId",
-									"value": "P6"
+									"value": "P7"
 								}
 							]
 						}
@@ -494,18 +406,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8090/api/fetchAllProduct",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8090",
-							"path": [
-								"api",
-								"fetchAllProduct"
-							]
-						}
+						"url": "http://localhost:8090/api/fetchAllProduct"
 					},
 					"response": []
 				},
@@ -515,12 +416,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/api/deleteProduct?productId=P10",
+							"raw": "http://localhost:8070/api/deleteProduct?productId=P7",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8090",
+							"port": "8070",
 							"path": [
 								"api",
 								"deleteProduct"
@@ -528,7 +429,7 @@
 							"query": [
 								{
 									"key": "productId",
-									"value": "P10"
+									"value": "P7"
 								}
 							]
 						}
