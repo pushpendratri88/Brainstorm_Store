@@ -6,12 +6,14 @@ import com.brainstorm.customer.entity.Address;
 import com.brainstorm.customer.entity.Customer;
 import com.brainstorm.customer.exception.CustomerAlreadyExistsException;
 import com.brainstorm.customer.exception.ResourceNotFoundException;
+import com.brainstorm.customer.kafka.producer.MessageProducer;
 import com.brainstorm.customer.mapper.AddressMapper;
 import com.brainstorm.customer.mapper.CustomerMapper;
 import com.brainstorm.customer.repository.AddressRepository;
 import com.brainstorm.customer.repository.CustomerRepository;
 import com.brainstorm.customer.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -31,6 +33,12 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Autowired
     private S3Service s3Service;
+
+    @Value("${cloud.aws.s3.access.enable}")
+    private String cloudS3AccessEnable;
+
+    @Autowired
+    MessageProducer producer;
 
 
     @Override
@@ -79,18 +87,21 @@ public class CustomerServiceImpl implements ICustomerService {
                     customerEntity.setAddresses(customerAddress);
                 }
             }
-            String fileUrl = "";
-            if(customerDTO.getFile() != null){
-                MultipartFile file = customerDTO.getFile();
-                String key = file.getOriginalFilename();
-                try {
-                    fileUrl =  s3Service.uploadFile(key, file.getBytes());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+            if(cloudS3AccessEnable.equals("true")){
+                String fileUrl = "";
+                if(customerDTO.getFile() != null){
+                    MultipartFile file = customerDTO.getFile();
+                    String key = file.getOriginalFilename();
+                    try {
+                        fileUrl =  s3Service.uploadFile(key, file.getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+                customerEntity.setPhoto(fileUrl);
             }
-            customerEntity.setPhoto(fileUrl);
             customerRepository.save(customerEntity);
+            producer.sendMessage("customer", "Customer has been created");
         }
     }
 
