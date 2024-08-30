@@ -7,6 +7,7 @@ import com.brainstorm.order.dto.ProductDTO;
 import com.brainstorm.order.entity.EcomOrder;
 import com.brainstorm.order.entity.OrderEntry;
 import com.brainstorm.order.exception.ResourceNotFoundException;
+import com.brainstorm.order.kafka.producer.MessageProducer;
 import com.brainstorm.order.repository.OrderEntryRepository;
 import com.brainstorm.order.repository.OrderRepository;
 
@@ -16,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,6 +41,14 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    MessageProducer producer;
+
+    @Value("${kafka.enable}")
+    private String kafkaEnabled;
+
+    @Autowired
+    CircuitBreakerFactory circuitBreakerFactory;
 
     @Value("${product.service.url}")
     private String productServiceUrl;
@@ -58,6 +69,10 @@ public class OrderServiceImpl implements IOrderService {
             orderEntryTr.setOrder(ecomOrder);
             orderEntryRepository.saveAndFlush(orderEntryTr);
         });
+
+        if(kafkaEnabled.equals("true")){
+            producer.sendMessage("order", "Order Id -> "+ecomOrder.getId() +" has been created and saved in DB ");
+        }
     }
 
     @Override
@@ -109,9 +124,6 @@ public class OrderServiceImpl implements IOrderService {
         return orderEntryList;
     }
 
-
-
-
     public OrderEntryDTO mapToOrderEntryDTO(OrderEntry orderEntry){
         ProductDTO productDTO = getProductDTOFromProductService(orderEntry.getProductId());
         OrderEntryDTO orderEntryDTO = new OrderEntryDTO();
@@ -123,34 +135,32 @@ public class OrderServiceImpl implements IOrderService {
         return orderEntryDTO;
     }
 
-//    public Product mapToProduct(ProductDTO productDTO){
-//        Product product = new Product();
-//        product.setName(productDTO.getName());
-//        product.setCreatedAt(LocalDateTime.now());
-//        product.setCategory(productDTO.getCategory());
-//        product.setPrice(productDTO.getPrice());
-//        return product;
-//    }
-//
-//    public  ProductDTO mapToProductDTO(Product product){
-//        ProductDTO productDTO = new ProductDTO();
-//        productDTO.setCode(product.getId());
-//        productDTO.setName(product.getName());
-//        productDTO.setCategory(productDTO.getCategory());
-//        productDTO.setPrice(product.getPrice());
-//        return productDTO;
-//    }
-
     private ProductDTO getProductDTOFromProductService(String productId) {
-        ProductDTO productDTO =  null;
+
         String ProductServiceurl = productServiceUrl + "/fetchProduct?productId=" + productId;
         logger.info("Requesting Product details from URL: ", ProductServiceurl);
-        try {
-            productDTO = restTemplate.getForObject(ProductServiceurl, ProductDTO.class);
-        } catch (Exception e) {
-            logger.error("Error while requesting customer details", e);
-            throw e;
-        }
+
+        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("productService");
+        return circuitBreaker.run(() ->
+        {
+            try {
+                return restTemplate.getForObject(ProductServiceurl, ProductDTO.class);
+            } catch (Exception e) {
+                logger.error("Error while requesting order details", e);
+                throw e;
+            }
+        },throwable -> {
+            logger.error("Product service is down, returning fallback response", throwable);
+            return defaultProduct();
+        });
+    }
+
+    private ProductDTO defaultProduct() {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setCode("P0_Default");
+        productDTO.setName("Default Product");
+        productDTO.setCategory("No Category");
+        productDTO.setPrice(0.0);
         return productDTO;
     }
 }

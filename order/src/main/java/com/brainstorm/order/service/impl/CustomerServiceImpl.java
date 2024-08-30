@@ -21,7 +21,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private final RestTemplate restTemplate;
 
-
     @Autowired
     CircuitBreakerFactory circuitBreakerFactory;
 

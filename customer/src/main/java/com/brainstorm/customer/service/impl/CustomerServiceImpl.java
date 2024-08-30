@@ -35,7 +35,10 @@ public class CustomerServiceImpl implements ICustomerService {
     private S3Service s3Service;
 
     @Value("${cloud.aws.s3.access.enable}")
-    private String cloudS3AccessEnable;
+    private String cloudS3AccessEnabled;
+
+    @Value("${kafka.enable}")
+    private String kafkaEnabled;
 
     @Autowired
     MessageProducer producer;
@@ -87,7 +90,7 @@ public class CustomerServiceImpl implements ICustomerService {
                     customerEntity.setAddresses(customerAddress);
                 }
             }
-            if(cloudS3AccessEnable.equals("true")){
+            if(cloudS3AccessEnabled.equals("true")){
                 String fileUrl = "";
                 if(customerDTO.getFile() != null){
                     MultipartFile file = customerDTO.getFile();
@@ -101,7 +104,9 @@ public class CustomerServiceImpl implements ICustomerService {
                 customerEntity.setPhoto(fileUrl);
             }
             customerRepository.save(customerEntity);
-            producer.sendMessage("customer", "Customer has been created");
+            if(kafkaEnabled.equals("true")){
+                producer.sendMessage("customer", "Customer has been created");
+            }
         }
     }
 
