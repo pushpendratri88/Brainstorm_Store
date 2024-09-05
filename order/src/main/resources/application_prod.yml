@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+build:
+  version: "2.2"
+
+order:
+  message: "Welcome to order related prod APIs "
+  contactDetails:
+    name: "krishna Dev - Developer"
+    email: "krishnadevrai@brainstorm.com"
+  onCallSupport:
+    - (444) 555-9876
+    - (444) 523-9865

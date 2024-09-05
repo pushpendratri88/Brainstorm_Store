@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "38d30cfc-4639-479a-a68d-d6df17fc694c",
+		"_postman_id": "1311debe-519d-432b-aa77-1424c7844bc9",
 		"name": "Microservice",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "1100077"
@@ -40,7 +40,7 @@
 					"response": []
 				},
 				{
-					"name": "Order_Fetch_Request",
+					"name": "Fetch_Order",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -66,7 +66,7 @@
 					"response": []
 				},
 				{
-					"name": "Order_Delete_Request",
+					"name": "Delete_Order",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -90,6 +90,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Fetch_build-info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8090/api/build-info"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch_java-version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8090/api/java-version"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch_contact-info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8090/api/contact-info"
+					},
+					"response": []
 				}
 			]
 		},
@@ -97,7 +124,7 @@
 			"name": "Customer",
 			"item": [
 				{
-					"name": "Customer_Create_Request",
+					"name": "Create_Customer",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -115,7 +142,7 @@
 					"response": []
 				},
 				{
-					"name": "Customer_Fetch_Request",
+					"name": "Fetch_Customer",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -141,12 +168,12 @@
 					"response": []
 				},
 				{
-					"name": "Customer_Fetch_With_Email_Request",
+					"name": "Fetch_Customer_With_Email",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/fetchCustomerDetailsWithEmail?mobileNumber=8050170116&email=pushpendra@gmail.com",
+							"raw": "http://localhost:8080/api/fetchCustomerDetailsWithEmail?mobileNumber=1234562222&email=john.doe@example.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -159,11 +186,11 @@
 							"query": [
 								{
 									"key": "mobileNumber",
-									"value": "8050170116"
+									"value": "1234562222"
 								},
 								{
 									"key": "email",
-									"value": "pushpendra@gmail.com"
+									"value": "john.doe@example.com"
 								}
 							]
 						}
@@ -171,7 +198,7 @@
 					"response": []
 				},
 				{
-					"name": "Customer_Update_Request",
+					"name": "Update_Customer",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -189,7 +216,7 @@
 					"response": []
 				},
 				{
-					"name": "Customer_Remove_Request",
+					"name": "Remove_Customer",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -215,7 +242,7 @@
 					"response": []
 				},
 				{
-					"name": "Address_Create_Request",
+					"name": "Create_Address",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -233,46 +260,7 @@
 					"response": []
 				},
 				{
-					"name": "Customer_Create_Form_Get_Request",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "Pushpendra Tripathi",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "pushpendra.tri88@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "mobileNumber",
-									"value": "1234565555",
-									"type": "text"
-								},
-								{
-									"key": "file",
-									"type": "file",
-									"src": "postman-cloud:///1ef3ea72-5d71-4d50-9d2d-e6389094c928"
-								},
-								{
-									"key": "",
-									"value": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": "http://localhost:8080/api/newCustomer"
-					},
-					"response": []
-				},
-				{
-					"name": "Customer_Create_Form_Post_Request",
+					"name": "Create_Customer_Form_Data",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -307,6 +295,33 @@
 							]
 						},
 						"url": "http://localhost:8080/api/newCustomer"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch_build-info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/build-info"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch_java-version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/java-version"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch_contact-info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/contact-info"
 					},
 					"response": []
 				}
@@ -376,7 +391,7 @@
 					"response": []
 				},
 				{
-					"name": "Product_Fetch_Request",
+					"name": "Fetch_Product",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -433,6 +448,33 @@
 								}
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch_build-info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8090/api/build-info"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch_java-version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8090/api/java-version"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch_contact-info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8090/api/contact-info"
 					},
 					"response": []
 				}

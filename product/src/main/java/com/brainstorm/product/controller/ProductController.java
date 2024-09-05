@@ -1,10 +1,13 @@
 package com.brainstorm.product.controller;
 
 
+import com.brainstorm.product.dto.ProductContactInfoDto;
 import com.brainstorm.product.dto.ProductDTO;
 import com.brainstorm.product.dto.ResponseDTO;
 import com.brainstorm.product.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,15 @@ public class ProductController {
 
     @Autowired
     IProductService productService;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private ProductContactInfoDto productContactInfoDto;
 
     @PostMapping
     @RequestMapping(value = "/addProducts")
@@ -52,5 +64,24 @@ public class ProductController {
         productService.deleteProduct(productId);
         return  ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("201", "Product has been deleted successfully"));
 
+    }
+
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
+    }
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(environment.getProperty("JAVA_HOME"));
+    }
+    @GetMapping("/contact-info")
+    public ResponseEntity<ProductContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productContactInfoDto);
     }
 }
