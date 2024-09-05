@@ -1,0 +1,14 @@
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\controller\ProductController.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\dto\ProductDTO.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\dto\ResponseDTO.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\entity\BaseEntity.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\entity\Product.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\exception\ProductAlreadyExistsException.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\exception\ResourceNotFoundException.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\generator\ProductIdGenerator.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\mapper\OrderEntryMapper.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\mapper\ProductMapper.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\ProductApplication.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\repository\ProductRepository.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\service\impl\ProductServiceImpl.java
+C:\microservices\microservices\product\src\main\java\com\brainstorm\product\service\IProductService.java

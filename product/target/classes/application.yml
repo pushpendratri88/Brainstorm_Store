@@ -1,0 +1,64 @@
+server:
+  port: 8070
+
+spring:
+  application:
+    name: product
+  datasource:
+    username: root
+    password: Sports@123
+    url: jdbc:mysql://localhost:3306/ecommdb?useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connectionTimeout: 30000
+      leakDetectionThreshold: 30000
+      minimumIdle: 2
+      maximumPoolSize: 30
+      idleTimeout: 120000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  config:
+    import:
+      - "application_qa.yml"
+      - "application_prod.yml"
+  profiles:
+    active:
+      - "qa"
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    enabled: true
+  instance:
+    hostname: localhost
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      customerService:
+        failure-rate-threshold: 50
+        sliding-window-size: 10
+        permitted-number-of-calls-in-half-open-state: 3
+        wait-duration-in-open-state: 5000
+
+customer:
+  service:
+    url: http://localhost:8080/api
+
+build:
+  version: "3.0"
+
+order:
+  message: "Welcome to product related local APIs "
+  contactDetails:
+    name: "John Doe - Developer"
+    email: "john@eazybank.com"
+  onCallSupport:
+    - (555) 555-1234
+    - (555) 523-1345

@@ -1,0 +1,13 @@
+com\brainstorm\product\dto\ResponseDTO.class
+com\brainstorm\product\entity\Product.class
+com\brainstorm\product\service\impl\ProductServiceImpl.class
+com\brainstorm\product\exception\ResourceNotFoundException.class
+com\brainstorm\product\exception\ProductAlreadyExistsException.class
+com\brainstorm\product\generator\ProductIdGenerator.class
+com\brainstorm\product\entity\BaseEntity.class
+com\brainstorm\product\repository\ProductRepository.class
+com\brainstorm\product\service\IProductService.class
+com\brainstorm\product\ProductApplication.class
+com\brainstorm\product\controller\ProductController.class
+com\brainstorm\product\mapper\ProductMapper.class
+com\brainstorm\product\dto\ProductDTO.class

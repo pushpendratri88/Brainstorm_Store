@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "product",
+      "type": "com.brainstorm.product.dto.ProductContactInfoDto",
+      "sourceType": "com.brainstorm.product.dto.ProductContactInfoDto"
+    }
+  ],
+  "properties": [
+    {
+      "name": "product.contact-details",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "sourceType": "com.brainstorm.product.dto.ProductContactInfoDto"
+    },
+    {
+      "name": "product.message",
+      "type": "java.lang.String",
+      "sourceType": "com.brainstorm.product.dto.ProductContactInfoDto"
+    },
+    {
+      "name": "product.on-call-support",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.brainstorm.product.dto.ProductContactInfoDto"
+    }
+  ],
+  "hints": []
+}
