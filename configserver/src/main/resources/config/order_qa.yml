@@ -1,0 +1,11 @@
+build:
+  version: "2.1"
+
+customer:
+  message: "Welcome to customer related qa APIs "
+  contactDetails:
+    name: "Ram Dev - Developer"
+    email: "RamDev@brainstorm.com"
+  onCallSupport:
+    - (222) 555-3456
+    - (222) 523-3567
