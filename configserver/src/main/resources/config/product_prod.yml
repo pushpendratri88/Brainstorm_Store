@@ -1,0 +1,11 @@
+build:
+  version: "3.2"
+
+order:
+  message: "Welcome to product related Prod APIs "
+  contactDetails:
+    name: "krishna Dev - Developer"
+    email: "krishnadevrai@brainstorm.com"
+  onCallSupport:
+    - (444) 555-9876
+    - (444) 523-9865
