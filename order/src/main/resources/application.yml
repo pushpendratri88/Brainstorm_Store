@@ -52,10 +52,10 @@ resilience4j:
         automaticTransitionFromOpenToHalfOpenEnabled: true
 customer:
   service:
-    url: http://localhost:8080/api
+    url: http://localhost:8080/api/customers
 product:
   service:
-    url: http://localhost:8070/api
+    url: http://localhost:8070/api/products
 kafka:
   enable: false
 

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: kafkacustomerconsumer
+
+server:
+  port: 8095
+
+

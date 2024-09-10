@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: kafkaorderconsumer
+
+server:
+  port: 8096
+
