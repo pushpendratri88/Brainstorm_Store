@@ -3,11 +3,11 @@ package com.brainstorm.order.service;
 import com.brainstorm.order.dto.OrderDTO;
 
 public interface IOrderService {
-    public void createOrder(OrderDTO orderDTO);
+     void createOrder(OrderDTO orderDTO);
 
-    public OrderDTO fetchOrder(String orderId);
+     OrderDTO fetchOrder(Long orderId);
 
-    public void deleteOrder(String orderId);
+     void deleteOrder(Long orderId);
 
 }
 

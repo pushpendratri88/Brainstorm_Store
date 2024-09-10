@@ -36,15 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
         String url = customerServiceUrl + "/fetchCustomerDetails?input=" + customerId;
         logger.info("Requesting customer details from URL: ", url);
         CircuitBreaker circuitBreaker = circuitBreakerFactory.create("customerService");
-        return circuitBreaker.run(() -> {
-            try{
-                return restTemplate.getForObject(url, CustomerDTO.class);
-            }
-            catch (Exception e){
-                logger.error("Error while requesting customer details", e);
-                throw e;
-            }
-        }, throwable -> {
+        return circuitBreaker.run(() -> restTemplate.getForObject(url, CustomerDTO.class), throwable -> {
             logger.error("Customer service is down, returning fallback response", throwable);
             return getDefaultCustomer();
         });
@@ -59,6 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
 //    }
 
     private CustomerDTO getDefaultCustomer() {
+        logger.info("Calling fallback method for if customer service is down");
         CustomerDTO fallbackCustomer = new CustomerDTO();
         fallbackCustomer.setId("Cust_Default");
         fallbackCustomer.setName("Default Customer");

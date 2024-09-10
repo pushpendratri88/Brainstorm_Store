@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface OrderRepository extends JpaRepository<EcomOrder, String> {
-    Optional<EcomOrder> findById(String orderId);
+public interface OrderRepository extends JpaRepository<EcomOrder, Long> {
+    Optional<EcomOrder> findById(Long orderId);
 }

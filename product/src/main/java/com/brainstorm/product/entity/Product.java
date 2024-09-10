@@ -7,10 +7,11 @@ import org.hibernate.annotations.GenericGenerator;
 @Table (name="PRODUCT")
 public class Product extends BaseEntity{
     @Id
-    @GenericGenerator(name = "product_id", strategy = "com.brainstorm.product.generator.ProductIdGenerator")
-    @GeneratedValue(generator = "product_id")
+    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(name = "product_id", strategy = "com.brainstorm.product.generator.ProductIdGenerator")
+//    @GeneratedValue(generator = "product_id")
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -20,11 +21,11 @@ public class Product extends BaseEntity{
     @Column(name = "price")
     private Double price;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

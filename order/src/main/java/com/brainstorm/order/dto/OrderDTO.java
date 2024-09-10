@@ -3,16 +3,16 @@ package com.brainstorm.order.dto;
 import java.util.List;
 
 public class OrderDTO {
-    private String orderId;
+    private Long orderId;
     private OrderStatus orderStatus;
     private String customerId;
     private List<OrderEntryDTO> orderEntriesDTO;
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 

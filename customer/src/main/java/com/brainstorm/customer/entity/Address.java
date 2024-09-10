@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 public class Address extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
     @Column(name = "address_id")
     private Long addressId;
 

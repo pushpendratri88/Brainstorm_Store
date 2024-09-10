@@ -47,7 +47,7 @@ public class ProductController {
 
     @GetMapping
     @RequestMapping(value = "/fetchProduct")
-    public ResponseEntity<ProductDTO> fetchProduct(@RequestParam String productId){
+    public ResponseEntity<ProductDTO> fetchProduct(@RequestParam Long productId){
         ProductDTO productDTO = productService.fetchProduct(productId);
         return  ResponseEntity.status(HttpStatus.OK).body(productDTO);
     }
@@ -60,7 +60,7 @@ public class ProductController {
 
     @PostMapping
     @RequestMapping(value = "/deleteProduct")
-    public ResponseEntity<ResponseDTO> deleteProduct(@RequestParam String productId){
+    public ResponseEntity<ResponseDTO> deleteProduct(@RequestParam Long productId){
         productService.deleteProduct(productId);
         return  ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("201", "Product has been deleted successfully"));
 

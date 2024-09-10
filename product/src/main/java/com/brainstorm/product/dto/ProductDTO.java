@@ -3,7 +3,7 @@ package com.brainstorm.product.dto;
 import java.time.LocalDateTime;
 
 public class ProductDTO {
-    private String code;
+    private Long code;
     private String name;
     private String category;
     private Double price;
@@ -33,11 +33,11 @@ public class ProductDTO {
         this.price = price;
     }
 
-    public String getCode() {
+    public Long getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Long code) {
         this.code = code;
     }
 

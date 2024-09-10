@@ -8,11 +8,11 @@ import java.util.List;
 public interface IProductService {
     void addProducts(ProductDTO productDTO);
 
-    ProductDTO fetchProduct(String productId);
+    ProductDTO fetchProduct(Long productId);
 
     List<ProductDTO> fetchAllProduct();
 
-    void deleteProduct(String productId);
+    void deleteProduct(Long productId);
 
 }
 

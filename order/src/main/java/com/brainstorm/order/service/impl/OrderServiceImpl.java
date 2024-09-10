@@ -76,14 +76,14 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public OrderDTO fetchOrder(String orderId) {
-        EcomOrder ecomOrder =  orderRepository.findById(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", orderId));
+    public OrderDTO fetchOrder(Long orderId) {
+        EcomOrder ecomOrder =  orderRepository.findById(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
         return mapToOrderDTO(ecomOrder,new OrderDTO());
     }
 
     @Override
-    public void deleteOrder(String orderId) {
-        EcomOrder ecomOrder =  orderRepository.findById(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", orderId));
+    public void deleteOrder(Long orderId) {
+        EcomOrder ecomOrder =  orderRepository.findById(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
         orderRepository.delete(ecomOrder);
     }
 

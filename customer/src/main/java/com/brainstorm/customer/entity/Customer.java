@@ -9,8 +9,9 @@ import java.util.Set;
 @Table(name = "CUSTOMER")
 public class Customer extends BaseEntity{
     @Id
-    @GenericGenerator(name = "customer_id", strategy = "com.brainstorm.customer.generator.CustomerIdGenerator")
-    @GeneratedValue(generator = "customer_id")
+    @GeneratedValue(strategy = GenerationType.UUID)
+//    @GenericGenerator(name = "customer_id", strategy = "com.brainstorm.customer.generator.CustomerIdGenerator")
+//    @GeneratedValue(generator = "customer_id")
     @Column(name = "customer_id")
     private String customerId;
     private String name;

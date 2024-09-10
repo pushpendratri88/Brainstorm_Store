@@ -38,7 +38,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ProductDTO fetchProduct(String productId) {
+    public ProductDTO fetchProduct(Long productId) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         if(optionalProduct.isPresent()){
             return ProductMapper.mapToProductDTO(optionalProduct.get());
@@ -58,7 +58,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public void deleteProduct(String productId) {
+    public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
     }
 }

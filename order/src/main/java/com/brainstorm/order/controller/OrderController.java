@@ -36,14 +36,14 @@ public class OrderController {
 
     @GetMapping
     @RequestMapping(value = "/fetchOrder")
-    public ResponseEntity<OrderDTO> fetchOrder(@RequestParam String orderId){
+    public ResponseEntity<OrderDTO> fetchOrder(@RequestParam Long orderId){
         OrderDTO orderDTO = orderService.fetchOrder(orderId);
         return  ResponseEntity.status(HttpStatus.OK).body(orderDTO);
     }
 
     @PostMapping
     @RequestMapping(value = "/deleteOrder")
-    public ResponseEntity<ResponseDTO> deleteOrder(@RequestParam String orderId){
+    public ResponseEntity<ResponseDTO> deleteOrder(@RequestParam Long orderId){
         orderService.deleteOrder(orderId);
         return  ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("201", "Order has been deleted successfully"));
     }

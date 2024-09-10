@@ -11,11 +11,11 @@ import java.util.List;
 @Table(name = "ECOM_ORDER")
 public class EcomOrder extends BaseEntity{
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name = "order_id", strategy = "com.brainstorm.order.generator.OrderIdGenerator")
-    @GeneratedValue(generator = "order_id")
+    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(name = "order_id", strategy = "com.brainstorm.order.generator.OrderIdGenerator")
+//    @GeneratedValue(generator = "order_id")
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -27,11 +27,11 @@ public class EcomOrder extends BaseEntity{
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderEntry> orderEntryList = new ArrayList<>();
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
