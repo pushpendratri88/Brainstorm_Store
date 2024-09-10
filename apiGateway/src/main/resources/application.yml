@@ -19,6 +19,6 @@ spring:
           enabled: true  # Enables dynamic routing using Eureka
       routes:
         - id: order-service
-          uri: lb://ECOMORDER
+          uri: lb://ECOMORDER  # Service name displays in Eureka server
           predicates:
             - Path=/api/orders/**

@@ -42,6 +42,8 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: my-group-id
+    producer:
+      enabled: false
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html

@@ -25,6 +25,8 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: my-group-id
+    producer:
+      enabled: false
   config:
     import:
       - "application_qa.yml"
@@ -56,8 +58,7 @@ customer:
 product:
   service:
     url: http://localhost:8070/api/products
-kafka:
-  enable: false
+
 
 
 

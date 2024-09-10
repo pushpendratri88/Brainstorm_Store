@@ -11,7 +11,7 @@
 	<groupId>com.brainstrom</groupId>
 	<artifactId>kafkaorderconsumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>kafkaOrderConsumer</name>
+	<name>KafkaOrderConsumer</name>
 	<description>Consumer project for Spring Boot</description>
 	<url/>
 	<licenses>

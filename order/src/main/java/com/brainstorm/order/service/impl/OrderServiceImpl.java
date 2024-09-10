@@ -44,7 +44,7 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     MessageProducer producer;
 
-    @Value("${kafka.enable}")
+    @Value("${spring.kafka.producer.enabled}")
     private String kafkaEnabled;
 
     @Autowired

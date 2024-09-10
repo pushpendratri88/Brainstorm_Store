@@ -35,7 +35,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8090/api/createOrder"
+						"url": "http://localhost:8090/api/orders/createOrder"
 					},
 					"response": []
 				},
@@ -45,7 +45,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/api/fetchOrder?orderId=O2",
+							"raw": "http://localhost:8090/api/orders/fetchOrder?orderId=O2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -53,6 +53,7 @@
 							"port": "8090",
 							"path": [
 								"api",
+								"orders",
 								"fetchOrder"
 							],
 							"query": [
@@ -477,6 +478,492 @@
 						"url": "http://localhost:8090/api/contact-info"
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "API Gateway",
+			"item": [
+				{
+					"name": "Order",
+					"item": [
+						{
+							"name": "Fetch_Order",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/api/orders/fetchOrder?orderId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"api",
+										"orders",
+										"fetchOrder"
+									],
+									"query": [
+										{
+											"key": "orderId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create_Order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"orderStatus\": \"CONFIRMED\",\r\n  \"customerId\": \"Cust1\",\r\n  \"orderEntriesDTO\": [\r\n    {\r\n      \"quantity\": 2,\r\n      \"price\": 150.00,\r\n      \"productId\":\"P3\"\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 50.00,\r\n      \"productId\":\"P4\"\r\n    },\r\n    {\r\n      \"quantity\": 3,\r\n      \"price\": 30.00,\r\n      \"productId\":\"P5\"\r\n    },\r\n    {\r\n      \"quantity\": 5,\r\n      \"price\": 20.00,\r\n      \"productId\":\"P6\"\r\n    },\r\n    {\r\n      \"quantity\": 4,\r\n      \"price\": 25.00,\r\n      \"productId\":\"P7\"\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8085/api/orders/createOrder"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete_Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/api/orders/deleteOrder?orderId=O2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"api",
+										"orders",
+										"deleteOrder"
+									],
+									"query": [
+										{
+											"key": "orderId",
+											"value": "O2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_build-info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8085/api/orders/build-info"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_java-version",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8085/api/orders/java-version"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_contact-info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8085/api/orders/contact-info"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customer",
+					"item": [
+						{
+							"name": "Create_Customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"123\",\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"mobileNumber\": \"1234562222\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"customerAddress\": [\r\n    {\r\n      \"addressId\": 1,\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    },\r\n    {\r\n      \"addressId\": 2,\r\n      \"street\": \"456 Elm St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8085/api/customers/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_Customer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/api/customers/fetchCustomerDetails?input=Cust1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"api",
+										"customers",
+										"fetchCustomerDetails"
+									],
+									"query": [
+										{
+											"key": "input",
+											"value": "Cust1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_Customer_With_Email",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/api/customers/fetchCustomerDetailsWithEmail?mobileNumber=1234562222&email=john.doe@example.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"api",
+										"customers",
+										"fetchCustomerDetailsWithEmail"
+									],
+									"query": [
+										{
+											"key": "mobileNumber",
+											"value": "1234562222"
+										},
+										{
+											"key": "email",
+											"value": "john.doe@example.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update_Customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"ABC Tripathi \",\r\n    \"email\": \"pushpendra@gmail.com\",\r\n    \"mobileNumber\": \"8050170116\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost8085/api/customers/update"
+							},
+							"response": []
+						},
+						{
+							"name": "Remove_Customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/api/customers/remove?mobileNumber=8050170116",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"api",
+										"customers",
+										"remove"
+									],
+									"query": [
+										{
+											"key": "mobileNumber",
+											"value": "8050170116"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create_Address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"street\": \"123 Main St\",\r\n  \"city\": \"Springfield\",\r\n  \"state\": \"IL\",\r\n  \"country\": \"USA\",\r\n  \"zipCode\": \"62701\",\r\n  \"customers\": [\r\n    {\r\n      \"id\": \"Cust1\",\r\n      \"name\": \"John Doe\",\r\n      \"email\": \"john.doe@example.com\",\r\n      \"mobileNumber\": \"1234567890\",\r\n      \"createdAt\": \"2023-06-27T12:00:00\",\r\n      \"createdBy\": \"system\",\r\n      \"customerAddress\": []\r\n    },\r\n    {\r\n      \"id\": \"Cust2\",\r\n      \"name\": \"Jane Smith\",\r\n      \"email\": \"jane.smith@example.com\",\r\n      \"mobileNumber\": \"0987654321\",\r\n      \"createdAt\": \"2023-06-27T12:00:00\",\r\n      \"createdBy\": \"system\",\r\n      \"customerAddress\": []\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8085/api/address/createAddress"
+							},
+							"response": []
+						},
+						{
+							"name": "Create_Customer_Form_Data",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Pushpendra Tripathi",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "pushpendra.tri88@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "mobileNumber",
+											"value": "1234567897",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "postman-cloud:///1ef3ea72-5d71-4d50-9d2d-e6389094c928"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://localhost:8085/api/address/newCustomer"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_build-info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8085/api/customers/build-info"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_java-version",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8085/api/customers/java-version"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_contact-info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8085/api/customers/contact-info"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "Create_Single_Product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n    {\r\n      \"code\": \"P123\",\r\n      \"name\": \"Product 1\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8085/api/products/addProduct"
+							},
+							"response": []
+						},
+						{
+							"name": "Create_Products",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n\r\n      \"name\": \"Product 3\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    },\r\n    {\r\n\r\n      \"name\": \"Product 4\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 100.00\r\n    },\r\n        {\r\n\r\n      \"name\": \"Product 5\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    },\r\n    {\r\n\r\n      \"name\": \"Product 6\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 100.00\r\n    },\r\n            {\r\n\r\n      \"name\": \"Product 7\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    },\r\n    {\r\n\r\n      \"name\": \"Product 8\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 100.00\r\n    },\r\n            {\r\n\r\n      \"name\": \"Product 9\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    },\r\n    {\r\n\r\n      \"name\": \"Product 10\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 100.00\r\n    }\r\n]\r\n \r\n    \r\n   ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8085/api/products/addProducts"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_Product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/api/products/fetchProduct?productId=P7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"api",
+										"products",
+										"fetchProduct"
+									],
+									"query": [
+										{
+											"key": "productId",
+											"value": "P7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_AllProduct",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8085/api/products/fetchAllProduct"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete_Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/api/products/deleteProduct?productId=P7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"api",
+										"products",
+										"deleteProduct"
+									],
+									"query": [
+										{
+											"key": "productId",
+											"value": "P7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_build-info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8085/api/products/build-info"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_java-version",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8085/api/products/java-version"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_contact-info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8085/api/products/contact-info"
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

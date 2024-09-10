@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements ICustomerService {
     @Value("${cloud.aws.s3.access.enable}")
     private String cloudS3AccessEnabled;
 
-    @Value("${kafka.enable}")
+    @Value("${spring.kafka.producer.enabled}")
     private String kafkaEnabled;
 
     @Autowired

@@ -11,7 +11,7 @@
 	<groupId>com.brainstrom</groupId>
 	<artifactId>kafkacustomerconsumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>kafkacustomerconsumer</name>
+	<name>KafkaCustomerConsumer</name>
 	<description>Customer Consumer project for Spring Boot</description>
 	<url/>
 	<licenses>
