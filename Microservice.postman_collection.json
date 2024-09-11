@@ -138,7 +138,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/create"
+						"url": "http://localhost:8080/api/customers/create"
 					},
 					"response": []
 				},
@@ -148,7 +148,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/fetchCustomerDetails?input=Cust1",
+							"raw": "http://localhost:8080/api/customers/fetchCustomerDetails?input=1234563333",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -156,12 +156,13 @@
 							"port": "8080",
 							"path": [
 								"api",
+								"customers",
 								"fetchCustomerDetails"
 							],
 							"query": [
 								{
 									"key": "input",
-									"value": "Cust1"
+									"value": "1234563333"
 								}
 							]
 						}
@@ -387,7 +388,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8090/api/addProducts"
+						"url": "http://localhost:8070/api/products/addProducts"
 					},
 					"response": []
 				},
@@ -533,7 +534,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"orderStatus\": \"CONFIRMED\",\r\n  \"customerId\": \"Cust1\",\r\n  \"orderEntriesDTO\": [\r\n    {\r\n      \"quantity\": 2,\r\n      \"price\": 150.00,\r\n      \"productId\":\"P3\"\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 50.00,\r\n      \"productId\":\"P4\"\r\n    },\r\n    {\r\n      \"quantity\": 3,\r\n      \"price\": 30.00,\r\n      \"productId\":\"P5\"\r\n    },\r\n    {\r\n      \"quantity\": 5,\r\n      \"price\": 20.00,\r\n      \"productId\":\"P6\"\r\n    },\r\n    {\r\n      \"quantity\": 4,\r\n      \"price\": 25.00,\r\n      \"productId\":\"P7\"\r\n    }\r\n  ]\r\n}\r\n",
+									"raw": "{\r\n  \"orderStatus\": \"CONFIRMED\",\r\n  \"customerId\": \"6b50785b-a38b-470c-9131-13d3f64e20cb\",\r\n  \"orderEntriesDTO\": [\r\n    {\r\n      \"quantity\": 2,\r\n      \"price\": 150.00,\r\n      \"productId\":\"53\"\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 50.00,\r\n      \"productId\":\"54\"\r\n    },\r\n    {\r\n      \"quantity\": 3,\r\n      \"price\": 30.00,\r\n      \"productId\":\"55\"\r\n    },\r\n    {\r\n      \"quantity\": 5,\r\n      \"price\": 20.00,\r\n      \"productId\":\"56\"\r\n    },\r\n    {\r\n      \"quantity\": 4,\r\n      \"price\": 25.00,\r\n      \"productId\":\"57\"\r\n    }\r\n  ]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -610,7 +611,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"123\",\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"mobileNumber\": \"1234562222\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"customerAddress\": [\r\n    {\r\n      \"addressId\": 1,\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    },\r\n    {\r\n      \"addressId\": 2,\r\n      \"street\": \"456 Elm St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    }\r\n  ]\r\n}\r\n",
+									"raw": "{\r\n  \"id\": \"123\",\r\n  \"name\": \"push Doe\",\r\n  \"email\": \"push.doe@example.com\",\r\n  \"mobileNumber\": \"1234563333\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"customerAddress\": [\r\n    {\r\n      \"addressId\": 1,\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    },\r\n    {\r\n      \"addressId\": 2,\r\n      \"street\": \"456 Elm St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    }\r\n  ]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -627,7 +628,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/customers/fetchCustomerDetails?input=Cust1",
+									"raw": "http://localhost:8085/api/customers/fetchCustomerDetails?input=1234563333",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -641,7 +642,7 @@
 									"query": [
 										{
 											"key": "input",
-											"value": "Cust1"
+											"value": "1234563333"
 										}
 									]
 								}
@@ -686,7 +687,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"ABC Tripathi \",\r\n    \"email\": \"pushpendra@gmail.com\",\r\n    \"mobileNumber\": \"8050170116\"\r\n}",
+									"raw": "{\r\n  \"id\": \"123\",\r\n  \"name\": \"Pushpendra Tripathi\",\r\n  \"email\": \"Pushpendra.tripathi.doe@example.com\",\r\n  \"mobileNumber\": \"1234563333\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"customerAddress\": [\r\n    {\r\n      \"addressId\": 1,\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    },\r\n    {\r\n      \"addressId\": 2,\r\n      \"street\": \"456 Elm St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    }\r\n  ]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -703,7 +704,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/customers/remove?mobileNumber=8050170116",
+									"raw": "http://localhost:8085/api/customers/remove?mobileNumber=1234563333",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -717,7 +718,7 @@
 									"query": [
 										{
 											"key": "mobileNumber",
-											"value": "8050170116"
+											"value": "1234563333"
 										}
 									]
 								}
@@ -777,7 +778,7 @@
 										}
 									]
 								},
-								"url": "http://localhost:8085/api/address/newCustomer"
+								"url": "http://localhost:8085/api/customers/newCustomer"
 							},
 							"response": []
 						},
@@ -832,7 +833,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "\r\n    {\r\n      \"code\": \"P123\",\r\n      \"name\": \"Product 1\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    }",
+									"raw": "\r\n    {\r\n      \"name\": \"Product 2\",\r\n      \"category\": \"Electronics\",\r\n      \"price\": 99.99\r\n    }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -879,7 +880,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/products/fetchProduct?productId=P7",
+									"raw": "http://localhost:8085/api/products/fetchProduct?productId=53",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -893,7 +894,7 @@
 									"query": [
 										{
 											"key": "productId",
-											"value": "P7"
+											"value": "53"
 										}
 									]
 								}
@@ -915,7 +916,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/products/deleteProduct?productId=P7",
+									"raw": "http://localhost:8085/api/products/deleteProduct?productId=502",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -929,7 +930,7 @@
 									"query": [
 										{
 											"key": "productId",
-											"value": "P7"
+											"value": "502"
 										}
 									]
 								}
