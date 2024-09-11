@@ -8,7 +8,7 @@ public class CustomerDTO {
     private String id;
     private String name;
     private String email;
-    private String mobileNumber;
+    private Long mobileNumber;
     private LocalDateTime createdAt;
     private String createdBy;
     private Set<AddressDTO> customerAddress;
@@ -31,11 +31,11 @@ public class CustomerDTO {
         this.email = email;
     }
 
-    public String getMobileNumber() {
+    public Long getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(String mobileNumber) {
+    public void setMobileNumber(Long mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 

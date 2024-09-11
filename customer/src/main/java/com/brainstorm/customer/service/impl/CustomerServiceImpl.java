@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import com.brainstorm.customer.config.S3Config;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
@@ -47,19 +46,19 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public CustomerDTO fetchCustomerDetails(String input) {
         Customer customer = null;
-        if(input.length() == MOBILE_NO){
-            String mobileNumber = input;
-             customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber", input));
+        if(String.valueOf(input).length() == MOBILE_NO){
+            Long mobileNumber = Long.parseLong(input);
+             customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber", String.valueOf(input)));
         }
         else{
             String  customerId = input;
-             customer = customerRepository.findByCustomerId(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer", "customer_id", input));
+             customer = customerRepository.findByCustomerId(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer", "customer_id", String.valueOf(input)));
         }
         return CustomerMapper.mapToCustomerDTO(customer,new CustomerDTO());
     }
 
     @Override
-    public CustomerDTO fetchCustomerDetailsWithEmail(String mobileNumber, String email) {
+    public CustomerDTO fetchCustomerDetailsWithEmail(Long mobileNumber, String email) {
         Customer customer = customerRepository.findByMobileNumberAndEmail(mobileNumber,email).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber & Email ", mobileNumber +"&" +email));
         return CustomerMapper.mapToCustomerDTO(customer,new CustomerDTO());
     }
@@ -114,14 +113,14 @@ public class CustomerServiceImpl implements ICustomerService {
     public void updateCustomer(CustomerDTO customerDTO) {
         Optional<Customer> optionalCustomer =  customerRepository.findByMobileNumber(customerDTO.getMobileNumber());
         if(optionalCustomer.isEmpty()){
-            throw new ResourceNotFoundException("Customer not registered", "CustomerEntity", customerDTO.getMobileNumber() );
+            throw new ResourceNotFoundException("Customer not registered", "CustomerEntity", String.valueOf(customerDTO.getMobileNumber()));
         }
         CustomerMapper.mapToCustomer(customerDTO,optionalCustomer.get());
         customerRepository.save(optionalCustomer.get());
     }
 
     @Override
-    public void removeCustomer(String mobileNumber) {
+    public void removeCustomer(Long mobileNumber) {
         Optional<Customer> optionalCustomer =  customerRepository.findByMobileNumber(mobileNumber);
         optionalCustomer.ifPresent(customer -> customerRepository.delete(customer));
     }

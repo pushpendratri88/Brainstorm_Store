@@ -62,7 +62,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/fetchCustomerDetailsWithEmail")
-    public ResponseEntity<CustomerDTO> fetchCustomerDetailsWithMobileAndEmail(@RequestParam String mobileNumber, String email){
+    public ResponseEntity<CustomerDTO> fetchCustomerDetailsWithMobileAndEmail(@RequestParam Long mobileNumber, String email){
         CustomerDTO customerDTO = customerService.fetchCustomerDetailsWithEmail(mobileNumber,email);
         return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
     }
@@ -73,7 +73,7 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/remove")
-    public ResponseEntity<ResponseDTO> removeCustomer(@RequestParam String mobileNumber){
+    public ResponseEntity<ResponseDTO> removeCustomer(@RequestParam Long mobileNumber){
         customerService.removeCustomer(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(CustomerConstants.STATUS_201, "Customer is removed successfully"));
     }

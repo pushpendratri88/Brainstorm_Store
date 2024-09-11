@@ -30,8 +30,7 @@ public class ProductController {
     @Autowired
     private ProductContactInfoDto productContactInfoDto;
 
-    @PostMapping
-    @RequestMapping(value = "/addProducts")
+    @PostMapping(value = "/addProducts")
     public ResponseEntity<ResponseDTO> addProducts(@RequestBody List<ProductDTO> productDTOList){
         productDTOList.forEach(productDTO -> {
             productService.addProducts(productDTO);
@@ -39,27 +38,24 @@ public class ProductController {
         return  ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("201", "Products has been created successfully"));
     }
 
-    @RequestMapping(value = "/addProduct")
+    @PostMapping(value = "/addProduct")
     public ResponseEntity<ResponseDTO> addProduct(@RequestBody ProductDTO productDTO){
         productService.addProducts(productDTO);
         return  ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("201", "Product has been created successfully"));
     }
 
-    @GetMapping
-    @RequestMapping(value = "/fetchProduct")
+    @GetMapping(value = "/fetchProduct")
     public ResponseEntity<ProductDTO> fetchProduct(@RequestParam Long productId){
         ProductDTO productDTO = productService.fetchProduct(productId);
         return  ResponseEntity.status(HttpStatus.OK).body(productDTO);
     }
-    @GetMapping
-    @RequestMapping(value = "/fetchAllProduct")
+    @GetMapping(value = "/fetchAllProduct")
     public ResponseEntity<List<ProductDTO>> fetchAllProduct(){
         List<ProductDTO> productDTOList = productService.fetchAllProduct();
         return  ResponseEntity.status(HttpStatus.OK).body(productDTOList);
     }
 
-    @PostMapping
-    @RequestMapping(value = "/deleteProduct")
+    @PostMapping(value = "/deleteProduct")
     public ResponseEntity<ResponseDTO> deleteProduct(@RequestParam Long productId){
         productService.deleteProduct(productId);
         return  ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("201", "Product has been deleted successfully"));

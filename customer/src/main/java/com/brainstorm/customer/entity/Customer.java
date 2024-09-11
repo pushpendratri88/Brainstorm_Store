@@ -17,7 +17,7 @@ public class Customer extends BaseEntity{
     private String name;
     private String email;
     @Column(name = "mobile_number")
-    private String mobileNumber;
+    private Long mobileNumber;
 
     @Column(name = "photo")
     private String photo;
@@ -52,11 +52,11 @@ public class Customer extends BaseEntity{
         this.email = email;
     }
 
-    public String getMobileNumber() {
+    public Long getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(String mobileNumber) {
+    public void setMobileNumber(Long mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 

@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class CustomerForm {
     private String name;
     private String email;
-    private String mobileNumber;
+    private Long mobileNumber;
 
     private MultipartFile file;
     public String getName() {
@@ -24,11 +24,11 @@ public class CustomerForm {
         this.email = email;
     }
 
-    public String getMobileNumber() {
+    public Long getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(String mobileNumber) {
+    public void setMobileNumber(Long mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 

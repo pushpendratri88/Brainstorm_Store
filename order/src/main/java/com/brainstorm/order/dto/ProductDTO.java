@@ -9,6 +9,13 @@ public class ProductDTO {
     private Double price;
     public LocalDateTime createdAt;
 
+    public ProductDTO(String code, String name, LocalDateTime createdAt) {
+        this.code = code;
+        this.name = name;
+        this.createdAt = createdAt;
+    }
+
+
     public String getName() {
         return name;
     }

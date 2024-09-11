@@ -27,22 +27,19 @@ public class OrderController {
     @Autowired
     private OrderContactInfoDto orderContactInfoDto;
 
-    @PostMapping
-    @RequestMapping(value = "/createOrder")
+    @PostMapping(value = "/createOrder")
     public ResponseEntity<ResponseDTO> createOrder(@RequestBody OrderDTO orderDTO){
         orderService.createOrder(orderDTO);
         return  ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO("201", "Order has been created successfully"));
     }
 
-    @GetMapping
-    @RequestMapping(value = "/fetchOrder")
+    @GetMapping(value = "/fetchOrder")
     public ResponseEntity<OrderDTO> fetchOrder(@RequestParam Long orderId){
         OrderDTO orderDTO = orderService.fetchOrder(orderId);
         return  ResponseEntity.status(HttpStatus.OK).body(orderDTO);
     }
 
-    @PostMapping
-    @RequestMapping(value = "/deleteOrder")
+    @PostMapping(value = "/deleteOrder")
     public ResponseEntity<ResponseDTO> deleteOrder(@RequestParam Long orderId){
         orderService.deleteOrder(orderId);
         return  ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("201", "Order has been deleted successfully"));

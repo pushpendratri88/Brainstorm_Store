@@ -13,12 +13,15 @@ import com.brainstorm.order.repository.OrderRepository;
 
 import com.brainstorm.order.service.CustomerService;
 import com.brainstorm.order.service.IOrderService;
+import com.brainstorm.order.service.client.CustomerFeignClient;
+import com.brainstorm.order.service.client.ProductFeignClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -43,6 +46,9 @@ public class OrderServiceImpl implements IOrderService {
 
     @Autowired
     MessageProducer producer;
+
+    @Autowired
+    ProductFeignClient productFeignClient;
 
     @Value("${spring.kafka.producer.enabled}")
     private String kafkaEnabled;
@@ -116,8 +122,10 @@ public class OrderServiceImpl implements IOrderService {
             OrderEntry orderEntry = new OrderEntry();
             orderEntry.setCreatedAt(LocalDateTime.now());
             orderEntry.setQuantity(orderEntryDTO.getQuantity());
-            orderEntry.setPrice(productDTO.getPrice() * orderEntryDTO.getQuantity());
             orderEntry.setProductId(productDTO.getCode());
+            if(!productDTO.getPrice().equals(0.0)){
+                orderEntry.setPrice(productDTO.getPrice() * orderEntryDTO.getQuantity());
+            }
             OrderEntry orderEntryTr = orderEntryRepository.saveAndFlush(orderEntry);
             orderEntryList.add(orderEntryTr);
         });
@@ -141,26 +149,13 @@ public class OrderServiceImpl implements IOrderService {
         logger.info("Requesting Product details from URL: ", ProductServiceurl);
 
         CircuitBreaker circuitBreaker = circuitBreakerFactory.create("productService");
-        return circuitBreaker.run(() ->
-        {
-            try {
-                return restTemplate.getForObject(ProductServiceurl, ProductDTO.class);
-            } catch (Exception e) {
-                logger.error("Error while requesting order details", e);
-                throw e;
-            }
-        },throwable -> {
+        return circuitBreaker.run(() -> productFeignClient.fetchProduct(Long.parseLong(productId)).getBody(),throwable -> {
             logger.error("Product service is down, returning fallback response", throwable);
-            return defaultProduct();
+            return fallbackForProductService(productId);
         });
     }
 
-    private ProductDTO defaultProduct() {
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setCode("P0_Default");
-        productDTO.setName("Default Product");
-        productDTO.setCategory("No Category");
-        productDTO.setPrice(0.0);
-        return productDTO;
+    private ProductDTO fallbackForProductService(String productId) {
+        return new ProductDTO(productId,"Unknown",LocalDateTime.now() );
     }
 }
