@@ -57,10 +57,22 @@ cloud:
     stack:
       auto: false
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
 info:
   app:
     name: "customer"
-    description: "Brainstrom ecomm customer Application"
+    description: "Brainstorm ecomm customer Application"
     version: "1.0.0"
 
 build:

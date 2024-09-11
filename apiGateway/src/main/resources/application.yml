@@ -22,3 +22,11 @@ spring:
           uri: lb://ECOMORDER  # Service name displays in Eureka server
           predicates:
             - Path=/api/orders/**
+        - id: customer-service
+          uri: lb://CUSTOMER  # Service name displays in Eureka server
+          predicates:
+            - Path=/api/customers/**
+        - id: product-service
+          uri: lb://PRODUCT  # Service name displays in Eureka server
+          predicates:
+            - Path=/api/products/**

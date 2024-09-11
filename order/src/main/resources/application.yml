@@ -63,10 +63,26 @@ product:
   service:
     url: http://localhost:8070/api/products
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true
+
 info:
   app:
     name: "order"
-    description: "Brainstrom ecomm order Application"
+    description: "Brainstorm ecomm order Application"
     version: "2.0.0"
 
 

@@ -54,6 +54,27 @@ customer:
   service:
     url: http://localhost:8080/api
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true
+info:
+  app:
+    name: "product"
+    description: "Brainstorm ecomm product Application"
+    version: "3.0.0"
+
 build:
   version: "3.0"
 

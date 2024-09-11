@@ -67,7 +67,7 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
     }
     @PostMapping(value = "/update")
-    public ResponseEntity<ResponseDTO> updateCustomer(@Valid @RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<ResponseDTO> updateCustomer(@RequestBody CustomerDTO customerDTO){
         customerService.updateCustomer(customerDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(CustomerConstants.STATUS_201, "Customer is updated successfully"));
     }
