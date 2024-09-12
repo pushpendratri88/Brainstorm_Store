@@ -34,7 +34,10 @@ spring:
   profiles:
     active:
       - "prod"
-
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
 eureka:
   client:
     enabled: true

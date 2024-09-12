@@ -17,6 +17,7 @@ spring:
       discovery:
         locator:
           enabled: true  # Enables dynamic routing using Eureka
+          lowerCaseServiceId: true
       routes:
         - id: order-service
           uri: lb://ECOMORDER  # Service name displays in Eureka server

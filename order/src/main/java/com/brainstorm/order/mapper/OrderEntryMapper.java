@@ -1,27 +1,26 @@
-package com.brainstorm.order.mapper;
-
-import com.brainstorm.order.dto.CustomerDTO;
-import com.brainstorm.order.dto.OrderEntryDTO;
-import com.brainstorm.order.dto.ProductDTO;
-import com.brainstorm.order.entity.OrderEntry;
-import com.brainstorm.order.exception.ResourceNotFoundException;
-import com.brainstorm.order.repository.OrderEntryRepository;
+//package com.brainstorm.order.mapper;
+//import com.brainstorm.order.dto.CustomerDTO;
+//import com.brainstorm.order.dto.OrderEntryDTO;
+//import com.brainstorm.order.dto.ProductDTO;
+//import com.brainstorm.order.entity.OrderEntry;
+//import com.brainstorm.order.exception.ResourceNotFoundException;
+//import com.brainstorm.order.repository.OrderEntryRepository;
 //import com.brainstorm.order.repository.ProductRepository;
-import com.brainstorm.order.service.impl.CustomerServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
-import org.springframework.web.client.RestTemplate;
+//import com.brainstorm.order.service.impl.CustomerServiceImpl;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+//import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+//import org.springframework.web.client.RestTemplate;
+//
+//import java.time.LocalDateTime;
+//import java.util.ArrayList;
+//import java.util.List;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-public class OrderEntryMapper {
-    private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+//public class OrderEntryMapper {
+//    private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
 //    public static List<OrderEntry> mapToOrderEntry(List<OrderEntryDTO> orderEntryListDTO,   ProductRepository productRepository,  OrderEntryRepository orderEntryRepository){
 //        List<OrderEntry> orderEntryList = new ArrayList<>();
@@ -57,4 +56,4 @@ public class OrderEntryMapper {
 //        orderEntryDTO.setProductId(orderEntry.getProduct().getId());
 //        return orderEntryDTO;
 //    }
-}
+//}
