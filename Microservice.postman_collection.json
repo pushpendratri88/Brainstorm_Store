@@ -494,13 +494,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/orders/fetchOrder?orderId=1",
+									"raw": "http://localhost:8085/ecomorder/api/orders/fetchOrder?orderId=152",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8085",
 									"path": [
+										"ecomorder",
 										"api",
 										"orders",
 										"fetchOrder"
@@ -508,7 +509,7 @@
 									"query": [
 										{
 											"key": "orderId",
-											"value": "1"
+											"value": "152"
 										}
 									]
 								}
@@ -541,7 +542,7 @@
 										}
 									}
 								},
-								"url": "http://localhost:8085/api/orders/createOrder"
+								"url": "http://localhost:8085/ecomorder/api/orders/createOrder"
 							},
 							"response": []
 						},
@@ -551,13 +552,14 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/orders/deleteOrder?orderId=O2",
+									"raw": "http://localhost:8085/ecomorder/api/orders/deleteOrder?orderId=O2",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8085",
 									"path": [
+										"ecomorder",
 										"api",
 										"orders",
 										"deleteOrder"
@@ -577,7 +579,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8085/api/orders/build-info"
+								"url": "http://localhost:8085/ecomorder/api/orders/build-info"
 							},
 							"response": []
 						},
@@ -586,7 +588,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8085/api/orders/java-version"
+								"url": "http://localhost:8085/ecomorder/api/orders/java-version"
 							},
 							"response": []
 						},
@@ -595,7 +597,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8085/api/orders/contact-info"
+								"url": "http://localhost:8085/ecomorder/api/orders/contact-info"
 							},
 							"response": []
 						}
@@ -618,7 +620,7 @@
 										}
 									}
 								},
-								"url": "http://localhost:8085/api/customers/create"
+								"url": "http://localhost:8085/customer/api/customers/create"
 							},
 							"response": []
 						},
@@ -628,13 +630,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/customers/fetchCustomerDetails?input=1234563333",
+									"raw": "http://localhost:8085/customer/api/customers/fetchCustomerDetails?input=1234563333",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8085",
 									"path": [
+										"customer",
 										"api",
 										"customers",
 										"fetchCustomerDetails"
@@ -655,13 +658,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/customers/fetchCustomerDetailsWithEmail?mobileNumber=1234562222&email=john.doe@example.com",
+									"raw": "http://localhost:8085/customer/api/customers/fetchCustomerDetailsWithEmail?mobileNumber=1234562222&email=john.doe@example.com",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8085",
 									"path": [
+										"customer",
 										"api",
 										"customers",
 										"fetchCustomerDetailsWithEmail"
@@ -694,7 +698,7 @@
 										}
 									}
 								},
-								"url": "http://localhost8085/api/customers/update"
+								"url": "http://localhost8085/customer/api/customers/update"
 							},
 							"response": []
 						},
@@ -704,13 +708,14 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/customers/remove?mobileNumber=1234563333",
+									"raw": "http://localhost:8085/customer/api/customers/remove?mobileNumber=1234563333",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8085",
 									"path": [
+										"customer",
 										"api",
 										"customers",
 										"remove"
@@ -739,7 +744,7 @@
 										}
 									}
 								},
-								"url": "http://localhost:8085/api/address/createAddress"
+								"url": "http://localhost:8085/customer/api/address/createAddress"
 							},
 							"response": []
 						},
@@ -778,7 +783,7 @@
 										}
 									]
 								},
-								"url": "http://localhost:8085/api/customers/newCustomer"
+								"url": "http://localhost:8085/customer/api/customers/newCustomer"
 							},
 							"response": []
 						},
@@ -787,7 +792,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8085/api/customers/build-info"
+								"url": "http://localhost:8085/customer/api/customers/build-info"
 							},
 							"response": []
 						},
@@ -796,7 +801,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8085/api/customers/java-version"
+								"url": "http://localhost:8085/customer/api/customers/java-version"
 							},
 							"response": []
 						},
@@ -805,7 +810,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8085/api/customers/contact-info"
+								"url": "http://localhost:8085/customer/api/customers/contact-info"
 							},
 							"response": []
 						}
@@ -840,7 +845,7 @@
 										}
 									}
 								},
-								"url": "http://localhost:8085/api/products/addProduct"
+								"url": "http://localhost:8085/product/api/products/addProduct"
 							},
 							"response": []
 						},
@@ -870,7 +875,7 @@
 										}
 									}
 								},
-								"url": "http://localhost:8085/api/products/addProducts"
+								"url": "http://localhost:8085/product/api/products/addProducts"
 							},
 							"response": []
 						},
@@ -880,13 +885,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/products/fetchProduct?productId=53",
+									"raw": "http://localhost:8085/product/api/products/fetchProduct?productId=53",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8085",
 									"path": [
+										"product",
 										"api",
 										"products",
 										"fetchProduct"
@@ -906,7 +912,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8085/api/products/fetchAllProduct"
+								"url": "http://localhost:8085/product/api/products/fetchAllProduct"
 							},
 							"response": []
 						},
@@ -916,13 +922,14 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/api/products/deleteProduct?productId=502",
+									"raw": "http://localhost:8085/product/api/products/deleteProduct?productId=502",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8085",
 									"path": [
+										"product",
 										"api",
 										"products",
 										"deleteProduct"
@@ -942,7 +949,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8085/api/products/build-info"
+								"url": "http://localhost:8085/product/api/products/build-info"
 							},
 							"response": []
 						},
@@ -951,7 +958,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8085/api/products/java-version"
+								"url": "http://localhost:8085/product/api/products/java-version"
 							},
 							"response": []
 						},
@@ -960,7 +967,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:8085/api/products/contact-info"
+								"url": "http://localhost:8085/product/api/products/contact-info"
 							},
 							"response": []
 						}
