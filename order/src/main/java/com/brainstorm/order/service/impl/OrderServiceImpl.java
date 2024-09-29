@@ -1,10 +1,7 @@
 package com.brainstorm.order.service.impl;
 
-import com.brainstorm.order.dto.CustomerDTO;
-import com.brainstorm.order.dto.OrderDTO;
+import com.brainstorm.order.dto.*;
 
-import com.brainstorm.order.dto.OrderEntryDTO;
-import com.brainstorm.order.dto.ProductDTO;
 import com.brainstorm.order.entity.EcomOrder;
 import com.brainstorm.order.entity.OrderEntry;
 import com.brainstorm.order.exception.ResourceNotFoundException;
@@ -19,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 
@@ -43,8 +41,14 @@ public class OrderServiceImpl implements IOrderService {
     @Value("${spring.kafka.producer.enabled}")
     private String kafkaEnabled;
 
+    @Value("${saga.enabled}")
+    private String sagaPatternEnabled;
+
     @Autowired
     CustomerFeignClient customerFeignClient;
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
@@ -66,8 +70,15 @@ public class OrderServiceImpl implements IOrderService {
         });
 
         if(kafkaEnabled.equals("true")){
-            producer.sendMessage("order", "Order Id -> "+ecomOrder.getId() +" has been created and saved in DB ");
+          producer.sendMessage("order", "Order Id -> "+ecomOrder.getId() +" has been created and saved in DB ");
         }
+        if(sagaPatternEnabled.equals("true")){
+            OrderEvent orderEvent = new OrderEvent();
+            orderEvent.setOrder(ecomOrder);
+            orderEvent.setType("Order_Created");
+            producer.sendMessage("order", orderEvent);
+        }
+
     }
 
     @Override
@@ -133,7 +144,7 @@ public class OrderServiceImpl implements IOrderService {
         ProductDTO productDTO= null;
         if(productDTOResponseEntity != null){
             productDTO =  productDTOResponseEntity.getBody();
-            orderEntryDTO.setPrice(productDTO.getPrice() * orderEntry.getQuantity());
+            orderEntryDTO.setPrice(productDTO.getPrice());
             orderEntryDTO.setProductDTO(productDTO);
             orderEntryDTO.setProductId(productDTO.getCode());
         }

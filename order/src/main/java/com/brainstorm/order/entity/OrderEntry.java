@@ -1,9 +1,15 @@
 package com.brainstorm.order.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table (name="ORDER_ENTRY")
 public class OrderEntry extends BaseEntity{
     @Id
@@ -25,56 +31,4 @@ public class OrderEntry extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_fk")
     private EcomOrder order;
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "product_fk", referencedColumnName = "id")
-//    private Product product;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-//    public Product getProduct() {
-//        return product;
-//    }
-//
-//    public void setProduct(Product product) {
-//        this.product = product;
-//    }
-
-    public EcomOrder getOrder() {
-        return order;
-    }
-
-    public void setOrder(EcomOrder order) {
-        this.order = order;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
 }
