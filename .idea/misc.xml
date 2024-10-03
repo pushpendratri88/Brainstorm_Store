@@ -15,9 +15,8 @@
         <option value="$PROJECT_DIR$/kafkaorderconsumer/pom.xml" />
         <option value="$PROJECT_DIR$/customer/pom.xml" />
         <option value="$PROJECT_DIR$/kafkacustomerconsumer/pom.xml" />
-        <option value="$PROJECT_DIR$/payment/pom.xml" />
         <option value="$PROJECT_DIR$/stock/pom.xml" />
-        <option value="$PROJECT_DIR$/delivery/pom.xml" />
+        <option value="$PROJECT_DIR$/payment/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

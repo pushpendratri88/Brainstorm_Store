@@ -7,7 +7,6 @@
     <file url="file://$PROJECT_DIR$/apiGateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/configserver/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/customer/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/delivery/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafkaconsumer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafkacustomerconsumer/src/main/java" charset="UTF-8" />

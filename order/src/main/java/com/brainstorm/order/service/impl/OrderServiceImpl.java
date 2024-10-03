@@ -47,9 +47,6 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     CustomerFeignClient customerFeignClient;
 
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
-
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
 

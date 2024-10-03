@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="EurekaServer" />
         <module name="Order" />
-        <module name="delivery" />
         <module name="product" />
         <module name="Customer" />
         <module name="EurekaClient" />
@@ -29,6 +28,7 @@
       <module name="accounts" target="17" />
       <module name="Consumer" target="17" />
       <module name="customer" target="17" />
+      <module name="delivery" target="17" />
       <module name="gateway" target="17" />
       <module name="order" target="17" />
       <module name="product" target="17" />
@@ -47,7 +47,6 @@
       <module name="apigateway" options="-parameters" />
       <module name="configserver" options="-parameters" />
       <module name="customer" options="-parameters" />
-      <module name="delivery" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="kafkacustomerconsumer" options="-parameters" />
       <module name="kafkaorderconsumer" options="-parameters" />
