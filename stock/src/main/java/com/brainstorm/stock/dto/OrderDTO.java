@@ -1,4 +1,4 @@
-package com.brainstorm.order.dto;
+package com.brainstorm.stock.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

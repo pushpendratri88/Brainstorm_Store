@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StockRepository extends CrudRepository<WareHouse, Long> {
-    Iterable<WareHouse> findByItem(String item);
+    Iterable<WareHouse> findByItem(Long id);
 }

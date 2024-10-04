@@ -21,6 +21,5 @@ public class MassageProducer {
         else if(object instanceof OrderEvent orderEvent){
             kafkaTemplate.send(topic,orderEvent);
         }
-
     }
 }

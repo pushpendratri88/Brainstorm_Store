@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PaymentEvent {
     private String type;
-    private EcomOrder order;
+    private OrderDTO order;
 }

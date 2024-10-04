@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 
@@ -26,6 +25,7 @@ import java.util.List;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
+
     @Autowired
     OrderRepository orderRepository;
 
@@ -52,6 +52,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void createOrder(OrderDTO orderDTO) {
+        logger.info("CreateOrder method to create the order");
         EcomOrder ecomOrder =  mapToOrder(orderDTO);
         if(orderDTO != null && orderDTO.getCustomerId() != null){
             ResponseEntity<CustomerDTO> customerDTOResponseEntity = customerFeignClient.fetchCustomerDetails(orderDTO.getCustomerId());
@@ -64,15 +65,18 @@ public class OrderServiceImpl implements IOrderService {
         ecomOrder.getOrderEntryList().forEach(orderEntryTr -> {
             orderEntryTr.setOrder(ecomOrder);
             orderEntryRepository.saveAndFlush(orderEntryTr);
+            logger.info("Save OrderEntry to DataBase OrderEntryId : {}", orderEntryTr.getId());
         });
 
         if(kafkaEnabled.equals("true")){
-          producer.sendMessage("order", "Order Id -> "+ecomOrder.getId() +" has been created and saved in DB ");
+            logger.info("Sending conformation message to Kafka");
+            producer.sendMessage("order", "Order Id -> "+ecomOrder.getId() +" has been created and saved in DB ");
         }
         if(sagaPatternEnabled.equals("true")){
             OrderEvent orderEvent = new OrderEvent();
-            orderEvent.setOrder(ecomOrder);
+            orderEvent.setOrder(mapToOrderDTO(ecomOrder));
             orderEvent.setType("Order_Created");
+            logger.info("Sending OrderEvent to Kafka Topic :: order to process the Payment service, Will be Consumed by Payment Service :: Order --> Payment");
             producer.sendMessage("order", orderEvent);
         }
 
@@ -80,12 +84,14 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public OrderDTO fetchOrder(Long orderId) {
+        logger.info("fetchOrder method to get the order {}",orderId);
         EcomOrder ecomOrder =  orderRepository.findById(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
-        return mapToOrderDTO(ecomOrder,new OrderDTO());
+        return mapToOrderDTO(ecomOrder);
     }
 
     @Override
     public void deleteOrder(Long orderId) {
+        logger.info("deleteOrder method to delete the order {}",orderId);
         EcomOrder ecomOrder =  orderRepository.findById(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
         orderRepository.delete(ecomOrder);
     }
@@ -98,8 +104,9 @@ public class OrderServiceImpl implements IOrderService {
         return ecomOrder;
     }
 
-    public OrderDTO mapToOrderDTO(EcomOrder ecomOrder, OrderDTO orderDTO ){
+    public OrderDTO mapToOrderDTO(EcomOrder ecomOrder){
         ArrayList<OrderEntryDTO>  orderEntryDTOList = new ArrayList<>();
+        OrderDTO orderDTO = new OrderDTO();
         orderDTO.setOrderId(ecomOrder.getId());
         orderDTO.setOrderStatus(ecomOrder.getStatus());
         orderDTO.setCustomerId(ecomOrder.getCustomerId());

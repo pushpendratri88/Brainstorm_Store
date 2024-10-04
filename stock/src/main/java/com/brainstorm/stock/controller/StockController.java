@@ -13,7 +13,7 @@ public class StockController {
 
     @Autowired
     IStockService stockService;
-    @KafkaListener(topics = "stock", groupId = "stock_group")
+    @KafkaListener(topics = "payment", groupId = "stock_group")
  public void createStock(String event) throws JsonProcessingException {
     PaymentEvent paymentEvent =  new ObjectMapper().readValue(event,PaymentEvent.class);
     stockService.updateStock(paymentEvent);

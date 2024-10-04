@@ -24,16 +24,9 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: payment_group
+      group-id: delivery_group
     producer:
       enabled: false
-  config:
-    import:
-      - "application_qa.yml"
-      - "application_prod.yml"
-  profiles:
-    active:
-      - "prod"
   cloud:
     openfeign:
       circuitbreaker:

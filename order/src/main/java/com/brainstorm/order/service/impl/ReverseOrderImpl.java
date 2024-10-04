@@ -22,16 +22,20 @@ public class ReverseOrderImpl implements IReverseOrder {
     private static final Logger logger = LoggerFactory.getLogger(ReverseOrderImpl.class);
     @Autowired
     private OrderRepository orderRepository;
-    @KafkaListener(topics = "reverse-orders", groupId = "order-group")
+
+    @Override
+    @KafkaListener(topics = "reverse-order", groupId = "orders_group")
     public void reverseOrder(String event){
         try {
             OrderEvent orderEvent = new ObjectMapper().readValue(event, OrderEvent.class);
-            Optional<EcomOrder> opsOrder = orderRepository.findById(orderEvent.getOrder().getId());
+            Optional<EcomOrder> opsOrder = orderRepository.findById(orderEvent.getOrder().getOrderId());
             opsOrder.ifPresent(order ->
             {
                 order.setStatus(OrderStatus.FAILED);
                 orderRepository.save(order);
             });
+
+            logger.info("Consuming OrderEvent to Reverse Order :: Payment --> Order  " );
         } catch (JsonProcessingException e) {
             logger.error("Exception occurred while reverting the order");
 

@@ -13,7 +13,7 @@ public class PaymentController {
     @Autowired
     IPaymentService iPaymentService;
 
-    @KafkaListener(topics = "order",groupId ="order_group" )
+    @KafkaListener(topics = "order",groupId ="payments_group" )
     public void processPayment(String event) throws JsonProcessingException {
         OrderEvent orderEvent = new ObjectMapper().readValue(event, OrderEvent.class);
         iPaymentService.createPayment(orderEvent.getOrder());

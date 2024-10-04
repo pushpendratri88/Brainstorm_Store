@@ -17,9 +17,9 @@
         <option value="$PROJECT_DIR$/kafkacustomerconsumer/pom.xml" />
         <option value="$PROJECT_DIR$/stock/pom.xml" />
         <option value="$PROJECT_DIR$/payment/pom.xml" />
+        <option value="$PROJECT_DIR$/delivery/pom.xml" />
       </list>
     </option>
-    <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
