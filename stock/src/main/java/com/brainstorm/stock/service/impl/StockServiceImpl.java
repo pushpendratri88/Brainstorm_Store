@@ -20,7 +20,6 @@ public class StockServiceImpl implements IStockService {
 
     @Autowired
     StockRepository stockRepository;
-
     @Autowired
     MessageProducer messageProducer;
     @Override
@@ -28,7 +27,7 @@ public class StockServiceImpl implements IStockService {
         OrderDTO order = event.getOrder();
         DeliveryEvent deliveryEvent = new DeliveryEvent();
         try {
-            Iterable<WareHouse> inventories = stockRepository.findByItem(order.getOrderId());
+            Iterable<WareHouse> inventories = stockRepository.findByItem(order.getOrderId().toString());
 
             boolean exists = inventories.iterator().hasNext();
 

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WareHouse {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "UUID")
     private long id;
 
     @Column

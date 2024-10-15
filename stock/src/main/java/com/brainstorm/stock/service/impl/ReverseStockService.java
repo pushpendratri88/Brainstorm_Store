@@ -28,7 +28,7 @@ public class ReverseStockService implements IReverseStockService {
         try{
             DeliveryEvent deliveryEvent = new ObjectMapper().readValue(event, DeliveryEvent.class);
 
-            Iterable<WareHouse> inv = this.stockRepository.findByItem(deliveryEvent.getOrder().getOrderId());
+            Iterable<WareHouse> inv = this.stockRepository.findByItem(deliveryEvent.getOrder().getOrderId().toString());
 
             inv.forEach(i -> {
                 i.setQuantity(i.getQuantity() + deliveryEvent.getOrder().getQuantity());

@@ -1,5 +1,6 @@
 package com.brainstorm.stock.controller;
 
+import com.brainstorm.stock.config.ObjectMapperUtil;
 import com.brainstorm.stock.dto.PaymentEvent;
 import com.brainstorm.stock.service.IStockService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,7 +16,7 @@ public class StockController {
     IStockService stockService;
     @KafkaListener(topics = "payment", groupId = "stock_group")
  public void createStock(String event) throws JsonProcessingException {
-    PaymentEvent paymentEvent =  new ObjectMapper().readValue(event,PaymentEvent.class);
+    PaymentEvent paymentEvent = ObjectMapperUtil.getMapper().readValue(event,PaymentEvent.class);
     stockService.updateStock(paymentEvent);
 
 
