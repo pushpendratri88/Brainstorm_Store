@@ -25,8 +25,4 @@ public class OrderEntry extends BaseEntity{
 
     @Column(name = "productId")
     private String productId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_fk")
-    private EcomOrder order;
 }

@@ -33,13 +33,8 @@ public class EcomOrder extends BaseEntity{
     @Column(name = "amount")
     private double amount;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderEntry> orderEntryList = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "orderEntry_fk")
+    private List<OrderEntry> orderEntryList;
 
-    public void setOrderEntryList(List<OrderEntry> orderEntryList) {
-        this.orderEntryList.clear();
-        if (orderEntryList != null) {
-            this.orderEntryList.addAll(orderEntryList);
-        }
-    }
 }

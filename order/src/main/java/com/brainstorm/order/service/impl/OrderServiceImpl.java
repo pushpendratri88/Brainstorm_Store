@@ -61,12 +61,14 @@ public class OrderServiceImpl implements IOrderService {
                 ecomOrder.setCustomerId(customerDTO.getId());
             }
         }
-        orderRepository.saveAndFlush(ecomOrder);
-        ecomOrder.getOrderEntryList().forEach(orderEntryTr -> {
-            orderEntryTr.setOrder(ecomOrder);
-            orderEntryRepository.saveAndFlush(orderEntryTr);
-            logger.info("Save OrderEntry to DataBase OrderEntryId : {}", orderEntryTr.getId());
-        });
+        ecomOrder.setOrderEntryList(mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
+        EcomOrder ecomOrderTr =orderRepository.saveAndFlush(ecomOrder);
+        logger.info("Save OrderEntry to DataBase OrderEntryId : {}", ecomOrderTr.getId());
+//        ecomOrder.getOrderEntryList().forEach(orderEntryTr -> {
+////            orderEntryTr.setOrder(ecomOrder);
+//            orderEntryRepository.saveAndFlush(orderEntryTr);
+//            logger.info("Save OrderEntry to DataBase OrderEntryId : {}", orderEntryTr.getId());
+//        });
 
         if(kafkaEnabled.equals("true")){
             logger.info("Sending conformation message to Kafka");
@@ -100,7 +102,7 @@ public class OrderServiceImpl implements IOrderService {
         EcomOrder ecomOrder = new EcomOrder();
         ecomOrder.setStatus(orderDTO.getOrderStatus());
         ecomOrder.setCreatedAt(LocalDateTime.now());
-        ecomOrder.setOrderEntryList(mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
+//        ecomOrder.setOrderEntryList(mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
         return ecomOrder;
     }
 
@@ -122,12 +124,12 @@ public class OrderServiceImpl implements IOrderService {
         List<OrderEntry> orderEntryList = new ArrayList<>();
 
         orderEntryListDTO.forEach(orderEntryDTO -> {
-            ResponseEntity<ProductDTO> productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntryDTO.getProductId()));
+            ResponseEntity<ProductDTO> productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntryDTO.getProductDTO().getCode()));
             OrderEntry orderEntry = new OrderEntry();
             orderEntry.setCreatedAt(LocalDateTime.now());
             orderEntry.setQuantity(orderEntryDTO.getQuantity());
             ProductDTO productDTO;
-            if(productDTOResponseEntity != null){
+            if(orderEntryDTO.getProductDTO().getCode() != null && productDTOResponseEntity != null){
                 productDTO =  productDTOResponseEntity.getBody();
                 orderEntry.setProductId(productDTO.getCode());
                 if(!productDTO.getPrice().equals(0.0)){
@@ -141,16 +143,19 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     public OrderEntryDTO mapToOrderEntryDTO(OrderEntry orderEntry){
-        ResponseEntity<ProductDTO> productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntry.getProductId()));
+        ResponseEntity<ProductDTO> productDTOResponseEntity = null;
         OrderEntryDTO orderEntryDTO = new OrderEntryDTO();
         orderEntryDTO.setId(orderEntry.getId());
         orderEntryDTO.setQuantity(orderEntry.getQuantity());
         ProductDTO productDTO= null;
-        if(productDTOResponseEntity != null){
-            productDTO =  productDTOResponseEntity.getBody();
-            orderEntryDTO.setPrice(productDTO.getPrice());
-            orderEntryDTO.setProductDTO(productDTO);
-            orderEntryDTO.setProductId(productDTO.getCode());
+        if(orderEntry.getProductId() != null){
+            productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntry.getProductId()));
+            if(productDTOResponseEntity != null){
+                productDTO =  productDTOResponseEntity.getBody();
+                orderEntryDTO.setPrice(productDTO.getPrice());
+                orderEntryDTO.setProductDTO(productDTO);
+                orderEntryDTO.setProductId(productDTO.getCode());
+            }
         }
         return orderEntryDTO;
     }

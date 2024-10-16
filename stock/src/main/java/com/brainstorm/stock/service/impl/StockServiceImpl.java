@@ -51,7 +51,7 @@ public class StockServiceImpl implements IStockService {
             PaymentEvent paymentEvent = new PaymentEvent();
             paymentEvent.setOrder(order);
             paymentEvent.setType("PAYMENT_REVERSED");
-            logger.info("Sending paymentEvent to Kafka Topic, Will be Consumed by Payment Service");
+            logger.info("Sending paymentEvent to Kafka Topic reverse-payment, Will be Consumed by Payment Service");
             messageProducer.sendMessage("reverse-payment", paymentEvent);
         }
     }
