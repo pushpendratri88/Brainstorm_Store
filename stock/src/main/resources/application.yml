@@ -24,7 +24,8 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: stocks_group
+      group-id: stocks_group,reverse_stocks_group
+
     producer:
       enabled: false
   cloud:

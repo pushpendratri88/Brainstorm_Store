@@ -24,7 +24,7 @@ public class ReverseOrderImpl implements IReverseOrder {
     private OrderRepository orderRepository;
 
     @Override
-    @KafkaListener(topics = "reverse-order", groupId = "orders_group")
+    @KafkaListener(topics = "reverse-order", groupId = "reverse_orders_group")
     public void reverseOrder(String event){
         try {
             OrderEvent orderEvent = new ObjectMapper().readValue(event, OrderEvent.class);

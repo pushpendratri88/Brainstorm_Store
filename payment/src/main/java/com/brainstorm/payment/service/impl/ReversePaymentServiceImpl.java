@@ -27,7 +27,7 @@ public class ReversePaymentServiceImpl implements IReversePaymentService {
     MassageProducer massageProducer;
 
     @Override
-    @KafkaListener(topics = "reverse-payment" , groupId = "payments_group")
+    @KafkaListener(topics = "reverse-payment" , groupId = "reverse_payments_group")
     public void reversePayment(String event) {
         System.out.println("Inside reverse payment for order "+event);
 

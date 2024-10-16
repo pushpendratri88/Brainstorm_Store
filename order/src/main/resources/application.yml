@@ -24,7 +24,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: orders_group
+      group-id: orders_group,reverse_orders_group
 
     producer:
       enabled: false

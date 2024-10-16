@@ -24,7 +24,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: payments_group
+      group-id: payments_group, reverse_payments_group
     producer:
       enabled: false
 #  config:

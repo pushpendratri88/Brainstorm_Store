@@ -124,16 +124,18 @@ public class OrderServiceImpl implements IOrderService {
         List<OrderEntry> orderEntryList = new ArrayList<>();
 
         orderEntryListDTO.forEach(orderEntryDTO -> {
-            ResponseEntity<ProductDTO> productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntryDTO.getProductDTO().getCode()));
-            OrderEntry orderEntry = new OrderEntry();
+                       OrderEntry orderEntry = new OrderEntry();
             orderEntry.setCreatedAt(LocalDateTime.now());
             orderEntry.setQuantity(orderEntryDTO.getQuantity());
             ProductDTO productDTO;
-            if(orderEntryDTO.getProductDTO().getCode() != null && productDTOResponseEntity != null){
-                productDTO =  productDTOResponseEntity.getBody();
-                orderEntry.setProductId(productDTO.getCode());
-                if(!productDTO.getPrice().equals(0.0)){
-                    orderEntry.setPrice(productDTO.getPrice() * orderEntryDTO.getQuantity());
+            if(orderEntryDTO.getProductDTO().getCode() != null){
+                ResponseEntity<ProductDTO> productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntryDTO.getProductDTO().getCode()));
+                if(productDTOResponseEntity.getBody() != null ){
+                    productDTO =  productDTOResponseEntity.getBody();
+                    orderEntry.setProductId(productDTO.getCode());
+                    if(!productDTO.getPrice().equals(0.0)){
+                        orderEntry.setPrice(productDTO.getPrice() * orderEntryDTO.getQuantity());
+                    }
                 }
             }
             OrderEntry orderEntryTr = orderEntryRepository.saveAndFlush(orderEntry);

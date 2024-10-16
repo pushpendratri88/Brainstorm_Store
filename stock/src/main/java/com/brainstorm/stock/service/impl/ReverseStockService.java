@@ -23,7 +23,7 @@ public class ReverseStockService implements IReverseStockService {
     @Autowired
     MessageProducer messageProducer;
     @Override
-    @KafkaListener(topics = "reverse-stock",groupId = "stocks_group")
+    @KafkaListener(topics = "reverse-stock",groupId = "reverse_stocks_group")
     public void reverseStock(String event) {
         try{
             DeliveryEvent deliveryEvent = new ObjectMapper().readValue(event, DeliveryEvent.class);
