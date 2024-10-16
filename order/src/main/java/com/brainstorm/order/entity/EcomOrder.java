@@ -34,7 +34,7 @@ public class EcomOrder extends BaseEntity{
     private double amount;
 
     @OneToMany
-    @JoinColumn(name = "orderEntry_fk")
+    @JoinColumn(name = "order_fk")
     private List<OrderEntry> orderEntryList;
 
 }
