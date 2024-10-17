@@ -33,7 +33,7 @@ public class PaymentServiceImpl implements IPaymentService {
                 PaymentEvent paymentEvent = new PaymentEvent();
                 paymentEvent.setOrder(order);
                 paymentEvent.setType("payment_Created");
-                logger.info("Sending PaymentEvent to Kafka Topic, Will be Consumed by Stock Service");
+                logger.info("Sending PaymentEvent to Kafka Topic payment, Will be Consumed by Stock Service");
                 massageProducer.sendMessage("payment",paymentEvent);
             }
         }

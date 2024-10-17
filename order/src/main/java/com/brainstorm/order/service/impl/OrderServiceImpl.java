@@ -78,7 +78,7 @@ public class OrderServiceImpl implements IOrderService {
             OrderEvent orderEvent = new OrderEvent();
             orderEvent.setOrder(mapToOrderDTO(ecomOrder));
             orderEvent.setType("Order_Created");
-            logger.info("Sending OrderEvent to Kafka Topic :: order to process the Payment service, Will be Consumed by Payment Service :: Order --> Payment");
+            logger.info("Sending OrderEvent to Kafka Topic order to process the Payment service, Will be Consumed by Payment Service :: Order --> Payment");
             producer.sendMessage("order", orderEvent);
         }
 

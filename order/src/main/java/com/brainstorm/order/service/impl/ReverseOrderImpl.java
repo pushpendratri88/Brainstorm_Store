@@ -1,5 +1,6 @@
 package com.brainstorm.order.service.impl;
 
+import com.brainstorm.order.config.ObjectMapperUtil;
 import com.brainstorm.order.dto.OrderEvent;
 
 import com.brainstorm.order.dto.OrderStatus;
@@ -27,7 +28,7 @@ public class ReverseOrderImpl implements IReverseOrder {
     @KafkaListener(topics = "reverse-order", groupId = "reverse_orders_group")
     public void reverseOrder(String event){
         try {
-            OrderEvent orderEvent = new ObjectMapper().readValue(event, OrderEvent.class);
+            OrderEvent orderEvent = ObjectMapperUtil.getMapper().readValue(event, OrderEvent.class);
             Optional<EcomOrder> opsOrder = orderRepository.findById(orderEvent.getOrder().getOrderId());
             opsOrder.ifPresent(order ->
             {
