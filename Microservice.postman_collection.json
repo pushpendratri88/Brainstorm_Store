@@ -28,14 +28,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"orderStatus\": \"CONFIRMED\",\r\n  \"customerId\": \"Cust1\",\r\n  \"orderEntriesDTO\": [\r\n    {\r\n      \"quantity\": 2,\r\n      \"price\": 150.00,\r\n      \"productId\":\"P3\"\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 50.00,\r\n      \"productId\":\"P4\"\r\n    },\r\n    {\r\n      \"quantity\": 3,\r\n      \"price\": 30.00,\r\n      \"productId\":\"P5\"\r\n    },\r\n    {\r\n      \"quantity\": 5,\r\n      \"price\": 20.00,\r\n      \"productId\":\"P6\"\r\n    },\r\n    {\r\n      \"quantity\": 4,\r\n      \"price\": 25.00,\r\n      \"productId\":\"P7\"\r\n    }\r\n  ]\r\n}\r\n",
+							"raw": "{\r\n  \"orderStatus\": \"CONFIRMED\",\r\n  \"customerId\": \"6b50785b-a38b-470c-9131-13d3f64e20cb\",\r\n  \"orderEntriesDTO\": [\r\n    {\r\n      \"quantity\": 2,\r\n      \"price\": 150.00,\r\n      \"productId\":\"56\"\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 50.00,\r\n      \"productId\":\"57\"\r\n    },\r\n    {\r\n      \"quantity\": 3,\r\n      \"price\": 30.00,\r\n      \"productId\":\"58\"\r\n    },\r\n    {\r\n      \"quantity\": 5,\r\n      \"price\": 20.00,\r\n      \"productId\":\"59\"\r\n    },\r\n    {\r\n      \"quantity\": 4,\r\n      \"price\": 25.00,\r\n      \"productId\":\"60\"\r\n    }\r\n  ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8090/api/orders/createOrder"
+						"url": "http://localhost:8081/api/orders/createOrder"
 					},
 					"response": []
 				},
@@ -491,10 +491,16 @@
 						{
 							"name": "Fetch_Order",
 							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": {
+										"addTokenTo": "header"
+									}
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8085/ecomorder/api/orders/fetchOrder?orderId=152",
+									"raw": "http://localhost:8085/ecomorder/api/orders/fetchOrder?orderId=653",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -509,7 +515,7 @@
 									"query": [
 										{
 											"key": "orderId",
-											"value": "152"
+											"value": "653"
 										}
 									]
 								}
@@ -535,7 +541,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"orderStatus\": \"CONFIRMED\",\r\n  \"customerId\": \"6b50785b-a38b-470c-9131-13d3f64e20cb\",\r\n  \"orderEntriesDTO\": [\r\n    {\r\n      \"quantity\": 2,\r\n      \"price\": 150.00,\r\n      \"productId\":\"53\"\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 50.00,\r\n      \"productId\":\"54\"\r\n    },\r\n    {\r\n      \"quantity\": 3,\r\n      \"price\": 30.00,\r\n      \"productId\":\"55\"\r\n    },\r\n    {\r\n      \"quantity\": 5,\r\n      \"price\": 20.00,\r\n      \"productId\":\"56\"\r\n    },\r\n    {\r\n      \"quantity\": 4,\r\n      \"price\": 25.00,\r\n      \"productId\":\"57\"\r\n    }\r\n  ]\r\n}\r\n",
+									"raw": "{\r\n  \"orderStatus\": \"CONFIRMED\",\r\n  \"customerId\": \"6b50785b-a38b-470c-9131-13d3f64e20cb\",\r\n  \"amount\": 500.75,\r\n  \"PaymentMode\": \"CREDIT_CARD\",\r\n  \"quantity\": 2,\r\n  \"orderEntriesDTO\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 250.00,\r\n      \"productId\": \"1\",\r\n      \"productDTO\": {\r\n        \"code\": \"1\",\r\n        \"name\": \"Wireless Mouse\",\r\n        \"category\": \"Electronics\",\r\n        \"price\": 250.00,\r\n        \"createdAt\": \"2024-10-16T10:00:00\"\r\n      }\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"price\": 250.75,\r\n      \"productId\": \"2\",\r\n      \"productDTO\": {\r\n        \"code\": \"2\",\r\n        \"name\": \"Mechanical Keyboard\",\r\n        \"category\": \"Electronics\",\r\n        \"price\": 250.75,\r\n        \"createdAt\": \"2024-10-16T11:00:00\"\r\n      }\r\n    }\r\n  ]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"

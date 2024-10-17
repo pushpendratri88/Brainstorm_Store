@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 8081
 spring:
   application:
     name: ecomOrder
@@ -24,7 +24,10 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: my-group-id
+      group-ids:
+        - orders_group
+        - reverse_orders_group
+
     producer:
       enabled: false
   config:
@@ -59,12 +62,6 @@ resilience4j:
         waitDurationInOpenState: 10000  # time in milliseconds
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
-customer:
-  service:
-    url: http://localhost:8080/api/customers
-product:
-  service:
-    url: http://localhost:8070/api/products
 
 management:
   endpoints:
@@ -81,6 +78,8 @@ management:
 endpoints:
   shutdown:
     enabled: true
+saga:
+  enabled: true
 
 info:
   app:

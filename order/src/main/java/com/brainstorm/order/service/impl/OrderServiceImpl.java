@@ -1,10 +1,7 @@
 package com.brainstorm.order.service.impl;
 
-import com.brainstorm.order.dto.CustomerDTO;
-import com.brainstorm.order.dto.OrderDTO;
+import com.brainstorm.order.dto.*;
 
-import com.brainstorm.order.dto.OrderEntryDTO;
-import com.brainstorm.order.dto.ProductDTO;
 import com.brainstorm.order.entity.EcomOrder;
 import com.brainstorm.order.entity.OrderEntry;
 import com.brainstorm.order.exception.ResourceNotFoundException;
@@ -28,6 +25,7 @@ import java.util.List;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
+
     @Autowired
     OrderRepository orderRepository;
 
@@ -43,6 +41,9 @@ public class OrderServiceImpl implements IOrderService {
     @Value("${spring.kafka.producer.enabled}")
     private String kafkaEnabled;
 
+    @Value("${saga.enabled}")
+    private String sagaPatternEnabled;
+
     @Autowired
     CustomerFeignClient customerFeignClient;
 
@@ -51,6 +52,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void createOrder(OrderDTO orderDTO) {
+        logger.info("CreateOrder method to create the order");
         EcomOrder ecomOrder =  mapToOrder(orderDTO);
         if(orderDTO != null && orderDTO.getCustomerId() != null){
             ResponseEntity<CustomerDTO> customerDTOResponseEntity = customerFeignClient.fetchCustomerDetails(orderDTO.getCustomerId());
@@ -59,25 +61,39 @@ public class OrderServiceImpl implements IOrderService {
                 ecomOrder.setCustomerId(customerDTO.getId());
             }
         }
-        orderRepository.saveAndFlush(ecomOrder);
-        ecomOrder.getOrderEntryList().forEach(orderEntryTr -> {
-            orderEntryTr.setOrder(ecomOrder);
-            orderEntryRepository.saveAndFlush(orderEntryTr);
-        });
+        ecomOrder.setOrderEntryList(mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
+        EcomOrder ecomOrderTr =orderRepository.saveAndFlush(ecomOrder);
+        logger.info("Save OrderEntry to DataBase OrderEntryId : {}", ecomOrderTr.getId());
+//        ecomOrder.getOrderEntryList().forEach(orderEntryTr -> {
+////            orderEntryTr.setOrder(ecomOrder);
+//            orderEntryRepository.saveAndFlush(orderEntryTr);
+//            logger.info("Save OrderEntry to DataBase OrderEntryId : {}", orderEntryTr.getId());
+//        });
 
         if(kafkaEnabled.equals("true")){
+            logger.info("Sending conformation message to Kafka");
             producer.sendMessage("order", "Order Id -> "+ecomOrder.getId() +" has been created and saved in DB ");
         }
+        if(sagaPatternEnabled.equals("true")){
+            OrderEvent orderEvent = new OrderEvent();
+            orderEvent.setOrder(mapToOrderDTO(ecomOrder));
+            orderEvent.setType("Order_Created");
+            logger.info("Sending OrderEvent to Kafka Topic order to process the Payment service, Will be Consumed by Payment Service :: Order --> Payment");
+            producer.sendMessage("order", orderEvent);
+        }
+
     }
 
     @Override
     public OrderDTO fetchOrder(Long orderId) {
+        logger.info("fetchOrder method to get the order {}",orderId);
         EcomOrder ecomOrder =  orderRepository.findById(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
-        return mapToOrderDTO(ecomOrder,new OrderDTO());
+        return mapToOrderDTO(ecomOrder);
     }
 
     @Override
     public void deleteOrder(Long orderId) {
+        logger.info("deleteOrder method to delete the order {}",orderId);
         EcomOrder ecomOrder =  orderRepository.findById(orderId).orElseThrow(() ->new ResourceNotFoundException("Order", "OrderId", String.valueOf(orderId)));
         orderRepository.delete(ecomOrder);
     }
@@ -86,12 +102,13 @@ public class OrderServiceImpl implements IOrderService {
         EcomOrder ecomOrder = new EcomOrder();
         ecomOrder.setStatus(orderDTO.getOrderStatus());
         ecomOrder.setCreatedAt(LocalDateTime.now());
-        ecomOrder.setOrderEntryList(mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
+//        ecomOrder.setOrderEntryList(mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
         return ecomOrder;
     }
 
-    public OrderDTO mapToOrderDTO(EcomOrder ecomOrder, OrderDTO orderDTO ){
+    public OrderDTO mapToOrderDTO(EcomOrder ecomOrder){
         ArrayList<OrderEntryDTO>  orderEntryDTOList = new ArrayList<>();
+        OrderDTO orderDTO = new OrderDTO();
         orderDTO.setOrderId(ecomOrder.getId());
         orderDTO.setOrderStatus(ecomOrder.getStatus());
         orderDTO.setCustomerId(ecomOrder.getCustomerId());
@@ -107,16 +124,18 @@ public class OrderServiceImpl implements IOrderService {
         List<OrderEntry> orderEntryList = new ArrayList<>();
 
         orderEntryListDTO.forEach(orderEntryDTO -> {
-            ResponseEntity<ProductDTO> productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntryDTO.getProductId()));
-            OrderEntry orderEntry = new OrderEntry();
+                       OrderEntry orderEntry = new OrderEntry();
             orderEntry.setCreatedAt(LocalDateTime.now());
             orderEntry.setQuantity(orderEntryDTO.getQuantity());
             ProductDTO productDTO;
-            if(productDTOResponseEntity != null){
-                productDTO =  productDTOResponseEntity.getBody();
-                orderEntry.setProductId(productDTO.getCode());
-                if(!productDTO.getPrice().equals(0.0)){
-                    orderEntry.setPrice(productDTO.getPrice() * orderEntryDTO.getQuantity());
+            if(orderEntryDTO.getProductDTO().getCode() != null){
+                ResponseEntity<ProductDTO> productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntryDTO.getProductDTO().getCode()));
+                if(productDTOResponseEntity.getBody() != null ){
+                    productDTO =  productDTOResponseEntity.getBody();
+                    orderEntry.setProductId(productDTO.getCode());
+                    if(!productDTO.getPrice().equals(0.0)){
+                        orderEntry.setPrice(productDTO.getPrice() * orderEntryDTO.getQuantity());
+                    }
                 }
             }
             OrderEntry orderEntryTr = orderEntryRepository.saveAndFlush(orderEntry);
@@ -126,16 +145,19 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     public OrderEntryDTO mapToOrderEntryDTO(OrderEntry orderEntry){
-        ResponseEntity<ProductDTO> productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntry.getProductId()));
+        ResponseEntity<ProductDTO> productDTOResponseEntity = null;
         OrderEntryDTO orderEntryDTO = new OrderEntryDTO();
         orderEntryDTO.setId(orderEntry.getId());
         orderEntryDTO.setQuantity(orderEntry.getQuantity());
         ProductDTO productDTO= null;
-        if(productDTOResponseEntity != null){
-            productDTO =  productDTOResponseEntity.getBody();
-            orderEntryDTO.setPrice(productDTO.getPrice() * orderEntry.getQuantity());
-            orderEntryDTO.setProductDTO(productDTO);
-            orderEntryDTO.setProductId(productDTO.getCode());
+        if(orderEntry.getProductId() != null){
+            productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntry.getProductId()));
+            if(productDTOResponseEntity != null){
+                productDTO =  productDTOResponseEntity.getBody();
+                orderEntryDTO.setPrice(productDTO.getPrice());
+                orderEntryDTO.setProductDTO(productDTO);
+                orderEntryDTO.setProductId(productDTO.getCode());
+            }
         }
         return orderEntryDTO;
     }
