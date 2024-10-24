@@ -15,11 +15,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.List;
+
+@Controller
 @RequestMapping(value = "/api/customers",produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
 public class CustomerController {
@@ -50,29 +53,41 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/create")
+    @ResponseBody
     public ResponseEntity<ResponseDTO> createCustomer(@Valid @RequestBody CustomerDTO customerDTO){
         customerService.createNewCustomer(customerDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO(CustomerConstants.STATUS_201, CustomerConstants.MESSAGE_201));
     }
 
+    @GetMapping(value = "/fetchAllCustomers")
+    @ResponseBody
+    public ResponseEntity<List<CustomerDTO>> fetchAllCustomers(){
+        List<CustomerDTO> customerDTOList = customerService.fetchAllCustomers();
+        return ResponseEntity.status(HttpStatus.OK).body(customerDTOList);
+    }
+
     @GetMapping(value = "/fetchCustomerDetails")
+    @ResponseBody
     public ResponseEntity<CustomerDTO> fetchCustomerDetails(@RequestParam String input){
         CustomerDTO customerDTO = customerService.fetchCustomerDetails(input);
         return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
     }
 
     @GetMapping(value = "/fetchCustomerDetailsWithEmail")
+    @ResponseBody
     public ResponseEntity<CustomerDTO> fetchCustomerDetailsWithMobileAndEmail(@RequestParam Long mobileNumber, String email){
         CustomerDTO customerDTO = customerService.fetchCustomerDetailsWithEmail(mobileNumber,email);
         return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
     }
     @PostMapping(value = "/update")
+    @ResponseBody
     public ResponseEntity<ResponseDTO> updateCustomer(@RequestBody CustomerDTO customerDTO){
         customerService.updateCustomer(customerDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(CustomerConstants.STATUS_201, "Customer is updated successfully"));
     }
 
     @PostMapping(value = "/remove")
+    @ResponseBody
     public ResponseEntity<ResponseDTO> removeCustomer(@RequestParam Long mobileNumber){
         customerService.removeCustomer(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(CustomerConstants.STATUS_201, "Customer is removed successfully"));
@@ -80,18 +95,21 @@ public class CustomerController {
 
 
     @GetMapping("/build-info")
+    @ResponseBody
     public ResponseEntity<String> getBuildInfo() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(buildVersion);
     }
     @GetMapping("/java-version")
+    @ResponseBody
     public ResponseEntity<String> getJavaVersion() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("JAVA_HOME"));
     }
     @GetMapping("/contact-info")
+    @ResponseBody
     public ResponseEntity<CustomerContactInfoDto> getContactInfo() {
         return ResponseEntity
                 .status(HttpStatus.OK)

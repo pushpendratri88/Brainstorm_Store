@@ -17,9 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
@@ -42,6 +40,16 @@ public class CustomerServiceImpl implements ICustomerService {
     @Autowired
     MessageProducer producer;
 
+    @Override
+    public List<CustomerDTO> fetchAllCustomers() {
+        List<Customer> customerList = customerRepository.findAll();
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+        customerList.forEach(customer ->
+        {
+            customerDTOList.add(CustomerMapper.mapToCustomerDTO(customer,new CustomerDTO()));;
+        });
+        return customerDTOList;
+    }
 
     @Override
     public CustomerDTO fetchCustomerDetails(String input) {

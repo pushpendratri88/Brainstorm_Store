@@ -1,8 +1,12 @@
 server:
   port: 8096
+logging:
+  pattern:
+    console : ${LOGPATTERN_CONSOLE:%green(%d{YYYY-MM-dd HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
+
 spring:
   application:
-    name: stock
+    name: ${SPRING_APP_NAME:stock}
   datasource:
     username: root
     password: Sports@123
