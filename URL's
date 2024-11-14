@@ -1,0 +1,6 @@
+#Swagger
+Product Swagger API
+http://localhost:8070/swagger-ui/index.html
+
+Customer Swagger API
+http://localhost:8080/swagger-ui/index.html#/
