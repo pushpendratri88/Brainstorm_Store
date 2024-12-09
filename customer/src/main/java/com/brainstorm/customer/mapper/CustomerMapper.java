@@ -27,6 +27,8 @@ public class CustomerMapper {
         customer.setName(customerDTO.getName());
         customer.setCreatedAt(LocalDateTime.now());
         customer.setMobileNumber(customerDTO.getMobileNumber());
+        customer.setCreatedBy(customerDTO.getCreatedBy());
+
         return customer;
     }
 

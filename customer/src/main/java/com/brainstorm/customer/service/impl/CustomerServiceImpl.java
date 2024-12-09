@@ -11,6 +11,7 @@ import com.brainstorm.customer.mapper.AddressMapper;
 import com.brainstorm.customer.mapper.CustomerMapper;
 import com.brainstorm.customer.repository.AddressRepository;
 import com.brainstorm.customer.repository.CustomerRepository;
+import com.brainstorm.customer.service.IAddressService;
 import com.brainstorm.customer.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +30,9 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Autowired
     AddressRepository addressRepository;
+
+    @Autowired
+    IAddressService addressService;
 
     @Autowired
     private S3Service s3Service;
@@ -66,28 +70,24 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public void createNewCustomer(CustomerDTO customerDTO) {
         Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customerDTO.getMobileNumber());
-        Set<Address> customerAddress = new HashSet<>();
         if(optionalCustomer.isPresent()){
             throw new CustomerAlreadyExistsException("Customer already registered with given mobileNumber "
                     +customerDTO.getMobileNumber());
         }else {
             Customer customerEntity = CustomerMapper.mapToCustomer(customerDTO, new Customer());
-            if(customerDTO.getCustomerAddress() != null){
-                customerEntity.setAddresses(getAddressForCustomer(customerDTO.getCustomerAddress()));
-
-                if(!customerEntity.getAddresses().isEmpty()){
-                    customerEntity.getAddresses().forEach(address -> {
-                        Optional<Address> optionalAddress = addressRepository.findByAddressId(address.getAddressId());
-                        if(optionalAddress.isPresent()){
-                            customerAddress.add(address);
-                        }
-                        else {
-                            addressRepository.save(address);
-                            customerAddress.add(address);
-                        }
-                    });
-                    customerEntity.setAddresses(customerAddress);
+            if(!customerDTO.getAddressIds().isEmpty()){
+                Optional<Set<Address>> uniqueAddress = addressRepository.findByAddressIds(customerDTO.getAddressIds());
+                if(uniqueAddress.isPresent()){
+                    customerEntity.setAddresses(uniqueAddress.get());
                 }
+            }
+            else if(!customerDTO.getCustomerAddress().isEmpty()){
+                Set<Address> newAddressList = new HashSet<>();
+                customerDTO.getCustomerAddress().forEach(newAddDTO -> {
+                    Address address = addressService.createNewAddress(newAddDTO);
+                    newAddressList.add(address);
+                });
+                customerEntity.setAddresses(newAddressList);
             }
             if(cloudS3AccessEnabled.equals("true")){
                 String fileUrl = "";
