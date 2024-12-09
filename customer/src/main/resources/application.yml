@@ -20,7 +20,7 @@ spring:
     consumer:
       group-id: my-group-id
     producer:
-      enabled: true
+      enabled: false
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html

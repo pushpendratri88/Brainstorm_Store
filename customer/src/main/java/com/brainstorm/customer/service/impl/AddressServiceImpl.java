@@ -35,7 +35,7 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
-    public void createNewAddress(AddressDTO addressDTO) {
+    public Address createNewAddress(AddressDTO addressDTO) {
        Optional<Address> optionalAddress =  addressRepository.findByAddressId(addressDTO.getAddressId());
        if(optionalAddress.isPresent()){
            throw new AddressAlreadyExistsException("Address already registered with given addressId "
@@ -43,8 +43,7 @@ public class AddressServiceImpl implements IAddressService {
        }
        else {
            Address newAddress = AddressMapper.mapToAddress(addressDTO);
-           newAddress.setCustomers(getCustomers(addressDTO));
-           addressRepository.save(newAddress);
+          return  addressRepository.save(newAddress);
        }
     }
 
@@ -62,21 +61,21 @@ public class AddressServiceImpl implements IAddressService {
        return updatedAddress;
     }
 
-    private  Set<Customer> getCustomers(AddressDTO addDTO) {
-        Set<Customer> customers =  new HashSet<>();
-        if(addDTO.getCustomers() != null){
-            addDTO.getCustomers().forEach(customer -> {
-                Optional<Customer> optionalCustomer = customerRepository.findByCustomerId(customer.getId());
-                if(optionalCustomer.isPresent()){
-                    customers.add(optionalCustomer.get());
-                }
-                else{
-                    Customer customerEntity  =  CustomerMapper.mapToCustomer(customer , new Customer());
-                    Customer newCust = customerRepository.save(customerEntity);
-                    customers.add(newCust);
-                }
-            });
-        }
-        return  customers;
-    }
+//    private  Set<Customer> getCustomers(AddressDTO addDTO) {
+//        Set<Customer> customers =  new HashSet<>();
+//        if(addDTO.getCustomers() != null){
+//            addDTO.getCustomers().forEach(customer -> {
+//                Optional<Customer> optionalCustomer = customerRepository.findByCustomerId(customer.getId());
+//                if(optionalCustomer.isPresent()){
+//                    customers.add(optionalCustomer.get());
+//                }
+//                else{
+//                    Customer customerEntity  =  CustomerMapper.mapToCustomer(customer , new Customer());
+//                    Customer newCust = customerRepository.save(customerEntity);
+//                    customers.add(newCust);
+//                }
+//            });
+//        }
+//        return  customers;
+//    }
 }

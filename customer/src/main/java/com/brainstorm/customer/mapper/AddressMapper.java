@@ -12,6 +12,7 @@ public class AddressMapper {
         address.setState(addDTO.getState());
         address.setCountry(addDTO.getCountry());
         address.setZipCode(addDTO.getZipCode());
+        address.setCreatedAt(addDTO.getCreatedAt());
         return address;
     }
 
@@ -22,6 +23,7 @@ public class AddressMapper {
         addressDTO.setCountry(address.getCountry());
         addressDTO.setState(address.getState());
         addressDTO.setZipCode(address.getZipCode());
+        addressDTO.setCreatedAt(address.getCreatedAt());
         return addressDTO;
     }
 }

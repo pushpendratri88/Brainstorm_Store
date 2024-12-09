@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -21,6 +22,5 @@ public class Address extends BaseEntity{
     private String state;
     private String country;
     private String zipCode;
-    @ManyToMany(mappedBy = "addresses")
-    private Set<Customer> customers;
+    private LocalDateTime createdAt;
 }

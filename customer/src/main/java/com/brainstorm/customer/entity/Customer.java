@@ -24,11 +24,11 @@ public class Customer extends BaseEntity{
     private String email;
     @Column(name = "mobile_number")
     private Long mobileNumber;
+    @Column(name = "createdBy")
+    private String createdBy;
     @Column(name = "photo")
     private String photo;
-    @ManyToMany
-    @JoinTable(name="customer_address", joinColumns = @JoinColumn(name="customer_id", referencedColumnName = "customer_id"),
-    inverseJoinColumns = @JoinColumn(name = "address_id", referencedColumnName = "address_id")
-    )
+    @OneToMany
+    @JoinColumn(name = "addressId_fk")
     private Set<Address> addresses;
 }
