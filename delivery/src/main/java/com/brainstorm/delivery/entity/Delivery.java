@@ -15,13 +15,10 @@ public class Delivery {
     @Id
     @GeneratedValue
     private Long id;
-
     @Column
     private String address;
-
     @Column
     private String status;
-
     @Column
     private long orderId;
 

@@ -64,12 +64,6 @@ public class OrderServiceImpl implements IOrderService {
         ecomOrder.setOrderEntryList(mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
         EcomOrder ecomOrderTr =orderRepository.saveAndFlush(ecomOrder);
         logger.info("Save OrderEntry to DataBase OrderEntryId : {}", ecomOrderTr.getId());
-//        ecomOrder.getOrderEntryList().forEach(orderEntryTr -> {
-////            orderEntryTr.setOrder(ecomOrder);
-//            orderEntryRepository.saveAndFlush(orderEntryTr);
-//            logger.info("Save OrderEntry to DataBase OrderEntryId : {}", orderEntryTr.getId());
-//        });
-
         if(kafkaEnabled.equals("true")){
             logger.info("Sending conformation message to Kafka");
             producer.sendMessage("order", "Order Id -> "+ecomOrder.getId() +" has been created and saved in DB ");
@@ -102,7 +96,6 @@ public class OrderServiceImpl implements IOrderService {
         EcomOrder ecomOrder = new EcomOrder();
         ecomOrder.setStatus(orderDTO.getOrderStatus());
         ecomOrder.setCreatedAt(LocalDateTime.now());
-//        ecomOrder.setOrderEntryList(mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
         return ecomOrder;
     }
 
