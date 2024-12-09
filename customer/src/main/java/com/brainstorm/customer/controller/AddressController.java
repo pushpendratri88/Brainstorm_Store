@@ -29,13 +29,13 @@ public class AddressController {
     }
 
     @GetMapping(value = "/fetchAddress")
-    public ResponseEntity<AddressDTO> fetchCustomerDetails(@RequestParam Long addressId){
+    public ResponseEntity<AddressDTO> fetchAddressDetails(@RequestParam Long addressId){
         AddressDTO addressDTO = addressService.fetchAddress(addressId);
         return ResponseEntity.status(HttpStatus.OK).body(addressDTO);
     }
 
-    @PostMapping(value = "/updateAddress")
-    public ResponseEntity<ResponseDTO> updateCustomer(@Valid @RequestBody AddressDTO addressDTO){
+    @PutMapping(value = "/updateAddress")
+    public ResponseEntity<ResponseDTO> updateAddress(@Valid @RequestBody AddressDTO addressDTO){
         addressService.updateAddress(addressDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(CustomerConstants.STATUS_201, "Address is updated successfully"));
     }

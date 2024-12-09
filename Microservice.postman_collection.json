@@ -654,7 +654,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"name\": \"Vipin Tri\",\r\n  \"email\": \"vipin.tri@example.com\",\r\n  \"mobileNumber\": \"1234563223\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"addressIds\": [],\r\n    \"customerAddress\": [\r\n    {\r\n      \"id\": 101,\r\n      \"street\": \"123 Main Street\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10001\",\r\n      \"country\": \"USA\",\r\n      \"createdAt\": \"2024-12-09T13:40:00\"\r\n    },\r\n    {\r\n      \"id\": 102,\r\n      \"street\": \"456 Elm Street\",\r\n      \"city\": \"San Francisco\",\r\n      \"state\": \"CA\",\r\n      \"zipCode\": \"94101\",\r\n      \"country\": \"USA\",\r\n      \"createdAt\": \"2024-12-09T13:40:00\"\r\n    }\r\n  ]\r\n}\r\n",
+									"raw": "{\r\n  \"name\": \"Deepali Tri\",\r\n  \"email\": \"deepali.tri@example.com\",\r\n  \"mobileNumber\": \"1234565623\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"addressIds\": [],\r\n    \"customerAddress\": [\r\n    {\r\n      \"id\": 101,\r\n      \"street\": \"123 Main Street\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10001\",\r\n      \"country\": \"USA\",\r\n      \"createdAt\": \"2024-12-09T13:40:00\"\r\n    },\r\n    {\r\n      \"id\": 102,\r\n      \"street\": \"456 Elm Street\",\r\n      \"city\": \"San Francisco\",\r\n      \"state\": \"CA\",\r\n      \"zipCode\": \"94101\",\r\n      \"country\": \"USA\",\r\n      \"createdAt\": \"2024-12-09T13:40:00\"\r\n    }\r\n  ]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -852,6 +852,34 @@
 								"method": "GET",
 								"header": [],
 								"url": "http://localhost:8085/customer/api/customers/contact-info"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch_Address",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/customer/api/address/fetchAddress?addressId=1552",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"customer",
+										"api",
+										"address",
+										"fetchAddress"
+									],
+									"query": [
+										{
+											"key": "addressId",
+											"value": "1552"
+										}
+									]
+								}
 							},
 							"response": []
 						}

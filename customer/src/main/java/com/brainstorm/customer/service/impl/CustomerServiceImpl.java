@@ -15,6 +15,9 @@ import com.brainstorm.customer.service.IAddressService;
 import com.brainstorm.customer.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -48,6 +51,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 
     @Override
+    @Cacheable(value = "customers", key = "#input")
     public CustomerDTO fetchCustomerDetails(String input) {
         Customer customer = null;
         if(String.valueOf(input).length() == MOBILE_NO){
@@ -62,6 +66,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
+    @Cacheable(value = "customers", key = "#mobileNumber + '-' + #email")
     public CustomerDTO fetchCustomerDetailsWithEmail(Long mobileNumber, String email) {
         Customer customer = customerRepository.findByMobileNumberAndEmail(mobileNumber,email).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber & Email ", mobileNumber +"&" +email));
         return CustomerMapper.mapToCustomerDTO(customer,new CustomerDTO());
@@ -110,6 +115,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
+    @CachePut(value = "customers", key = "#customerDTO.mobileNumber")
     public void updateCustomer(CustomerDTO customerDTO) {
         Optional<Customer> optionalCustomer =  customerRepository.findByMobileNumber(customerDTO.getMobileNumber());
         if(optionalCustomer.isEmpty()){
@@ -120,24 +126,9 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
+    @CacheEvict(value = "customers", key = "#mobileNumber")
     public void removeCustomer(Long mobileNumber) {
         Optional<Customer> optionalCustomer =  customerRepository.findByMobileNumber(mobileNumber);
         optionalCustomer.ifPresent(customer -> customerRepository.delete(customer));
-    }
-
-    private  Set<Address> getAddressForCustomer(Set<AddressDTO> customerAddress) {
-        Set<Address> addressList = new HashSet<>();
-        customerAddress.forEach(addressDTO -> {
-            //check if address exist
-            Optional<Address> optionalAddress = addressRepository.findByAddressId(addressDTO.getAddressId());
-            if(optionalAddress.isPresent()){
-                addressList.add(optionalAddress.get());
-            }
-            else{
-                Address address = AddressMapper.mapToAddress(addressDTO);
-                addressList.add(address);
-            }
-        });
-        return addressList;
     }
 }
