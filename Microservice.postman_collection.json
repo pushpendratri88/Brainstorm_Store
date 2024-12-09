@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1311debe-519d-432b-aa77-1424c7844bc9",
+		"_postman_id": "820ccd23-81ce-48fd-afb8-86d2f56f6e42",
 		"name": "Microservice",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "1100077"
@@ -145,10 +145,33 @@
 				{
 					"name": "Fetch_Customer",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "brainstorm",
+								"password": "12345"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/customers/fetchAllCustomers"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch_Customer_With_MobileNo_Or_Email",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "brainstorm",
+								"password": "12345"
+							}
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/customers/fetchCustomerDetails?input=1234563333",
+							"raw": "http://localhost:8080/api/customers/fetchCustomerDetailsWithEmail?mobileNumber=1234562222&email=john.doe@example.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -157,12 +180,16 @@
 							"path": [
 								"api",
 								"customers",
-								"fetchCustomerDetails"
+								"fetchCustomerDetailsWithEmail"
 							],
 							"query": [
 								{
-									"key": "input",
-									"value": "1234563333"
+									"key": "mobileNumber",
+									"value": "1234562222"
+								},
+								{
+									"key": "email",
+									"value": "john.doe@example.com"
 								}
 							]
 						}
@@ -170,12 +197,19 @@
 					"response": []
 				},
 				{
-					"name": "Fetch_Customer_With_Email",
+					"name": "Fetch_Customer_With_No_And_Email",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "brainstorm",
+								"password": "12345"
+							}
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/fetchCustomerDetailsWithEmail?mobileNumber=1234562222&email=john.doe@example.com",
+							"raw": "http://localhost:8080/api/customers/fetchCustomerDetailsWithEmail?mobileNumber=1234562222&email=john.doe@example.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -183,6 +217,7 @@
 							"port": "8080",
 							"path": [
 								"api",
+								"customers",
 								"fetchCustomerDetailsWithEmail"
 							],
 							"query": [
@@ -305,7 +340,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/build-info"
+						"url": "http://localhost:8080/api/customers/build-info"
 					},
 					"response": []
 				},
@@ -314,7 +349,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/java-version"
+						"url": "http://localhost:8080/api/customers/java-version"
 					},
 					"response": []
 				},
@@ -323,7 +358,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/contact-info"
+						"url": "http://localhost:8080/api/customers/contact-info"
 					},
 					"response": []
 				}
@@ -619,7 +654,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"123\",\r\n  \"name\": \"push Doe\",\r\n  \"email\": \"push.doe@example.com\",\r\n  \"mobileNumber\": \"1234563333\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"customerAddress\": [\r\n    {\r\n      \"addressId\": 1,\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    },\r\n    {\r\n      \"addressId\": 2,\r\n      \"street\": \"456 Elm St\",\r\n      \"city\": \"Springfield\",\r\n      \"state\": \"IL\",\r\n      \"zipcode\": \"62701\"\r\n    }\r\n  ]\r\n}\r\n",
+									"raw": "{\r\n  \"name\": \"Vipin Tri\",\r\n  \"email\": \"vipin.tri@example.com\",\r\n  \"mobileNumber\": \"1234563223\",\r\n  \"createdAt\": \"2024-06-27T14:53:00\",\r\n  \"createdBy\": \"Admin\",\r\n  \"addressIds\": [],\r\n    \"customerAddress\": [\r\n    {\r\n      \"id\": 101,\r\n      \"street\": \"123 Main Street\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10001\",\r\n      \"country\": \"USA\",\r\n      \"createdAt\": \"2024-12-09T13:40:00\"\r\n    },\r\n    {\r\n      \"id\": 102,\r\n      \"street\": \"456 Elm Street\",\r\n      \"city\": \"San Francisco\",\r\n      \"state\": \"CA\",\r\n      \"zipCode\": \"94101\",\r\n      \"country\": \"USA\",\r\n      \"createdAt\": \"2024-12-09T13:40:00\"\r\n    }\r\n  ]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -743,7 +778,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"street\": \"123 Main St\",\r\n  \"city\": \"Springfield\",\r\n  \"state\": \"IL\",\r\n  \"country\": \"USA\",\r\n  \"zipCode\": \"62701\",\r\n  \"customers\": [\r\n    {\r\n      \"id\": \"Cust1\",\r\n      \"name\": \"John Doe\",\r\n      \"email\": \"john.doe@example.com\",\r\n      \"mobileNumber\": \"1234567890\",\r\n      \"createdAt\": \"2023-06-27T12:00:00\",\r\n      \"createdBy\": \"system\",\r\n      \"customerAddress\": []\r\n    },\r\n    {\r\n      \"id\": \"Cust2\",\r\n      \"name\": \"Jane Smith\",\r\n      \"email\": \"jane.smith@example.com\",\r\n      \"mobileNumber\": \"0987654321\",\r\n      \"createdAt\": \"2023-06-27T12:00:00\",\r\n      \"createdBy\": \"system\",\r\n      \"customerAddress\": []\r\n    }\r\n  ]\r\n}\r\n",
+									"raw": "{\r\n  \"street\": \"987 Main St\",\r\n  \"city\": \"Summerfield\",\r\n  \"state\": \"IL\",\r\n  \"country\": \"USA\",\r\n  \"zipCode\": \"62701\",\r\n  \"createdAt\": \"2024-12-09T13:40:00\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
