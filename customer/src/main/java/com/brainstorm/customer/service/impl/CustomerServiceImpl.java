@@ -1,18 +1,17 @@
 package com.brainstorm.customer.service.impl;
 
-import com.brainstorm.customer.dto.AddressDTO;
 import com.brainstorm.customer.dto.CustomerDTO;
 import com.brainstorm.customer.entity.Address;
 import com.brainstorm.customer.entity.Customer;
 import com.brainstorm.customer.exception.CustomerAlreadyExistsException;
 import com.brainstorm.customer.exception.ResourceNotFoundException;
 import com.brainstorm.customer.kafka.producer.MessageProducer;
-import com.brainstorm.customer.mapper.AddressMapper;
 import com.brainstorm.customer.mapper.CustomerMapper;
 import com.brainstorm.customer.repository.AddressRepository;
 import com.brainstorm.customer.repository.CustomerRepository;
 import com.brainstorm.customer.service.IAddressService;
 import com.brainstorm.customer.service.ICustomerService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
@@ -73,6 +72,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
+    @Transactional
     public void createNewCustomer(CustomerDTO customerDTO) {
         Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customerDTO.getMobileNumber());
         if(optionalCustomer.isPresent()){
@@ -116,8 +116,9 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     @CachePut(value = "customers", key = "#customerDTO.mobileNumber")
+    @Transactional
     public void updateCustomer(CustomerDTO customerDTO) {
-        Optional<Customer> optionalCustomer =  customerRepository.findByMobileNumber(customerDTO.getMobileNumber());
+        Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customerDTO.getMobileNumber());
         if(optionalCustomer.isEmpty()){
             throw new ResourceNotFoundException("Customer not registered", "CustomerEntity", String.valueOf(customerDTO.getMobileNumber()));
         }
@@ -127,6 +128,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     @CacheEvict(value = "customers", key = "#mobileNumber")
+    @Transactional
     public void removeCustomer(Long mobileNumber) {
         Optional<Customer> optionalCustomer =  customerRepository.findByMobileNumber(mobileNumber);
         optionalCustomer.ifPresent(customer -> customerRepository.delete(customer));
