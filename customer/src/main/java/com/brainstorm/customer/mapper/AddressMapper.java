@@ -24,6 +24,7 @@ public class AddressMapper {
         addressDTO.setState(address.getState());
         addressDTO.setZipCode(address.getZipCode());
         addressDTO.setCreatedAt(address.getCreatedAt());
+        addressDTO.setStreet(address.getStreet());
         return addressDTO;
     }
 }

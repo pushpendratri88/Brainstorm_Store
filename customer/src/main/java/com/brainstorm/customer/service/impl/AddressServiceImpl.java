@@ -14,6 +14,8 @@ import com.brainstorm.customer.service.IAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -57,25 +59,13 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     private Address setUpdatedAddress(AddressDTO addressDTO) {
-       Address updatedAddress =  AddressMapper.mapToAddress(addressDTO);
-       return updatedAddress;
+       Optional<Address> OptionalUpdatedAddress =  addressRepository.findByAddressId(addressDTO.getAddressId());
+        Address addressUpdated = OptionalUpdatedAddress.get();
+        addressUpdated.setCreatedAt(LocalDateTime.now());
+        addressUpdated.setStreet(addressDTO.getStreet());
+        addressUpdated.setCountry(addressDTO.getCountry());
+        addressUpdated.setCity(addressDTO.getCity());
+        addressUpdated.setZipCode(addressDTO.getZipCode());
+       return addressRepository.save(addressUpdated);
     }
-
-//    private  Set<Customer> getCustomers(AddressDTO addDTO) {
-//        Set<Customer> customers =  new HashSet<>();
-//        if(addDTO.getCustomers() != null){
-//            addDTO.getCustomers().forEach(customer -> {
-//                Optional<Customer> optionalCustomer = customerRepository.findByCustomerId(customer.getId());
-//                if(optionalCustomer.isPresent()){
-//                    customers.add(optionalCustomer.get());
-//                }
-//                else{
-//                    Customer customerEntity  =  CustomerMapper.mapToCustomer(customer , new Customer());
-//                    Customer newCust = customerRepository.save(customerEntity);
-//                    customers.add(newCust);
-//                }
-//            });
-//        }
-//        return  customers;
-//    }
 }
