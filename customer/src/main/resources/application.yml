@@ -10,7 +10,7 @@ spring:
     type: redis
     redis:
       cache-null-values: true
-      time-to-live: 60000
+      time-to-live: 360000
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: Sports@123
