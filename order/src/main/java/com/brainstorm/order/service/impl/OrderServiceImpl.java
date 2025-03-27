@@ -54,7 +54,7 @@ public class OrderServiceImpl implements IOrderService {
     public void createOrder(OrderDTO orderDTO) {
         logger.info("CreateOrder method to create the order");
         EcomOrder ecomOrder =  mapToOrder(orderDTO);
-        if(orderDTO != null && orderDTO.getCustomerId() != null){
+        if(orderDTO.getCustomerId() != null){
             ResponseEntity<CustomerDTO> customerDTOResponseEntity = customerFeignClient.fetchCustomerDetails(orderDTO.getCustomerId());
             if(customerDTOResponseEntity != null){
                 CustomerDTO customerDTO = customerFeignClient.fetchCustomerDetails(orderDTO.getCustomerId()).getBody();

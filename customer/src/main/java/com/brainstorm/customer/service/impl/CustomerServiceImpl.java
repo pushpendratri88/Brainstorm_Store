@@ -82,9 +82,7 @@ public class CustomerServiceImpl implements ICustomerService {
             Customer customerEntity = CustomerMapper.mapToCustomer(customerDTO, new Customer());
             if(!customerDTO.getAddressIds().isEmpty()){
                 Optional<Set<Address>> uniqueAddress = addressRepository.findByAddressIds(customerDTO.getAddressIds());
-                if(uniqueAddress.isPresent()){
-                    customerEntity.setAddresses(uniqueAddress.get());
-                }
+                uniqueAddress.ifPresent(customerEntity::setAddresses);
             }
             else if(!customerDTO.getCustomerAddress().isEmpty()){
                 Set<Address> newAddressList = new HashSet<>();

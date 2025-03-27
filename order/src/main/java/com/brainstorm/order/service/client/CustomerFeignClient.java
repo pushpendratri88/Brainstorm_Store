@@ -15,5 +15,4 @@ public interface CustomerFeignClient {
 
     @GetMapping(value = "/api/customers/fetchCustomerDetailsWithEmail")
     ResponseEntity<CustomerDTO> fetchCustomerDetailsWithMobileAndEmail(@RequestParam Long mobileNumber, String email);
-
 }
