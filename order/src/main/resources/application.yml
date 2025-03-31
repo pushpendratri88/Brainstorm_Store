@@ -41,6 +41,7 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
+
 eureka:
   client:
     enabled: true
