@@ -1,5 +1,9 @@
 package com.brainstorm.order.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,11 +14,20 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDTO {
+    @NotNull
+    @Positive
     private Long orderId;
+    @NotNull
     private OrderStatus orderStatus;
+    @NotEmpty
     private String customerId;
+    @NotNull
+    @Positive
     private double amount;
-    private String PaymentMode;
+    @NotEmpty
+    private String paymentMode;
+    @Positive
     private int quantity;
+    @NotEmpty
     private List<OrderEntryDTO> orderEntriesDTO;
 }

@@ -11,12 +11,14 @@ import com.brainstorm.order.repository.OrderRepository;
 import com.brainstorm.order.service.IOrderService;
 import com.brainstorm.order.service.client.CustomerFeignClient;
 import com.brainstorm.order.service.client.ProductFeignClient;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import utils.AESUtil;
 
 
 import java.time.LocalDateTime;
@@ -51,22 +53,36 @@ public class OrderServiceImpl implements IOrderService {
 
 
     @Override
+    @Transactional
     public void createOrder(OrderDTO orderDTO) {
         logger.info("CreateOrder method to create the order");
         EcomOrder ecomOrder =  mapToOrder(orderDTO);
-        if(orderDTO.getCustomerId() != null){
-            ResponseEntity<CustomerDTO> customerDTOResponseEntity = customerFeignClient.fetchCustomerDetails(orderDTO.getCustomerId());
-            if(customerDTOResponseEntity != null){
-                CustomerDTO customerDTO = customerFeignClient.fetchCustomerDetails(orderDTO.getCustomerId()).getBody();
-                ecomOrder.setCustomerId(customerDTO.getId());
+        if(orderDTO.getCustomerId() != null) {
+            try {
+                ResponseEntity<CustomerDTO> customerDTOResponseEntity = customerFeignClient.fetchCustomerDetails(orderDTO.getCustomerId());
+                if (customerDTOResponseEntity != null && customerDTOResponseEntity.getStatusCode().is2xxSuccessful()) {
+                    CustomerDTO customerDTO = customerDTOResponseEntity.getBody();
+                    if (customerDTO != null) {
+                        ecomOrder.setCustomerId(customerDTO.getId());
+                    }
+                }
+            } catch (Exception e){
+                logger.error("Error fetching customer details for ID: {}", orderDTO.getCustomerId(), e);
+                throw new SecurityException("Unauthorized access or invalid customer ID.");
             }
         }
         ecomOrder.setOrderEntryList(mapToOrderEntry(orderDTO.getOrderEntriesDTO()));
         EcomOrder ecomOrderTr =orderRepository.saveAndFlush(ecomOrder);
         logger.info("Save OrderEntry to DataBase OrderEntryId : {}", ecomOrderTr.getId());
         if(kafkaEnabled.equals("true")){
+            String encryptedEvent;
+            try {
+                encryptedEvent = AESUtil.encrypt("Order Id -> " + ecomOrder.getId() + " has been created and saved in DB");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             logger.info("Sending conformation message to Kafka");
-            producer.sendMessage("order", "Order Id -> "+ecomOrder.getId() +" has been created and saved in DB ");
+            producer.sendMessage("order", encryptedEvent);
         }
         if(sagaPatternEnabled.equals("true")){
             OrderEvent orderEvent = new OrderEvent();
@@ -121,9 +137,9 @@ public class OrderServiceImpl implements IOrderService {
             orderEntry.setCreatedAt(LocalDateTime.now());
             orderEntry.setQuantity(orderEntryDTO.getQuantity());
             ProductDTO productDTO;
-            if(orderEntryDTO.getProductDTO().getCode() != null){
+            if(orderEntryDTO.getProductDTO() != null && orderEntryDTO.getProductDTO().getCode() != null){
                 ResponseEntity<ProductDTO> productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntryDTO.getProductDTO().getCode()));
-                if(productDTOResponseEntity.getBody() != null ){
+                if(productDTOResponseEntity != null && productDTOResponseEntity.getBody() != null ){
                     productDTO =  productDTOResponseEntity.getBody();
                     orderEntry.setProductId(productDTO.getCode());
                     if(!productDTO.getPrice().equals(0.0)){
@@ -138,18 +154,21 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     public OrderEntryDTO mapToOrderEntryDTO(OrderEntry orderEntry){
-        ResponseEntity<ProductDTO> productDTOResponseEntity = null;
+        ResponseEntity<ProductDTO> productDTOResponseEntity;
         OrderEntryDTO orderEntryDTO = new OrderEntryDTO();
         orderEntryDTO.setId(orderEntry.getId());
         orderEntryDTO.setQuantity(orderEntry.getQuantity());
-        ProductDTO productDTO= null;
+        ProductDTO productDTO;
         if(orderEntry.getProductId() != null){
             productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntry.getProductId()));
             if(productDTOResponseEntity != null){
                 productDTO =  productDTOResponseEntity.getBody();
-                orderEntryDTO.setPrice(productDTO.getPrice());
+                if(productDTO != null){
+                    orderEntryDTO.setPrice(productDTO.getPrice());
+                    orderEntryDTO.setProductId(productDTO.getCode());
+                }
                 orderEntryDTO.setProductDTO(productDTO);
-                orderEntryDTO.setProductId(productDTO.getCode());
+
             }
         }
         return orderEntryDTO;

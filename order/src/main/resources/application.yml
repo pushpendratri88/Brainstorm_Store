@@ -41,6 +41,7 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
+
 eureka:
   client:
     enabled: true
@@ -79,7 +80,7 @@ endpoints:
   shutdown:
     enabled: true
 saga:
-  enabled: true
+  enabled: false
 
 info:
   app:
