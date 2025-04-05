@@ -137,9 +137,9 @@ public class OrderServiceImpl implements IOrderService {
             orderEntry.setCreatedAt(LocalDateTime.now());
             orderEntry.setQuantity(orderEntryDTO.getQuantity());
             ProductDTO productDTO;
-            if(orderEntryDTO.getProductDTO().getCode() != null){
+            if(orderEntryDTO.getProductDTO() != null && orderEntryDTO.getProductDTO().getCode() != null){
                 ResponseEntity<ProductDTO> productDTOResponseEntity = productFeignClient.fetchProduct(Long.parseLong(orderEntryDTO.getProductDTO().getCode()));
-                if(productDTOResponseEntity.getBody() != null ){
+                if(productDTOResponseEntity != null && productDTOResponseEntity.getBody() != null ){
                     productDTO =  productDTOResponseEntity.getBody();
                     orderEntry.setProductId(productDTO.getCode());
                     if(!productDTO.getPrice().equals(0.0)){

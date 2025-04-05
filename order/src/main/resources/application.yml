@@ -80,7 +80,7 @@ endpoints:
   shutdown:
     enabled: true
 saga:
-  enabled: true
+  enabled: false
 
 info:
   app:

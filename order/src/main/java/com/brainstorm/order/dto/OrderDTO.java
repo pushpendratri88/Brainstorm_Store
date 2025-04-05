@@ -20,13 +20,12 @@ public class OrderDTO {
     @NotNull
     private OrderStatus orderStatus;
     @NotEmpty
-    @Pattern(regexp = "\\d{10}")
     private String customerId;
     @NotNull
     @Positive
     private double amount;
     @NotEmpty
-    private String PaymentMode;
+    private String paymentMode;
     @Positive
     private int quantity;
     @NotEmpty

@@ -40,13 +40,13 @@ public class OrderController {
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping(value = "/fetchOrder")
-    public ResponseEntity<OrderDTO> fetchOrder(@RequestParam @NotNull @Min(1) Long orderId){
+    public ResponseEntity<OrderDTO> fetchOrder(@RequestParam Long orderId){
         OrderDTO orderDTO = orderService.fetchOrder(orderId);
         return  ResponseEntity.status(HttpStatus.OK).body(orderDTO);
     }
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping(value = "/deleteOrder")
-    public ResponseEntity<ResponseDTO> deleteOrder(@RequestParam  @NotNull @Min(1) Long orderId){
+    public ResponseEntity<ResponseDTO> deleteOrder(@RequestParam Long orderId){
         orderService.deleteOrder(orderId);
         return  ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("201", "Order has been deleted successfully"));
     }
