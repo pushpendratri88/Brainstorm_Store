@@ -2,10 +2,14 @@ package com.brainstorm.customer.service;
 
 import com.brainstorm.customer.dto.CustomerDTO;
 
-public interface ICustomerService {
-    CustomerDTO fetchCustomerDetails(String input);
+import java.util.List;
 
-    CustomerDTO fetchCustomerDetailsWithEmail(Long mobileNumber, String email);
+public interface ICustomerService {
+    CustomerDTO getCustomer(String input);
+
+    List<CustomerDTO> getCustomers();
+
+    CustomerDTO getCustomerByEmail(Long mobileNumber, String email);
 
     void createNewCustomer(CustomerDTO customerDTO);
 

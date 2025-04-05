@@ -18,11 +18,10 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
@@ -51,22 +50,28 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     @Cacheable(value = "customers", key = "#input")
-    public CustomerDTO fetchCustomerDetails(String input) {
+    public CustomerDTO getCustomer(String input) {
         Customer customer = null;
         if(String.valueOf(input).length() == MOBILE_NO){
             Long mobileNumber = Long.parseLong(input);
              customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber", String.valueOf(input)));
         }
         else{
-            String  customerId = input;
-             customer = customerRepository.findByCustomerId(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer", "customer_id", String.valueOf(input)));
+            customer = customerRepository.findByCustomerId(input).orElseThrow(() -> new ResourceNotFoundException("Customer", "customer_id", String.valueOf(input)));
         }
         return CustomerMapper.mapToCustomerDTO(customer,new CustomerDTO());
     }
 
     @Override
+    public List<CustomerDTO> getCustomers() {
+        Optional<List<Customer>> customerList;
+        customerList = Optional.of(customerRepository.findAll());
+        return customerList.map(customers -> CustomerMapper.mapToCustomerDTOList(customers, new ArrayList<>())).orElse(null);
+    }
+
+    @Override
     @Cacheable(value = "customers", key = "#mobileNumber + '-' + #email")
-    public CustomerDTO fetchCustomerDetailsWithEmail(Long mobileNumber, String email) {
+    public CustomerDTO getCustomerByEmail(Long mobileNumber, String email) {
         Customer customer = customerRepository.findByMobileNumberAndEmail(mobileNumber,email).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber & Email ", mobileNumber +"&" +email));
         return CustomerMapper.mapToCustomerDTO(customer,new CustomerDTO());
     }
@@ -80,18 +85,18 @@ public class CustomerServiceImpl implements ICustomerService {
                     +customerDTO.getMobileNumber());
         }else {
             Customer customerEntity = CustomerMapper.mapToCustomer(customerDTO, new Customer());
-            if(!customerDTO.getAddressIds().isEmpty()){
+            if(!CollectionUtils.isEmpty(customerDTO.getAddressIds())){
                 Optional<Set<Address>> uniqueAddress = addressRepository.findByAddressIds(customerDTO.getAddressIds());
                 uniqueAddress.ifPresent(customerEntity::setAddresses);
             }
-            else if(!customerDTO.getCustomerAddress().isEmpty()){
-                Set<Address> newAddressList = new HashSet<>();
-                customerDTO.getCustomerAddress().forEach(newAddDTO -> {
-                    Address address = addressService.createNewAddress(newAddDTO);
-                    newAddressList.add(address);
-                });
-                customerEntity.setAddresses(newAddressList);
-            }
+//            else if(!customerDTO.getCustomerAddress().isEmpty()){
+//                Set<Address> newAddressList = new HashSet<>();
+//                customerDTO.getCustomerAddress().forEach(newAddDTO -> {
+//                    Address address = addressService.createNewAddress(newAddDTO);
+//                    newAddressList.add(address);
+//                });
+//                customerEntity.setAddresses(newAddressList);
+//            }
             if(cloudS3AccessEnabled.equals("true")){
                 String fileUrl = "";
                 if(customerDTO.getFile() != null){
@@ -121,6 +126,7 @@ public class CustomerServiceImpl implements ICustomerService {
             throw new ResourceNotFoundException("Customer not registered", "CustomerEntity", String.valueOf(customerDTO.getMobileNumber()));
         }
         CustomerMapper.mapToCustomer(customerDTO,optionalCustomer.get());
+        addressRepository.saveAll(optionalCustomer.get().getAddresses());
         customerRepository.save(optionalCustomer.get());
     }
 

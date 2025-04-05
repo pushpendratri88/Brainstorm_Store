@@ -5,9 +5,13 @@ import com.brainstorm.customer.dto.CustomerDTO;
 import com.brainstorm.customer.entity.Address;
 import com.brainstorm.customer.entity.Customer;
 import com.brainstorm.customer.model.CustomerForm;
+import com.brainstorm.customer.service.IAddressService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -22,12 +26,26 @@ public class CustomerMapper {
         return customerDTO;
     }
 
+    public static List<CustomerDTO> mapToCustomerDTOList(List<Customer> customerList , List<CustomerDTO> customerDTOList){
+        customerList.forEach(custList -> customerDTOList.add(mapToCustomerDTO(custList,new CustomerDTO())));
+        return customerDTOList;
+    }
+
     public static Customer mapToCustomer(CustomerDTO customerDTO, Customer customer){
         customer.setEmail(customerDTO.getEmail());
         customer.setName(customerDTO.getName());
         customer.setCreatedAt(LocalDateTime.now());
         customer.setMobileNumber(customerDTO.getMobileNumber());
         customer.setCreatedBy(customerDTO.getCreatedBy());
+        if(!CollectionUtils.isEmpty(customerDTO.getCustomerAddress())){
+            Set<Address> addressSet = new HashSet<>();
+            customerDTO.getCustomerAddress().forEach(add ->
+            {
+                addressSet.add(AddressMapper.mapToAddress(add));
+
+            });
+            customer.setAddresses(addressSet);
+        }
 
         return customer;
     }
