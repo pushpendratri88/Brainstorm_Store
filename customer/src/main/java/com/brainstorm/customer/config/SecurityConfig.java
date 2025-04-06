@@ -13,6 +13,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF (not recommended for production)
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/customers/newCustomer").hasRole("ADMIN") // ADMIN role for newCustomer
                         .requestMatchers("/api/customers/customerRegistration").hasRole("ADMIN")  // ADMIN role for customerRegistration
                         .requestMatchers("/api/customers/removeCustomer").hasRole("ADMIN")  // ADMIN role for removeCustomer
                         .requestMatchers("/api/customers/getCustomer").hasAnyRole("USER", "ADMIN")

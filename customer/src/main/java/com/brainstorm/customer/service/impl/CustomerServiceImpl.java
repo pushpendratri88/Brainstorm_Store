@@ -134,7 +134,7 @@ public class CustomerServiceImpl implements ICustomerService {
     @CacheEvict(value = "customers", key = "#mobileNumber")
     @Transactional
     public void removeCustomer(Long mobileNumber) {
-        Optional<Customer> optionalCustomer =  customerRepository.findByMobileNumber(mobileNumber);
-        optionalCustomer.ifPresent(customer -> customerRepository.delete(customer));
+        Customer customer =  customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotFoundException("Customer", "mobileNumber" , String.valueOf(mobileNumber)));
+        customerRepository.delete(customer);
     }
 }

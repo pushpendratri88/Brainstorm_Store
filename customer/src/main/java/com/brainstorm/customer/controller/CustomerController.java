@@ -38,12 +38,13 @@ public class CustomerController {
     @Autowired
     private CustomerContactInfoDto customerContactInfoDto;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/newCustomer")
     public String newCustomer(Model model){
         model.addAttribute("customerForm", new CustomerForm());
         return "customer";
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/newCustomer",  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String newCustomer(@ModelAttribute CustomerForm customerForm,  Model model){
         CustomerDTO customerDTO = CustomerMapper.customerFormToCustomerDTO(customerForm);
@@ -88,7 +89,7 @@ public class CustomerController {
     }
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    @PostMapping(value = "/removeCustomer")
+    @DeleteMapping(value = "/removeCustomer")
     public ResponseEntity<ResponseDTO> removeCustomer(@Valid @RequestParam Long mobileNumber){
         customerService.removeCustomer(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(CustomerConstants.STATUS_201, "Customer is removed successfully"));
