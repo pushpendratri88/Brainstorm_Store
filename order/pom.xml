@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.brainstorm</groupId>
-	<artifactId>Order</artifactId>
+	<artifactId>order</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Order</name>
 	<description>Microservice for Order</description>

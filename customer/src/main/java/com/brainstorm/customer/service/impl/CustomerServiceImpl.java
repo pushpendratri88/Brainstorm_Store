@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 
     @Override
-    @Cacheable(value = "customers", key = "#input")
+//    @Cacheable(value = "customers", key = "#input")
     public CustomerDTO fetchCustomerDetails(String input) {
         Customer customer = null;
         if(String.valueOf(input).length() == MOBILE_NO){
@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    @Cacheable(value = "customers", key = "#mobileNumber + '-' + #email")
+//    @Cacheable(value = "customers", key = "#mobileNumber + '-' + #email")
     public CustomerDTO fetchCustomerDetailsWithEmail(Long mobileNumber, String email) {
         Customer customer = customerRepository.findByMobileNumberAndEmail(mobileNumber,email).orElseThrow(() -> new ResourceNotFoundException("Customer", "MobileNumber & Email ", mobileNumber +"&" +email));
         return CustomerMapper.mapToCustomerDTO(customer,new CustomerDTO());
@@ -113,7 +113,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    @CachePut(value = "customers", key = "#customerDTO.mobileNumber")
+//    @CachePut(value = "customers", key = "#customerDTO.mobileNumber")
     @Transactional
     public void updateCustomer(CustomerDTO customerDTO) {
         Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customerDTO.getMobileNumber());
@@ -125,7 +125,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    @CacheEvict(value = "customers", key = "#mobileNumber")
+//    @CacheEvict(value = "customers", key = "#mobileNumber")
     @Transactional
     public void removeCustomer(Long mobileNumber) {
         Optional<Customer> optionalCustomer =  customerRepository.findByMobileNumber(mobileNumber);

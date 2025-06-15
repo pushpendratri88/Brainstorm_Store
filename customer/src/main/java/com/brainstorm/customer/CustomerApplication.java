@@ -10,7 +10,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableConfigurationProperties(CustomerContactInfoDto.class)
-@EnableCaching
+//@EnableCaching
 public class CustomerApplication {
 
 	public static void main(String[] args) {
